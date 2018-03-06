@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Leviathan Industries</title>
+  <meta name="description" content="">
+  <meta name="author" content="Leviathan">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <script type="text/javascript" src="//static.cottagelabs.com/jquery-1.10.2.min.js"></script>
+  <script type="text/javascript" src="//static.cottagelabs.com/bootstrap-3.0.3/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="//static.cottagelabs.com/bootstrap-3.0.3/css/bootstrap.min.css">
+
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <script type="text/javascript" src="//static.cottagelabs.com/jquery.antiquify.js"></script>
+  <script type="text/javascript" src="//static.cottagelabs.com/jquery.slabtext.min.js"></script>
+
+  <link href='//fonts.googleapis.com/css?family=Nixie+One' rel='stylesheet' type='text/css'>
+
+  <style>
+    h1, h2 {
+      font-family: 'Nixie One', cursive;
+      text-align:center;
+    }
+    .slabtexted .slabtext {
+      display:-moz-inline-box;
+      display:inline-block;
+      white-space:nowrap;
+    }
+    .slabtextinactive .slabtext {
+      display:inline;
+      white-space:normal;
+      font-size:1em !important;
+      letter-spacing:inherit !important;
+      word-spacing:inherit !important;
+      *letter-spacing:0 !important;
+      *word-spacing:0 !important;
+    }
+    .slabtextdone .slabtext {
+      display:block;
+    }
+    .container {
+      width:100%;
+    }
+  </style>
+</head>
+
+<body style="margin:0;padding:0;">
+            
+  <div id="cont" class="container" style="background-repeat:no-repeat;background-size:100%;">
+    <div class="row">
+      <div class="col-md-12">
+        <h1 id="head" style="margin-top:40px;"></h1>
+      </div>
+    </div>
+    <div class="row" id="content">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="well" style="background-color:#333;color:white;">
+          <h1 id="head2">Software &amp; sociotechnical<br>development consultancy</h1>
+          <h2><a href="mailto:mark@cottagelabs.com" style="color:white;text-decoration:underline;">Contact Leviathan</a></h2>                    
+          <p style="margin-top:40px;">Leviathan Industries Ltd. 9775594.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+jQuery(document).ready(function() {
+
+  var bg = [
+    //'http://scontent-lhr3-1.cdninstagram.com/hphotos-xpf1/t51.2885-15/e15/929237_785715044799991_98846194_n.jpg',
+    //'http://scontent-lhr3-1.cdninstagram.com/hphotos-xaf1/t51.2885-15/e15/11373736_834101593330904_497607879_n.jpg',
+    '//igcdn-photos-d-a.akamaihd.net/hphotos-ak-xpf1/t51.2885-15/e15/1517105_1500243833585483_425183743_n.jpg',
+    '//igcdn-photos-f-a.akamaihd.net/hphotos-ak-xaf1/t51.2885-15/e15/11335167_405142199670021_161970660_n.jpg',
+    '//igcdn-photos-g-a.akamaihd.net/hphotos-ak-xpa1/t51.2885-15/e15/10838911_758210670922422_1711170626_n.jpg'
+  ];
+
+  var w = $(window).width()-45;
+  var sp = w / 3.5;
+  $('#cont').css({'height':w + 'px', 'background-image':"url('" + window.location.protocol + "//" + bg[Math.floor(Math.random()*bg.length)] + "')"});
+  $('#content').css({'margin-top':sp + 'px'});
+
+  var stS = "<span class='slabtext'>",
+    stE = "</span>",
+    txt = [
+      "LEVIATHAN",
+      "INDUSTRIES"
+    ]
+
+  $("#head").html(stS + txt.join(stE + stS) + stE).slabText();
+  $('body').antiquify();
+
+});
+</script>
+        
+    
+</body>
+</html>

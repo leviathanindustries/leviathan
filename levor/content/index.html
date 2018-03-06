@@ -1,0 +1,587 @@
+<!--#eaff00-->
+<style>
+  body {
+    border-left:none;
+    border-right:none;
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-attachment:fixed;
+    background-position:top;
+  }
+  #rolo {
+    background-image:url(//static.cottagelabs.com/levor/LevOR/GUI/Rolodex64_512_9.gif);
+    background-repeat:no-repeat;
+    background-size:contain;
+    background-position:center;
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    z-index:1;
+  }
+  #rolostatic {
+    display:none;
+    background-image:url(//static.cottagelabs.com/levor/LevOR/GUI/RolodexStill_512.png);
+    background-repeat:no-repeat;
+    background-size:contain;
+    background-position:center;
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    z-index:1;
+  }
+  #scorebar {
+    background-image:url(//static.cottagelabs.com/levor/LevOR/GUI/ScoreBar2.png);
+    background-repeat:no-repeat;
+    background-position:center;
+    position:absolute;
+    left:0;
+    height:100px;
+    width:100%;
+    z-index:1000;
+  }
+  #score {
+    height:30px;
+    width:216px;
+    margin:35px auto auto auto;
+    text-align:center;
+    color:white;
+    font-size:1.4em;
+  }
+  #firststatement {
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    z-index:100;
+  }
+  #secondstatement {
+    position:absolute;
+    left:0;
+    right:0;
+    z-index:100;
+  }
+  .statement {
+    background-repeat:no-repeat;
+    background-size:contain;
+    background-position:top;
+    z-index:1000;
+  }
+  #welcome {
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    overflow:scroll;
+    z-index:10000000000000;
+    color:#92908A;
+    background-color:#FFFFFC;
+    background-image:url(//static.cottagelabs.com/levor/LevOR/Backgrounds/Rotatable/paper-texture.jpg);
+    background-repeat:no-repeat;
+    background-size:cover;
+  }
+  #scroll {
+    display:none;
+    background-image:url(//static.cottagelabs.com/levor/LevOR/GUI/ScoreScroll.png);
+    background-repeat:no-repeat;
+    background-size:100% 100%;
+    position:fixed;
+    top:-5px;
+    left:-5px;
+    width:120px;
+    height:100px;
+    text-align:center;
+    padding-top:40px;
+    font-size:1.4em;
+    z-index:10000000000;
+  }
+  /*#compass {
+    position:fixed;
+    top:0;
+    right:5px;
+    width:100px;
+    height:100px;
+  }
+  #frame {
+    position:absolute;
+    background-image:url(//static.cottagelabs.com/levor/LevOR/GUI/CompassFrame256.png);
+    background-repeat:no-repeat;
+    background-size:contain;
+    width:100%;
+    height:100%;    
+  }
+  #face {
+    position:absolute;
+    background-image:url(//static.cottagelabs.com/levor/LevOR/GUI/CompassFace256.png);
+    background-repeat:no-repeat;
+    background-size:contain;
+    width:100%;
+    height:100%;    
+  }
+  #highlight {
+    position:absolute;
+    top:5px;
+    left:5px;
+    background-color:#333333; /* move this towards #D3D30C as user approaches hot word*/
+    /*border-radius:450px;
+    width:90px;
+    height:90px;
+    margin:auto;
+  }*/
+  #game {
+    position:fixed;
+    top:20px;
+    left:0;
+    right:0;
+    bottom:0;
+  }
+</style>
+
+<div id="welcome">
+  <img src="//static.cottagelabs.com/levor/LevOR/GUI/LeVor_LogoV_Cropped.jpg" style="width:100%;">
+  <div class="container" style="margin-top:10px;">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">        
+        <p class="notcloggedin">
+          Login / sign up to get started.
+        </p>
+        
+        <div class="cloggedin" style="display:none;">
+          <p>
+            <a class="btn btn-pink" href="#" id="start">Play!</a>
+            <a class="btn btn-pink" target="_blank" href="http://pads.cottagelabs.com/p/levor">Feedback</a> 
+            <a class="btn btn-danger" href="#" id="logout">Logout</a>
+          </p>
+          <p id="username">
+          </p>
+        </div>
+        
+        <div class="login" id="cloginArea" style="display:none;">
+          <div id="cloginEmailArea" style="padding-top:5px;">
+            <div class="input-group">
+              <input type="text" class="form-control" id="cloginEmail" placeholder="Enter your email address">
+              <div class="input-group-btn">
+                <button id="cloginSubmit" type="submit" class="btn btn-pink">Login</button>
+              </div>
+            </div>
+          </div>
+          <div id="cloginTokenArea" style="display:none;">
+            <input type="text" class="form-control" id="cloginToken" placeholder="Check your email, enter your login code">
+          </div>
+        </div>
+        
+        <p style="margin-top:10px;">
+          Thanks for testing our game for us! It is not yet complete, so there may be bugs, and the actual playability is 
+          still something in development, and will depend on your feedback!
+        </p>
+        
+        <p>
+          <b>README</b>
+          At the moment you can sign in then choose random words - it is designed to work best on touchscreen devices 
+          and when officially released will be an android/iphone app rather than a web page. Swipe right to select a word (or can 
+          also click green plus on a desktop screen) or swipe left (red minus) to reject a word. Your score just increases as you pick 
+          words, and you can view the scoreboard to see how you rank against other players. It may not be very exciting yet, but we 
+          find it enjoyable, and you'll get the chance to inform us of how you think it should develop.
+        </p>
+        
+        <p>
+          For now, we're just pitting you against whoever else tests the game, and the words are just topical news items, and you just get 
+          a point for picking a word, no matter what. But you do get to see what other players picked, and how you relate to them! 
+          The scoreboard just keeps going up apart from whenever we reset due to testing needs, but the idea is that it will reset every day 
+          so at the end of each day a daily winner will be declared.
+        </p>
+        
+        <p>
+          Future plans include having you link to your FB account and play against your friends, having "hot" words that have special features 
+          such as giving extra points or giving you the power to slow down leading players, having different types of word 
+          collections for different levels of game difficulty (e.g. having dictionary sets with obscure words as the special words, 
+          for smart players who want to test / show off their vocabulary), and allowing players to create game groups where they 
+          can set the word collections and the special words for their grouped friends to learn/play together. We'll also try dynamic special 
+          words, where the special words will depend on what other users choose that day, so you can try to become a game influencer! 
+          As updates and new features become available we'll let you know.
+        </p>
+        
+        <p>
+          Our background art is currently chosen at random from a small selection, in future we may settle on a style or provide 
+          fixed / selectable /topical themes.
+        </p>
+        
+        <p>
+          Any feedback would be great! There's a "feedback" button after you sign in, it takes you to a page where you can write your comments.
+        </p>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="scroll">---</div>
+
+<!--
+<div id="compass">
+  <div id="highlight"></div>
+  <div id="face"></div>
+  <div id="frame"></div>
+</div>
+-->
+
+<div id="game">
+  <div id="rolo"></div>
+  <div id="rolostatic"></div>
+  <div id="firststatement"></div>
+  <div id="scorebar">
+    <div id="score">
+      000000
+    </div>
+  </div>
+  <div id="secondstatement"></div>  
+</div>
+
+<div id="scoreboard" style="display:none;margin-top:100px;">
+  
+</div>
+
+<script>
+jQuery(document).ready(function() {
+  if (clogin.loggedin()) {
+    setTimeout(function() { if (clogin.user && clogin.user.email) $('#username').html('Hello ' + clogin.user.email) }, 1000);
+  } else {
+    $('.login').show();
+  }
+  setTimeout(function() { if (!clogin.user || !clogin.user.email) $('.login').show(); }, 1500);
+
+  /*var levenshtein = function(a,b) {
+    function minimator(x, y, z) {
+      if (x <= y && x <= z) return x;
+      if (y <= x && y <= z) return y;
+      return z;
+    }
+    var cost;
+    var m = a.length;
+    var n = b.length;
+    if (m < n) {
+      var c = a; a = b; b = c;
+      var o = m; m = n; n = o;
+    }
+    var r = []; r[0] = [];
+    for (var c = 0; c < n + 1; ++c) {
+      r[0][c] = c;
+    }
+    for (var i = 1; i < m + 1; ++i) {
+      r[i] = []; r[i][0] = i;
+      for ( var j = 1; j < n + 1; ++j ) {
+        cost = a.charAt( i - 1 ) === b.charAt( j - 1 ) ? 0 : 1;
+        r[i][j] = minimator( r[i-1][j] + 1, r[i][j-1] + 1, r[i-1][j-1] + cost );
+      }
+    }
+    var dist = r[ r.length - 1 ][ r[ r.length - 1 ].length - 1 ];
+    return {distance:dist,detail:r};
+  }*/
+
+  //var shades = ['#333333','#333314','#343404','#515106','#7E7E08','#ADAD0A','#D3D30C'];
+  //var shade = 0;
+
+  // if the selected statement is the top available coin statement, record a score of that coin
+  var coin = function() {
+    // run the coin animation
+    //shade = 0;
+    //$('#highlight').css('background-color',shades[shade]);
+    // reload both statements on the page?
+    var about = '' // the ID of the hot word statement
+    var score = ''; // the hot word value (minus the score of selections generated since last hot word found?)
+    // update the on-page score display
+    // show another coin on the score display
+    // if user has found all available coins for the day, tell them something?
+    var resp = {
+      _id: 'new',
+      category: 'coin',
+      about: about,
+      score:score
+    }
+    $('.statement').each(function() {
+      if ( resp.relation === undefined && about !== $(this).attr('id') ) resp.relation = $(this).attr('id');
+    });
+    var opts = {
+      url: 'https://dev.api.cottagelabs.com/service/leviathan/statement/new',
+      type: 'POST',
+      cache: false,
+      contentType: "application/json; charset=utf-8",
+      process: false,
+      data: JSON.stringify(resp),
+      dataType: 'JSON'
+    };
+    try {
+      //opts.url += '?apikey=' + clogin.apikey;
+      opts.beforeSend = function (request) { request.setRequestHeader("x-apikey", clogin.apikey); };      
+    } catch(err) {}
+    $.ajax(opts);    
+  }
+    
+  var hidescores = function(e) {
+    if (e) e.preventDefault();
+    $('#scoreboard').hide();
+    $('#game').show();
+  }
+  var showscores = function(e) {
+    if (e) e.preventDefault();
+    score();
+    $('#game').hide();
+    $('#scoreboard').show();
+  }
+  
+  var s1, s2;
+  var scores = {};
+  var score = function() {
+    // on success should set the number of coins already won
+    // also set the scoreboard page content
+    $.ajax({
+      url:'https://dev.api.cottagelabs.com/service/levor/scoreboard?uid=' + clogin.user.account._id + '&count=true&target=true',
+      success: function(data) {
+        scores = data;
+        var ss = data.count[data.user.position.count].count.toString(); // TODO need to decide whether to use score or count, or combo
+        while (ss.length < 6) ss = '0' + ss;
+        $('#score').text(ss);
+        var pos = data.user.position.count + 1;
+        var postr = pos.toString();
+        var end = postr[postr.length-1];
+        var tend = postr.length < 2 ? "" : postr.substring(postr.length-2,postr.length);
+        if (["1","2","3"].indexOf(end) !== -1 && tend !== "11" && tend !== "12" && tend !== "13" ) {
+          if (end === "1") {
+            pos += 'st';
+          } else if (end === "2") {
+            pos += 'nd';
+          } else {
+            pos += 'rd';
+          }
+        } else {
+          pos += 'th';
+        }
+        $('#scroll').css('background-image','//static.cottagelabs.com/levor/LevOR/GUI/ScoreScrollGlow.png');
+        setTimeout(function() { $('#scroll').css('background-image','//static.cottagelabs.com/levor/LevOR/GUI/ScoreScroll.png'); },300);
+        $('#scroll').html('<a style="color:#666;" href="#" id="showscores">' + pos + '</a>');
+        $('#showscores').bind('click',showscores);
+        var scoreboard = '<div class="container" style="margin-top:10%;"><div class="row"><div class="col-md-6 col-md-offset-3"><div class="well">';
+        scoreboard += '<a id="hidescores" href="" class="close pull-right">x</a><h1>SCOREBOARD</h1>';
+        for ( var s in scores.count) {
+          scoreboard += '<h2>' + (parseInt(s) + 1) + ': <small style="color:#666;">' + scores.count[s]._id.name + '. ' + scores.count[s].count + ' points.</small></h2>';
+        }
+        scoreboard += '</div></div></div></div>';
+        $('#scoreboard').html(scoreboard);
+        $('#hidescores').bind('click',hidescores);
+      }
+    });    
+  }
+  
+  $('#start').bind('click',function(e) { 
+    e.preventDefault();
+    score();
+    setInterval(score,2000);
+    $('#welcome').hide();
+    $('#scroll').show();
+  });
+  $('#logout').bind('click',function(e) {
+    e.preventDefault(); 
+    clogin.logout();
+    $('.login').show();
+  });
+  
+  var bg = '//static.cottagelabs.com/levor/LevOR/Backgrounds/';
+  var r1 = Math.floor(Math.random() * 2) + 1; // increase to 3 to include the Rotatable set in the possibilities
+  if (r1 === 1) {
+    bg += 'Landscape';
+    var sz = 11;
+  } else if (r1 === 2) {
+    bg += 'Portrait';
+    var sz = 8;    
+  } else if (r1 === 3) {
+    bg += 'Rotatable';
+    var sz = 0;
+  }
+  bg += '/';
+  bg += sz ? Math.floor(Math.random() * sz) + 1 : 'paper-texture';
+  bg += '.jpg';
+  $('body').css('background-image','url(' + bg + ')');
+  
+  mobileCheck = function() {
+    var check = false;
+    (function(a){if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino|android|ipad|playbook|silk/i.test(a)||/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0,4))) check = true;})(navigator.userAgent||navigator.vendor||window.opera);
+    return check;
+  };
+  var mobile = mobileCheck();
+
+  if ($(window).height() > $(window).width()-100) {
+    $('#game').css('top','60px');
+  } else if ($(window).height() > $(window).width()) {
+    $('#game').css('top','70px');
+  }
+  var wht = $(window).height() > $(window).width() ? $(window).width() : $(window).height();
+  $('#game').css('height',wht+'px');
+  $('#game').css('height',wht+'px');
+  $('#game').css('margin','auto');
+  $('#rolo').css('height',wht+'px');
+  $('#scorebar').css('top',(wht/2-50)+'px');
+  category = 'levor';
+  
+  var template = '<div id="new" class="statement">\
+    <p class="header" style="text-align:center;font-size:3em;font-weight:bold;color:grey;word-wrap:break-word;">\
+    </p>\
+  </div>';
+
+  $.fn.holder.options.record = function(rec,second) {
+    if (!rec.statement) return '';
+    var tmpl = $(template);
+    if ($(window).width() < 800) tmpl.find('.header').css('font-size','1.5em');
+    tmpl.attr('id',rec._id);
+    var ht = wht/2;
+    tmpl.css('padding-top',((ht/2)-50)+'px');
+    tmpl.css('height',ht+'px');
+    $('#firststatement').css('height',ht+'px');
+    $('#secondstatement').css('height',ht+'px');
+    if (mobile) tmpl.css('background-size','100%');
+    if ( second ) {
+      if (mobile) {
+        //tmpl.css('background-image','url(//static.cottagelabs.com/levor/LevOR/GUI/RolodexBOTTOMHALF.png)');
+      } else {
+        //tmpl.css('background-image','url(//static.cottagelabs.com/levor/LevOR/GUI/RolodexBOTTOM.png)');
+      }
+      $('#secondstatement').css('top',ht+'px');
+    } else {
+      //tmpl.css('background-image','url(//static.cottagelabs.com/levor/LevOR/GUI/RolodexTOP.png)');      
+    }
+    if (!mobile) {
+      var pos = second ? 'second' : 'first';
+      rec.statement = '<a class="response" data-value="disagree" data-pos="' + pos + '" href="#" style="color:red;text-decoration:none;">-</a> ' + rec.statement + ' <a class="response" data-value="agree" data-pos="' + pos + '" href="#" style="color:green;text-decoration:none;">+</a>';
+    }
+    tmpl.find('.header').html(rec.statement);
+    return tmpl;
+  }
+
+  var rollover = function(sentiment,pos) {
+    //console.log('rolling ' + sentiment + ' ' + pos);
+    $('#rolo').show().attr('src',$('#rolo').attr('src'));
+    $('#rolostatic').hide();
+    var score = (parseInt($('#score').text())+1).toString();
+    while (score.length < 6) score = '0' + score;
+    $('#score').text(score);
+    var s = pos === 'first' ? $('.statement').first().find('.header').html() : $('.statement:eq(1)').find('.header').html();
+    var hot;
+    for (var dt in scores.target) {
+      if (scores.user.target.found.indexOf(scores.target[dt].statement) === -1) {
+        hot = scores.target[dt];
+        break;
+      }
+    }
+    if (sentiment === 'agree' && hot && s === hot.statement) {
+      //coin();
+    } else {
+      if (sentiment === 'disagree' && hot && s === hot.statement) {
+        //shade = 0;
+      } else if (hot) {
+        var s = pos === 'first' ? s1 : s2;
+        //var ps = 0;
+        //if (s.entity === hot.entity) ps += 1;
+        /*if (s.keywords && s.keywords.keywords && hot.keywords && hot.keywords.keywords) {
+          for ( var k in s.keywords.keywords ) {
+            if (hot.keywords.keywords.indexOf(s.keywords.keywords[k]) !== -1) ps += 1; // should there be a max on keyword matches?
+          }
+        }*/
+        /*if (levenshtein(s.statement,hot.statement).distance/hot.statement.length < 0.1) ps += 1;
+        if (levenshtein(s.statement,hot.statement).distance/hot.statement.length < 0.3 && sentiment === 'agree') ps += 1;
+        if (sentiment === 'disagree') ps = ps * -1;
+        shade = shade + ps;*/
+      }
+      /*if (shade < 0) shade = 0;
+      if (shade >= shades.length) shade = shades.length-1;
+      $('#highlight').css('background-color',shades[shade]);*/
+    }
+    response(undefined,sentiment,pos);
+  }
+  
+  var swipers = {};
+  var orswipe = function(swipes) {
+    for ( var sid in swipes ) {
+      var id = swipes[sid];
+      try { swipers[id].unbind(); } catch(err) {}
+      if (swipers[id] === undefined) {
+        swipers[id] = new Snap({element: document.getElementById(id)});
+        swipers[id].on('end',function() {
+          for ( var s in swipers ) {
+            var i = swipers[s].state().info;
+            if ( i && ( i.halfway || i.flick ) && i.towards ) {
+              var sentiment = i.towards === 'right' ? 'agree' : 'disagree';
+              var pos = $('.statement').first().attr('id') === s ? 'first' : undefined;
+              if ( $('.statement:eq(1)').attr('id') === s ) pos = 'second';
+              if (pos) rollover(sentiment,pos);
+            }
+          }
+        });
+      }
+    }
+  }
+
+  $.fn.holder.options.review = function(data) {
+    var options = $.fn.holder.options;
+    if (data === undefined) data = options.response;
+    var swipes = [];
+    if (data.hits.hits.length === 0) {
+      $('#messages').html('<p>There are no more statements matching this search.</p>').show();
+      s1 = undefined;
+      s2 = undefined;
+    } else {
+      s1 = data.hits.hits[0]._source;
+      if (swipes.indexOf(data.hits.hits[0]._source._id) === -1) swipes.push(data.hits.hits[0]._source._id);
+      $('#firststatement').html(options.record(data.hits.hits[0]._source));
+      if (data.hits.hits.length > 1) {
+        s2 = data.hits.hits[1]._source;
+        if (swipes.indexOf(data.hits.hits[1]._source._id) === -1) swipes.push(data.hits.hits[1]._source._id);
+        $('#secondstatement').html(options.record(data.hits.hits[1]._source,true));        
+      }
+    }
+    /*} else if ( $('.statement').length ) {
+      if ( $('#firststatement').find('.statement').length ) {
+        s2 = data.hits.hits[0]._source;
+        $('#secondstatement').html(options.record(data.hits.hits[0]._source,true));
+        if (swipes.indexOf(data.hits.hits[0]._source._id) === -1) swipes.push(data.hits.hits[0]._source._id);
+      } else {
+        s1 = data.hits.hits[0]._source;
+        $('#firststatement').html(options.record(data.hits.hits[0]._source));
+        if (swipes.indexOf(data.hits.hits[0]._source._id) === -1) swipes.push(data.hits.hits[0]._source._id);
+      }
+    } else {
+      $('#firststatement').html(options.record(data.hits.hits[0]._source));
+      s1 = data.hits.hits[0]._source;
+      if (swipes.indexOf(data.hits.hits[0]._source._id) === -1) swipes.push(data.hits.hits[0]._source._id);
+      if (data.hits.hits.length > 1) {
+        s2 = data.hits.hits[1]._source;
+        $('#secondstatement').html(options.record(data.hits.hits[1]._source,true));
+        if (swipes.indexOf(data.hits.hits[1]._source._id) === -1) swipes.push(data.hits.hits[1]._source._id);
+      }
+    }*/
+    $('#firststatement').fadeIn('fast');
+    $('#secondstatement').fadeIn('fast');
+    orswipe(swipes);
+    $('#rolostatic').show();
+    $('#rolo').hide();
+    $('.statement').unbind();
+    $('.response').unbind();
+    /*$('.statement').on('mousedown',function() {
+      $(this).find('p').css('border','2px solid grey');
+      $(this).find('p').css('border-radius','3px');
+    }).on('mouseup',function() {
+      $(this).find('p').css('border','none');      
+    });*/
+    $('.response').on('click',function(e) {
+      e.preventDefault();
+      rollover($(this).attr('data-value'),$(this).attr('data-pos'));
+    });
+  }
+
+  $.fn.holder.options.size = 2;
+  $.fn.holder.options.execute();
+});
+</script>
