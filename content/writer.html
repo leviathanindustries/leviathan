@@ -19,7 +19,7 @@
       }
     }
     var url = tgt.getAttribute('src') ? tgt.getAttribute('src').replace('preload=true','') : window.getComputedStyle(tgt).getPropertyValue('background-image').replace('url("','').replace('")','').replace('preload=true','');
-    var img = new ImageBitmap();
+    var img = new Image();
     img.onload = _onload;
     img.src = url;
   }
