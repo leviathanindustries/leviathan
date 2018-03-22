@@ -103,15 +103,8 @@ server {
 
 server {
   listen          80;
-  server_name     www.leviathanindustries.com .leviathanindustries.co.uk;
-  return          301 http://leviathanindustries.com$request_uri;
-}
-server {
-  listen          80;
-  server_name     .leviathanindustries.com;
-
-  root /home/cloo/dev/leviathan;
-  index industries.html;
+  server_name     .leviathanindustries.com .leviathanindustries.co.uk;
+  return          301 https://leviathanindustries.com$request_uri;
 }
 server {
   listen          443; # ssl for this domain is handled by cloudflare
