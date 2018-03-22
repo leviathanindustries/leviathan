@@ -7,10 +7,7 @@
   // var element = document.getElementById('image_1'),
   // var bg = window.getComputedStyle(element).getPropertyValue('background-image')
   noddy_preload = function(tgt) {
-    var url = tgt.getAttribute('src') ? tgt.getAttribute('src').replace('preload=true','') : window.getComputedStyle(tgt).getPropertyValue('background-image').replace('url("','').replace('")','').replace('preload=true','');
-    var img = new Image();
-    img.src = url;
-    var onload = function() {
+    var _onload = function() {
       if (tgt.getAttribute('src')) {
         var ni = tgt.cloneNode(true);
         ni.setAttribute('onload','');
@@ -21,7 +18,10 @@
         tgt.style['background-image'] = 'url(' + url + ')';
       }
     }
-    img.onload = onload;
+    var url = tgt.getAttribute('src') ? tgt.getAttribute('src').replace('preload=true','') : window.getComputedStyle(tgt).getPropertyValue('background-image').replace('url("','').replace('")','').replace('preload=true','');
+    var img = new Image();
+    img.onload = _onload;
+    img.src = url;
   }
 </script>
 
