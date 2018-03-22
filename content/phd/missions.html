@@ -1,0 +1,30 @@
+
+<script type="text/javascript">
+jQuery(document).ready(function () {
+  $('#graphholder').graphview({
+    "target": '{{api}}/es/phd/mission/_search?dev=false',
+    "pushstate": false,
+    "titlefield": "university",
+    "defaultquery": {
+      "query": {
+        "bool": {
+          "must":[]
+        }
+      },
+      "from":0,
+      "size":201,
+      "facets":{
+        "university": {"term":{"field":"university.exact","suggest":true}},
+        "group": {"term":{"field":"group.exact","suggest":true, "node": true}},
+        "keywords": {"term":{"field":"missionprocessed.exact","suggest":true, "node": true}}
+      }
+    },
+    "nodesize": 10,
+    "focusdepth": 1
+  });
+});
+</script>
+
+<div id="graphholder" style="position:absolute;top:0px;left:0px;bottom:0px;right:0px;width:100%;height:100%;"></div>
+
+

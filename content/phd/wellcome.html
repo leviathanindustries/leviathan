@@ -1,0 +1,62 @@
+
+<script type="text/javascript">
+jQuery(document).ready(function () {
+  $('#graphholder').graphview({
+    "target": '{{api}}/es/phd/wellcome/_search?dev=false',
+    "pushstate": false,
+    "datatype": "JSONP",
+    "ajaxtype": "GET",
+    "titlefield": "Article title",
+    "defaultquery": {
+      "query": {
+        "bool": {
+          "must":[]
+        }
+      },
+      "from":0,
+      "size":3000,
+      "fields":[
+        "Article title",
+        "PMID",
+        "PMCID",
+        "DOI",
+        "ISSN",
+        "Contributor",
+        "Publisher",
+        "Owned by",
+        "Journal title",
+        "Journal Impact Factor",
+        "Altmetric score",
+        "Cost",
+        "Citations Google Scholar",
+        "CC licence type",
+        "Hybrid or Pure OA?"
+      ],
+      "facets":{
+        "PMID": {"term":{"field":"PMID.exact","suggest": true}},
+        "PMCID": {"term":{"field":"PMCID.exact","suggest": true}},
+        "DOI": {"term":{"field":"DOI.exact","suggest": true}},
+        "ISSN": {"term":{"field":"ISSN.exact","suggest": true}},
+        "Article title": {"term":{"field":"Article title.exact","suggest": true}},
+        "Contributor": {"term":{"field":"Contributor.exact","suggest": true, "node": true}},
+        "Publisher": {"term":{"field":"Publisher.exact","suggest": true, "node": true}},
+        "Owned by": {"term":{"field":"Owned by.exact","suggest": true, "node": true}},
+        "Journal title": {"term":{"field":"Journal title.exact","suggest": true, "node": true}},
+        "Journal Impact Factor": {"term":{"order":"reverse_term","field":"Journal Impact Factor","suggest": true}},
+        "Altmetric score": {"term":{"order":"reverse_term","field":"Altmetric score.exact","suggest": true}},
+        "Citations Google Scholar": {"order":"reverse_term","term":{"field":"Citations Google Scholar.exact","suggest": true}},
+        "Cost": {"term":{"order":"reverse_term","field":"Cost.exact","suggest": true}},
+        "CC licence type": {"term":{"field":"CC licence type.exact","suggest": true, "node": true}},
+        "Hybrid or Pure OA?": {"term":{"field":"Hybrid or Pure OA?.exact","suggest": true, "node": true}}
+      }
+    },
+    "nodesize": 100,
+    "focusdepth": 1
+  });
+});
+</script>
+
+
+<div id="graphholder" style="position:absolute;top:0px;left:0px;bottom:0px;right:0px;width:100%;height:100%;"></div>
+
+

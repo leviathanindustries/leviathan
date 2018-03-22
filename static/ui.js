@@ -45,18 +45,17 @@ jQuery(document).ready(function() {
       setTimeout(function() {
         $('#smalllogo').remove();
         if ( $('#introheader').is(':visible') ) $('#introheader').hide();
-        if ( $(window).width() <= 900 && $('#logo').length ) $('#logo').fadeOut('fast');        
+        if ( $('#logo').length ) $('#logo').fadeOut('slow');        
         $('#intro > .row').css('margin-top', ($('#intro > .row').css('margin-top').replace('px','')-$('#topstrap').height()-10)+'px');
         $('#intro > .row').animate({'margin-top':'0px'},600);
         $('#topstrap').fadeIn('slow',function() { 
           $('#explain').fadeIn('slow'); 
         });
-        if ( $(window).width() > 900 ) $('#logo').animate({'padding-top':'0px','height':'212px','margin-left':'0px','width':'100%'},600);
       },2000);
     }
   }
-  clogin.init({api:'https://dev.api.cottagelabs.com/accounts',afterLogin:afterLogin,afterFailure:showIntro,messagesDivId:'messages'});
-  if (!clogin.loggedin()) {
+  noddy.init({api:'https://dev.api.cottagelabs.com/accounts',afterLogin:afterLogin,afterFailure:showIntro,messagesDivId:'messages'});
+  if (!noddy.loggedin()) {
     if (loginRequired) $('#howto').find('.notcloggedin').html('<span class="visible-xs visible-sm">Welcome to Leviathan. </span>Please <a class="toggler" href=".login">login</a> to get started.');
     $('#searchbox').bind('focus',howto);
     showIntro();
@@ -226,13 +225,13 @@ jQuery(document).ready(function() {
       }
     };
     try {
-      //opts.url += '?apikey=' + clogin.apikey;
-      opts.beforeSend = function (request) { request.setRequestHeader("x-apikey", clogin.apikey); };      
+      //opts.url += '?apikey=' + noddy.apikey;
+      opts.beforeSend = function (request) { request.setRequestHeader("x-apikey", noddy.apikey); };      
     } catch(err) {}
-    if (loginRequired && !clogin.loggedin() ) {
+    if (loginRequired && !noddy.loggedin() ) {
       $('#messages').html('<p class="message">Please login or sign up to respond to statements!</p>').show();
       $('.login').show();
-      $('#cloginEmail').focus();
+      $('#noddyEmail').focus();
       afterLoginAction = $(this);
       return;
     }
@@ -241,10 +240,10 @@ jQuery(document).ready(function() {
   
   response = function(e,sentiment,pos) {
     if (e) e.preventDefault();
-    if (loginRequired && !clogin.loggedin()) {
+    if (loginRequired && !noddy.loggedin()) {
       $('#messages').html('<p class="message">Please login or sign up to respond to statements!</p>').show();
       $('.login').show();
-      $('#cloginEmail').focus();
+      $('#noddyEmail').focus();
       afterLoginAction = $(this);
       return;
     }
@@ -378,7 +377,7 @@ jQuery(document).ready(function() {
       $('#messages').html('<p>Just provide your email address to login or sign up.<br>No passwords! You\'ll receive an email with a link and a code.</p>').show();
       $('#searchui').hide();
       $('.login').show();
-      if ( $('.login').first().is(':visible') ) $('#cloginEmail').focus();
+      if ( $('.login').first().is(':visible') ) $('noddyEmail').focus();
     } else {
       $('.toggle').hide();
       $(what).show();

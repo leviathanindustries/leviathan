@@ -1,0 +1,326 @@
+
+<head>
+  <script type="text/javascript" src="/static/jmpress.js"></script>
+</head>
+
+<style>
+p {
+  font-size:1.2em;
+  line-height:1.2em;
+}
+li {
+  font-size:1.1em;
+  padding-bottom:20px;
+}
+</style>
+
+<script type="text/javascript">
+  jQuery(document).ready(function () {
+
+    var h = 600;
+    var hpx = h + 'px';
+
+    var w = 1000;
+    var sw = $('body').width();
+    var wpx = w + 'px';
+
+    var x = 0;
+    $('.step').each(function() {
+      $(this).attr('data-x',x);
+      x += sw;
+    });
+
+
+    $('.step').css({
+      width: wpx,
+      'height': hpx,
+//    'min-height': '500px',
+//    'margin-top': '50px',
+      'font-size': '1em',
+      'background-color': 'white',
+//    display: 'block',
+      padding: '40px 60px',
+      'border-radius': '10px',
+      'box-shadow': '0 2px 6px rgba(0, 0, 0, .1)',
+      border: '1px solid rgba(0, 0, 0, .3)',
+//    color: 'rgb(102, 102, 102)',
+//    'text-shadow': '0 2px 2px rgba(0, 0, 0, .1)',
+//    'letter-spacing': '-1px',
+      '-webkit-box-sizing': 'border-box',
+      '-moz-box-sizing': 'border-box',
+      '-ms-box-sizing': 'border-box',
+      '-o-box-sizing': 'border-box',
+      'box-sizing': 'border-box',
+      '-webkit-transition': 'opacity 1s',
+      '-moz-transition': 'opacity 1s',
+      '-ms-transition': 'opacity 1s',
+      '-o-transition': 'opacity 1s',
+      transition: 'opacity 1s'
+    });
+
+    $('#pres').jmpress();
+
+    //var first = true;
+    $('#listsgraph').graphview({
+        "target": '{{api}}/es/phd/lists/_search?dev=false',
+        "pushstate": false,
+        "titlefield": "subject",
+        "defaultquery": {
+            "query": {
+                "bool": {
+                    "must":[]
+                }
+            },
+            "from":0,
+            "size":1000,
+            "fields":[
+                "from.exact",
+                "organisation.exact",
+                "subjected_lists.exact",
+                "references.exact",
+                "in-reply-to.exact",
+                "tags.exact",
+                "subject"
+            ],
+            "facets":{
+                "subjects": {"term":{"field":"subject.exact","suggest":true}},
+                "from": {"term":{"field":"from.exact","suggest":true, "node": true}},
+                "organisation": {"term":{"field":"organisation.exact","suggest":true, "node": true}},
+                "lists": {"term":{"field":"subjected_lists.exact","suggest": true, "node": true}},
+                "terms": {"term":{"field":"tags.exact","suggest": true, "node": true}}
+            }
+        },
+        /*"afterresults": function() {
+            if ( first ) {
+                $('#listsgraph .graphview_nodetype').each(function() {
+                    if ( $(this).attr('data-field') == "from.exact" || $(this).attr('data-field') == "subjected_lists.exact" ) {
+                        $(this).attr('checked','checked');
+                    }
+                });
+                $('#listsgraph .graphview_to').val('1000').trigger('change');
+                first = false;
+            }
+        },*/
+        "nodesize": 100,
+        "focusdepth": 1
+    });
+
+  })
+</script>
+
+
+
+<div id="pres">
+
+<div class="step">
+
+<h1 style="text-align:center;font-size:2em;">Technosocial Development<br>in an Open Society</h1>
+<p style="text-align:center"><img src="/static/phd/eushield-clear-200.png" alt="University of Edinburgh crest" title="University of Edinburgh crest" class="aligncenter" style="margin:30px 0 30px 0;" /></p>
+<p style="text-align:center;">Mark MacGillivray,
+<a href="http://orcid.org/0000-0002-9288-8160">http://orcid.org/0000-0002-9288-8160</a><br>
+<a href="http://www.inf.ed.ac.uk">School of Informatics</a>, University of Edinburgh, UK<br />
+Supervisors: Prof. Stuart Anderson and Dr. Mark Hartswood</p>
+
+</div>
+
+<div class="step">
+
+<p>Social and technical advancements have enabled a greater degree of communication and collaboration than ever before.</p>
+
+<ul>
+
+<li>This has allowed <b>software development</b> practices to become agile, able to value individuals and interactions over tools and processes, and to localise developments with user communities.</li>
+
+<li>It has driven the evolution of <b>digital scholarship</b> which has vastly increased the quantity of research material potentially available to scholars, and greatly simplified the task of sharing research and data.</li>
+
+<li>And the unprecedented accessibility to and potential scale of collaborative research has driven a number of <b>open movements</b> seeking to augment the societal and institutional boundaries that traditionally characterise what it means to be a scholar, a researcher, and even a member of a given community or society.</li>
+
+</ul>
+
+<p>These three are related: development yields new tools and access to resources, which enable digital scholarship, which in turn drives open movements that seek to reconstruct community traditions, so that community <b>values</b> can continue to be <b>practiced</b> in new ways.</p>
+
+</div>
+
+<div class="step">
+
+<div class="jumbotron" style="margin-top:50px;">
+
+<h2>Exploring this <b>technosocial</b> space presents opportunities to innovate
+<br><small>perhaps to further improve software development practices, <br>to support social studies practices with new developments, <br>and to open research further into digital scholarship.</small></h2>
+
+</div>
+
+</div>
+
+<div class="step">
+
+<p>To find such new opportunities, such explorations focus on the place(s) where these three clearly intersect, where a <b>localisation</b> around a (technosocial) development issue can be identified, and where new innovation may help to overcome observed problems of <b>delocalisation</b>.</p>
+
+<p>For example a small community of practice may localise on the problem of improving access to higher education, they may develop daily activities that help them engage with the problem and contextualise it in a way that helps them locally understand it, but then they may have to compromise that local understanding when developing new ways to communicate their activities and successes with their wider (delocalised) community.</p>
+
+<p>Or a large national project may aggregate data from localised contexts, inadvertently delocalising it, and then find in presenting the information back to the community that it has lost meaning. How will they assert meaning once again?</p>
+
+</div>
+
+<div class="step">
+
+<p>These sorts of problem have been studied from separate perspectives across multiple research disciplines. But if this problem is in fact a <b>technosocial</b> one, then innovative studies must span these disciplines.</p>
+
+<img src="https://docs.google.com/drawings/d/1LVFjfhF56Iwd6m3A6GOsUjSK9AyJOVEXDwfI8NA950k/pub?w=900&amp;h=480" style="margin-left:150px;margin-top:-30px;">
+
+</div>
+
+<div class="step">
+
+<p>Studies spanning disciplines are therefore best performed with a range of methods<br>
+(and are in themselves an exploration of such methods)</p>
+
+<ul>
+<li>Surveys of actors in the situations of study</li>
+<li>Interviews with actors directly involved in a localisation/delocalisation activity</li>
+<li>Embedded ethnographies of software development projects (with relation to digital scholarship)</li>
+</ul>
+
+<p>These methods were applied, with elements of intervention and reflection, in seven studies of relevant events.</p>
+
+<p><b>Four</b> studies in software development, gaining the perspectives of those involved in development activity</p>
+
+<p><b>Three</b> studies in open scholarship, gaining the perspectives of the actors involved in or impacted by developments</p>
+
+<p>Let's consider the findings of some of the key studies</p>
+
+</div>
+
+<div class="step">
+
+<h1>LEAPS</h1>
+
+<ul>
+
+<li>A small localised community developing new practices. No authority to mandate values of the wider community, but reconstructing practice required successful delocalisation.</li>
+
+<li>Achieved by limiting technical development and presenting to wider community as a problem in need of improvement - an opportunity for external actors to engage.</li>
+
+<li>By interesting the external actors, they became mobilised in a shared reconstruction of practice</li>
+
+</ul>
+
+<h3>Aspects of technosocial development already exist; it is tacitly performed by methods such as scheduling technical developments to coincide with social events.</h3>
+
+</div>
+
+<div class="step">
+
+<h1>G4HE</h1>
+
+<ul>
+
+<li>Local context of data lost by a delocalising aggregation into national system</li>
+
+<li>Attempts to mandate new meaning fail to match up with true local context</li>
+
+<li>Delocalised data now further hindered by delocalised practice</li>
+
+</ul>
+
+<h3>BUT it could be possible to develop a new practice of contextualisation...</h3>
+
+</div>
+
+<div class="step">
+
+<h1>Open BIblio / Citations</h1>
+
+<img class="thumbnail" style="width:47%;display:inline;" src="/static/phd/complementary_medicine_citations.png">
+
+<img class="thumbnail" style="width:47%;display:inline;" src="/static/phd/malaria_citations.png">
+
+</div>
+
+<div class="step">
+
+<h1>Following scholars</h1>
+
+<ul>
+
+<li>Survey questions make it possible to collect precise data points, but direct target actors towards certain predispositions</li>
+
+<li>Embedded ethnographies / interviews are less directive, but do not yield precise data</li>
+
+<li>Scholars do not do what is prescribed, people do not use technology as directed, actors do not accept or refuse information based on intrinsic validity</li>
+
+<li>Sharing information is a collective practice - sometimes rigourous, sometimes less so - but always a local understanding</li>
+
+</ul>
+
+<h3>What it means for information to be valued is dependent on how it is shared (localised) within a network of actors</h3>
+
+</div>
+
+<div id="listsgraph" class="step">
+
+<h1 style="position:fixed;bottom:25px;right:40px;">Scholarly Actor-Networks</h1>
+
+</div>
+
+<div class="step">
+
+<h3>Technosocial developments include reconstruction of values</h3>
+
+<h3><small>they may begin locally, but are not localised only to technical developments or new social practice</small></h3>
+
+<h3>Open movements are examples of technosocial developments overcoming the problem of delocalisation</h3>
+
+<h3>Actor-Networks are social computers - open movements complete reconstructions, and valuable new information is discovered</h3>
+
+<h3><small>(our lives already depend on this, in some cases)</small></h3>
+
+</div>
+
+<div class="step">
+
+<ul>
+
+<li>Software development, digital scholarship, and open movements are indeed intertwined, and exemplify localisation / delocalisation problems</li>
+
+<li>But in being treated as aspects of a complex social machine, an improved approach to such problems is also presented.</li>
+
+<li>This provides innovative contribution to software development, by extending practices to take account of the scope of technosocial development</li>
+
+<li>It also provides innovative contribution to social studies, as a tool and practice for observing actors in a less directed fashion</li>
+
+<li>This thesis is also an example of advancements in digital scholarship</li>
+
+<li>There is potential for publication of these findings in Valuation Studies, perhaps CSCW</li>
+
+<li>There are some interesting philosophical implications</li>
+
+<li>There is potential future work in applying the proposed tools and practices, measuring their efficacy</li>
+
+</ul>
+
+</div>
+
+<div class="step">
+
+<h4><a target="_blank" href="http://phd.cottagelabs.com/thesis">http://phd.cottagelabs.com/thesis</a></h4>
+
+<h4><a target="_blank" href="http://phd.cottagelabs.com/references">http://phd.cottagelabs.com/references</a></h4>
+
+<h4><a target="_blank" href="http://phd.cottagelabs.com/missions">http://phd.cottagelabs.com/missions</a></h4>
+
+<h4><a target="_blank" href="http://phd.cottagelabs.com/lists">http://phd.cottagelabs.com/lists</a></h4>
+
+<h4><a target="_blank" href="http://phd.cottagelabs.com/survey">http://phd.cottagelabs.com/survey</a></h4>
+
+<h4><a target="_blank" href="http://phd.cottagelabs.com/transcripts">http://phd.cottagelabs.com/transcripts</a></h4>
+
+<h4><a target="_blank" href="http://phd.cottagelabs.com/wellcome">http://phd.cottagelabs.com/wellcome</a></h4>
+
+<h4><a target="_blank" href="http://leviathan.cottagelabs.com">http://leviathan.cottagelabs.com</a></h4>
+
+</div>
+
+</div>
+
+

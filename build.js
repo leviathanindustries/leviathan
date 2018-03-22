@@ -1,1 +1,1 @@
-../getter/build.js
+../noddy/public/build.js

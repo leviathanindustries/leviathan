@@ -1,0 +1,415 @@
+
+<head>
+  <script src="/static/noddy.writer.js"></script>
+
+<script>
+  // rewrite the following in pure js and have build.js append it to pages that require it
+  // var element = document.getElementById('image_1'),
+  // var bg = window.getComputedStyle(element).getPropertyValue('background-image')
+  noddy_preload = function(tgt) {
+    var url = tgt.getAttribute('src') ? tgt.getAttribute('src').replace('preload=true','') : window.getComputedStyle(tgt).getPropertyValue('background-image').replace('url("','').replace('")','').replace('preload=true','');
+    var img = new Image();
+    img.src = url;
+    img.onload = function() {
+      if (tgt.getAttribute('src')) {
+        var ni = tgt.cloneNode(true);
+        ni.setAttribute('onload','');
+        ni.setAttribute('src',url);
+        if (ni.getAttribute('style') === 'width:100%;') ni.setAttribute('style','');
+        tgt.parentNode.replaceChild(ni,tgt);
+      } else {
+        tgt.style['background-image'] = 'url(' + url + ')';
+      }
+    }
+  }
+</script>
+
+</head>
+
+<style>
+body {
+  background-image: url(http://localhost:3000/api/img?url=https%3A%2F%2Fdev.bebejam.com%2Fstatic%2Fbeach.jpg&w=1000&h=800&sepia=true&saturate=5&mix=FFFFFF,70&preload=true);
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.columns {
+	-webkit-column-count: 2; /* Chrome, Safari, Opera */
+	-moz-column-count:    2; /* Firefox */
+	column-count:         2;
+  	-webkit-column-gap:   20px; /* Chrome, Safari, Opera */
+	-moz-column-gap:      20px; /* Firefox */
+	column-gap:           20px;
+	column-rule-color: #ccc; /* Optional */
+	column-rule-style:solid; /* Optional */
+	column-rule-width: 1px; /* Optional */
+	text-align: justify; /* Optional */
+}
+</style>
+
+<content>
+
+<markdown>
+
+<R>
+
+# The new plan
+
+## Teaching as a hobby
+
+## Casual teaching
+
+<img class="img img-thumbnail" src="http://localhost:3000/api/img?preload=true&h=300&w=400&url=https://dev.bebejam.com/static/beach.jpg" style="width:100%;" onload="noddy_preload(this)">
+
+The site should be for yoga teachers who want to easily offer small one-to-one
+classes wherever they are, at a discount rate. This is not for "pro" teachers,
+who are doing it full time and run big classes, more for people who just want
+to easily offer a few classes every now and then, or maybe up to running a
+short block of classes in a local hall for a fixed period of time.
+
+<S>
+
+<M>
+
+There can be a lot of hassle involved in organising larger classes and organising
+spaces, and covering the costs of deposits, and cleaning up etc, and if it goes
+well everyone expects it to become regular, which becomes restrictive. This does
+not suit well for people who are busy with another profession, or who are traveling,
+or otherwise not wanting to commit to building up a long term class presence /
+permanent studio, etc.
+
+It should also be useful for people who are not highly trained in teaching yoga -
+e.g. someone who has done some teacher training and just wants to find people
+happy to try it with a less experienced teacher, which is why it can reasonably
+be expected to be discounted in price. The teachers can still clearly set any
+price that they want to set though.
+
+<X>
+
+So a new yoga teacher in an area, wanting to meet some people to try their teaching
+with, may start by offering free/cheap classes to friends/acquaintances, and these
+classes just occur in whatever space is available - a lounge, a shared office, etc.
+They are low cost, fun, everyone benefits - the teacher gets practice teaching, the
+students get to try something new, and probably still get good teaching anyway (as
+beginners, they don't need high level training, as long as it is a good understanding
+of the basics and how to do them safely).
+
+If this goes well for the trainer, friends/acquaintances will start asking the
+trainer to do more classes, and even offering small amounts of money to cover any
+costs, such as getting a slightly bigger training venue like a local hall. However,
+the aspect of money can make it  hard for people, whether friends or not, because
+people can feel uncomfortable discussing money or "expecting" money from "friends".
+
+Then, with a little success, the teacher feels confident to "advertise" to a wider
+community. This is ideally done via communities that already exist, such as local
+facebook groups. This is easier than expecting people to join some new community
+for some thing they may not even know they want, and for which they do not
+understand the benefit.
+
+So the teacher puts a message up, offering a class to anyone interested, for low
+price, at a convenient time and place that will be arranged by discussion with
+those who show interest. Experience indicates that the demand for this is actually
+too high, and the teacher ends up with a lot of people wanting to attend. This is
+great! But, causes problems for the teacher, vis. the above points about organising,
+hiring space, paying deposits, cleaning, commitment to longer term, etc.
+
+BUT the customers who enjoyed the class do still exist, and the demand has been
+created by the new teacher, and people start asking if there will be another class
+"next week", or on different days, or at different times, etc. So now there is a
+market demand, and a lack of resource to fill it.
+
+Also, by becoming visible in the local community, new opportunities that may
+suit the occasional teacher come to light - e.g. local gyms get in touch to
+ask if the teacher may be available as a backup, and just get in touch at
+random when the new teacher may be in the area and available, to ask if they
+can cover classes at short notice, etc (which also for those eventually wishing
+to become full time teachers may be an interesting way of getting fixed work).
+
+Ideally at this point the trainer wants to be able to easily offer and organise
+smaller simple classes with small groups that can still be done with little
+organisational effort, in free/easy locations, and get small but reasonable
+payment, say by contacting some of the interested people and offering them
+private classes in their house for them alone or with one or two friends. At
+this point the teacher has overcome the suspicion or disinterest of potential
+customers, and the customers may even be messaging the teacher asking for this
+themselves, e.g. because they attended or heard about that one-off (or set of a
+few) classes that other locals enjoyed, but the time was not ideal for them, so
+they would like something similar in a more convenient way.
+
+Alternatively, the "mobile" / "occasional" trainer may now want to go off and do
+whatever else takes up their life, e.g. their main profession, or travel to their
+next location... but they don't want to lose all of the good will / reputation,
+and experience they have gained by successfully running these few small local classes.
+They need their "reputation" to become portable - not reliant on a given location
+or group of people, or temporal regularlity, but able to transcend those restrictions
+to be put to good use at later times. e.g. a teacher may travel somewhere new, and
+needs to be able to easily get over that disinterest/suspicion hurdle again, by
+being able to say "here is what I have done before, I already offered x and y classes
+and people positively reviewed them and wanted me to do more".
+
+For a new trainer, advertising in a community facebook page for example requires a lot
+of time. Posting, repeat posting, responding to comments, asking for feedback, etc,
+can quickly become a full time job, which was not the aim of the teacher. So, this cannot
+easily be avoided the first time round for any new teacher, but there is a
+lot of value in making this more portable, and perhaps in supporting a new teacher in
+aggregating and tracking their interactions, that help to show they are "trustworthy"
+by being part of various communities, even if only temporarily.
+
+Organising venues for more than around three people is hard, and starts to incur hourly
+costs as well as financial requirements such as deposits. For example, running a one
+hour class will likely involve two hours, with prep and cleaning included; along with this,
+there can be about a day of admin to do in terms of finding interested people, organising
+them to pick a time and roughly convenient area, then finding a venue, booking it, etc.
+
+Also, it is harder to teach bigger classes of people who can have different skill levels,
+injuries, limitations, etc. Teaching a small group is easier for a new teacher - but,
+contrary to this, customers are more likely to pay for one-to-one personal training with
+expert teachers, not with new teachers. So new teachers need this way to be able to find
+people willing to be their "test subjects", and who in return get a price much better
+than a "proper" personal trainer.
+
+<X fixed bg="http://localhost:3000/api/img?url=https%3A%2F%2Fcottagelabs.com%2Fstatic%2Fpeople%2Fmark.jpg&w=1000&h=800&sepia=true&saturate=5&mix=FFFFFF,70">
+
+The extra earnings of teaching a big class is not necessarily attractive enough, for teachers
+who don't want to commit to this kind of work full time. They don't want to do all the admin,
+etc. But they would still like to be able to share their skills.
+
+<H>
+
+## So: WE WANT TO MAKE IT EASIER FOR PEOPLE WITH SOME TEACHING SKILLS TO TEACH CASUALLY
+
+<E>
+
+What can be the benefits for teachers?
+
+* A teacher should be able to easily offer small cheap classes to share their knowledge
+* A teacher should be able to more easily find spaces to hire (maybe)
+* A teacher should be able to easily set (and change) prices for a class, and get commitment from people to pay
+* A teacher should be able to maintain a reputation across time and space
+* A teacher should be able to easily replicate their small successes in different places, or at later times
+
+
+So we expect teachers should use what is available to find people locally and get some initial customers.
+This is something like facebook groups, local message boards (online and at e.g. supermarkets) etc.
+But we should help them be able to pull this together more easily when it comes to organising classes
+and collecting some money, and having a record of the classes they have done in the past.
+
+<X>
+
+And what about for the customers?
+
+Customers have to be a secondary target for the time being - once there is more use of the site,
+then it will have more value to customers because they could actually use it to find local available
+teachers, and to check their reputation.
+
+But to begin with, customers are a resource that trainers will have to search for, and bring in.
+Then, customers need to be "mined" for reviews. How can we incentivise customers to give reviews?
+
+Teachers could offer further discount on price if customer leaves review - but this undermines the
+argument that the teacher is already offering a super discounted rate; if it can be reduced further,
+this claim is called into question.
+
+Teachers could offer "report cards" - so, helping the customer overcome the problem of the occasional
+teachers, the customers get an online report of how they did at each class, so then their writing a
+review is complimentary to their receiving a history of their progress.
+
+BUT is this something a customer would value? And is it something the occasional teacher can be bothered to do?
+
+Customers DO already engage in conversations about the class, before and after, say on facebook if that is
+where it is being discussed. They quite happily leave feedback there, because they like to
+interact with the teacher after the class. They talk about how much they enjoyed it, etc. And engaging
+with this commentary is valuable for the teacher because it gains them more notice in the community.
+
+So we can't take that commentary totally away from that community - it still needs to happen in facebook
+or wherever else it happened. But maybe we can copy it in - can we track the commentary on a post created
+by the teacher, and aggregate that? This would then continue to be a benefit for a teacher, but would
+enable us to build the site content for later benefit to customers without having to treat them as
+resources in the earlier stages. But we would have to know how to get that data, what rights we / the
+teacher has to it, and it would not necessarily indicate positive/negative review, although we could
+do sentiment analysis on it.
+
+Before a class a teacher will plan what they want to teach in that class. They will decide what moves they
+want to do. The class may not go exactly like that, but they still have a rough idea. Perhaps we support
+them write that plan, then after the class (or before) they share it with the group as feedback - so, a
+review for everyone in the group, even though not customised. Any specific feedback for a particular member
+of the group can also be given, or perhaps certain users expect tailored feedback and so they ask for it,
+and even maybe pay more, if that is what they want.
+
+As much of this as possible should happen where the community already is - that is, on facebook, or other
+social sites where people are sharing information and planning things. Although there is value in a teacher
+making their own facebook page or group, and creating events there, it is not necessarily that useful for
+them to put a lot of effort into advertising their group/page per se - instead they should join other
+groups themselves and from there ask for people who are interested to come to train with them, and THEN
+make an event when organising with a group of people who are already interested. That event can be hosted
+by their own page/group, rather than them as an individual, so that there is a record there of what they
+have taught.
+
+Then, the individual teacher (or their page/group, whichever is best) should join the bebejam buddies group.
+That group can be for trainers to help them find other trainers who may be interested in teaching where
+they teach, or in taking over their classes when they move on. The previous feedback / class descriptions
+of the teacher before, will help a new teacher know what the customers are capable of. And the customers
+will have a record of what they have done, to help them gauge which new trainer they might want next.
+
+So Bebejam should really be nothing more than this community itself - some helpful explanations about how
+a trainer should use facebook to find customers, and a group containing those trainers, to share info. When
+they make events, and give and get feedback on their events, we can scrape that data to provide an analytics
+overview app, and also an app/bot that can join in conversations to help plan events. One of the things
+that would also be useful is an overview of the locations people choose for their events so that others
+can easily find those locations in a given area - we don't help them book those locations, but can collect
+info about where they are, and could prompt trainers who use them to provide some more info about them.
+
+Secondarily, long term there will grow a collection of data, and an app, that customers can actually
+use to find trainers directly, and to check their reputations. Also, trainers will be able to see info
+about customers, such as their progress, and whether or not they regularly don't pay (if we go for a
+sort-of pitch-in price model). Trainers can also search for other trainers to help / take over their
+classes, and can find other trainers who have taught or are training in places where the trainer
+would like to go to, to see how popular it is there, what spaces are available, etc.
+
+This means that goals and motivation for individuals is out of Bebejam. But it can be a separate app
+that someone can use to help motivate themselves or a friend. Also, if we collect location information,
+we can secondarily generate an app for recording useful training spaces, and then advertise that directly
+as a service worth listing on, for people trying to offer spaces.
+
+</markdown>
+
+</content>
+
+
+
+<script>
+jQuery(document).ready(function() {
+
+  // codes to build page layout
+
+  // <L> <M> <R> left, middle, and right columns. A middle on its own will also get a col-md-offset-2
+  // <H> a hero unit / jumbotron element
+  // <W> a well elememt
+  // <F> break container and go full width
+  // <C> go back into container
+  // <E> end whatever we are in (if necessary - starting something else that implies a close will work too)
+  // <1-9> any number between 1 and 12 representing a col-md-X
+  // <S> for generating a splash page, or anything else where want a "page break" - e.g push everything else below screen bottom, and centre the visible content
+  // <X> parallax background effect, over image or colour
+
+  // need to be able to apply writer toc, refs, etc when desired
+  // want to be able to add background colours and images, and parallax background images
+  // and maybe use jmpress to scale the entire page content, and build presentation views
+
+  if ($('content').length) {
+
+    var offset = 2;
+    var cr = '<div class="cbg"><div class="container" style="max-width:1000px;"><div class="row"><div class="col-md-12">';
+    var pg = '' + cr;
+    // if there is not an L, M, R, or numeral before any other content, stick in a <div class="col-md-12">
+    pg += $('content').html();
+    //$(pg).find('p').addClass('columns');
+
+    var regex = /<[LMRHWFESCX1-9]( [^>]*)?>/i;
+    var cregex = /<[LMR]( [^>]*)?>/i;
+    var lm = false;
+    var mn = false;
+    var col = false;
+    var off = false;
+    do {
+      m = regex.exec(pg);
+      if (m) {
+        // TODO if m[0] has a space in it, then need to make use of any classes and other properties it has been given
+        var rp = '';
+        var mt = m[0].split(' ')[0].replace('<','').replace('>','').toLowerCase();
+        var numeral = false;
+        try { numeral = parseInt(m) } catch(err) {}
+        if (['l','m','r'].indexOf(mt) !== -1 || numeral) {
+          rp += '</div>';
+          if (['h','w'].indexOf(lm) !== -1) rp += '</div>';
+          if (mt === 'l') {
+            try { mn = cregex.exec(pg.split(m[0])[1])[0].split(' ')[0].replace('<','').replace('>','').toLowerCase(); } catch(err) { mn = false; }
+          } else {
+            mn = false;
+          }
+          col = numeral ? mt : (mt === 'm' && lm !== 'l' ? '8' : (mt === 'l' && mn !== 'm' ? '6' : (mt === 'r' && lm !== 'm' ? '6' : '4')));
+          off = mt === 'm' && lm !== 'l'  ? ' col-md-offset-' + offset : (mt === 'r' && lm !== 'l' && lm !== 'm' ? ' col-md-offset-6' : '');
+          rp += '<div class="col-md-' + col + off + '">';
+          lm = mt;
+        } else if (mt === 'e') {
+          rp += '</div>';
+        } else if (mt === 'h') {
+          rp += '<div class="jumbotron">'
+        } else if (mt === 'w') {
+          rp += '<div class="well">';
+        } else if (mt === 'f') {
+          rp += '</div></div></div></div>';
+        } else if (mt === 'c') {
+          rp += cr;
+        } else if (mt === 's') {
+          //if (['l','m','r'].indexOf(lm) !== -1) rp += '</div>';
+          //rp += '</div></div></div></div>';
+          rp += '<div class="splash"></div>';
+          //rp += cr;
+          //rp += '</div>';
+          //rp += '<div class="col-md-' + lm !== 'l' ? '8' : (mn !== 'm' ? '6' : (lm !== 'm' ? '6' : '4')) + (lm !== 'l' ? ' col-md-offset-2">' : '">');
+        } else if (mt === 'x') {
+          rp += '</div></div></div></div>';
+          rp += '<div class="cbg" ';
+          if (m.length > 1 && m[1]) {
+            if (m[1].indexOf(' bg') !== -1) {
+              rp += 'style="padding-top:30px;padding-bottom:30px;background-image:url(' + m[1].split('bg="')[1].split('"')[0] + ');';
+              if (m[1].indexOf(' fixed') !== -1) rp += 'background-attachment:fixed;';
+              rp += 'background-position:center;background-repeat:no-repeat;background-size:cover;"';
+            } else if (m[1].indexOf(' style') !== -1) {
+              rp += 'style="' + m[1].split('style="')[1].split('"')[0] + '"';
+            }
+          } else {
+            rp += 'style="padding-top:30px;padding-bottom:30px;background-color:#FFFFFC;"';
+          }
+          rp += '>';
+          rp += '<' + cr.split(/><(.+)/)[1];
+          rp += '</div><div class="col-md-' + col + off + '">';
+        }
+        pg = pg.replace(m[0], rp);
+      }
+    } while (m)
+    pg += '</div></div></div>';
+
+    //console.log(pg);
+
+    $('content').replaceWith(pg);
+    if ( $('.splash').length ) {
+      var ht = $(window).height();
+      var pos = $('.splash').offset().top;
+      var diff = ht - pos;
+      console.log(diff);
+      $('.splash').css({'margin-bottom':diff+'px'});
+    }
+
+  }
+
+  noddy.writer();
+
+  /*$.ajax({
+    type: 'GET',
+    url: 'http://localhost:3000/api/img?url=https%3A%2F%2Fdev.bebejam.com%2Fstatic%2Fbeach.jpg&w=980&h=780&data=true',
+    success: function(colours) {
+      $('h2').first().after('<p>' + colours + '</p>');
+      $('p').css('color',colours[0]);
+      $('h1,h2,h3').css('color',colours[1]);
+      $('.cbg').css('background-color',colours[4]);
+    }
+  });*/
+});
+</script>
+
+<script>
+  var bdg = false;
+  try { bdg = window.getComputedStyle(document.getElementsByTagName('body')[0]).getPropertyValue('background-image').indexOf('preload=true') !== -1; } catch(err) {}
+  if ( bdg ) noddy_preload(document.getElementsByTagName('body')[0]);
+  var divs = document.getElementsByTagName('div');
+  for ( var d= 0; d < divs.length; d++) {
+    var dg = false;
+    try { dg = window.getComputedStyle(divs[d]).getPropertyValue('background-image').indexOf('preload=true') !== -1; } catch(err) {}
+    if ( dg ) noddy_preload(divs[d]);
+  }
+  // a handy way to pre-cache things for other pages on the same site
+  //var cacheList = [];
+  //$(window).load(function() { $.each(cacheList, function() { var img = new Image(); img.src = this; }); });
+</script>

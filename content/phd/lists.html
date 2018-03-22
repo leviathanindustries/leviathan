@@ -1,0 +1,35 @@
+
+<script type="text/javascript">
+jQuery(document).ready(function () {
+  $('#graphholder').graphview({
+    "target": '{{api}}/es/phd/lists/_search?dev=false',
+    "pushstate": false,
+    "titlefield": "subject",
+    "defaultquery": {
+      "query": {
+        "bool": {
+          "must":[]
+        }
+      },
+      "from":0,
+      "size":100,
+      "facets":{
+        "subjects": {"term":{"field":"subject.exact","suggest":true}},
+        "from": {"term":{"field":"from.exact","suggest":true, "node": true}},
+        "organisation": {"term":{"field":"organisation.exact","suggest":true, "node": true}},
+        "lists": {"term":{"field":"subjected_lists.exact","suggest": true, "node": true}},
+        "references": {"term":{"field":"references.exact","suggest": true, "node": true}},
+        "replies": {"term":{"field":"in-reply-to.exact","suggest": true, "node": true}},
+        "tags": {"term":{"field":"tags.exact","suggest": true, "node": true}},
+        "range": {"date_histogram": {"interval": "month", "field": "date"}}
+      }
+    },
+    "nodesize": 100,
+    "focusdepth": 1
+  });
+});
+</script>
+
+
+<div id="graphholder" style="position:absolute;top:0px;left:0px;bottom:0px;right:0px;width:100%;height:100%;"></div>
+

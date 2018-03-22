@@ -1,0 +1,34 @@
+
+<script type="text/javascript">
+jQuery(document).ready(function () {
+  $('#graphholder').graphview({
+    "target": '{{api}}/es/phd/transcript/_search?dev=false',
+    "pushstate": false,
+    "titlefield": "QUESTION",
+    "defaultquery": {
+      "query": {
+        "bool": {
+          "must":[]
+        }
+      },
+      "from":0,
+      "size":320,
+      "facets":{
+        "name": {"term":{"field":"NAME.exact","suggest":true, "node": true}},
+        "questions": {"term":{"field":"QUESTION.exact","suggest":true}},
+        "answers": {"term":{"field":"ANSWER.exact","suggest":true}},
+        "question terms": {"term":{"field":"QUESTION","suggest":true}},
+        "answer terms": {"term":{"field":"ANSWER","suggest":true}},
+        "question keywords": {"term":{"field":"QT.term.exact","suggest":true, "node": true}},
+        "answer keywords": {"term":{"field":"AT.term.exact","suggest":true, "node": true}}
+      }
+    },
+    "nodesize": 100,
+    "focusdepth": 1
+  });
+});
+</script>
+
+
+<div id="graphholder" style="position:absolute;top:0px;left:0px;bottom:0px;right:0px;width:100%;height:100%;"></div>
+

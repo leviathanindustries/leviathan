@@ -54,16 +54,16 @@ server {
   add_header Cache-Control "public";
   add_header Access-Control-Allow-Origin *;
 
-  #rewrite ^/request/((?!new).)*$ /request/item last;
+  #rewrite ^/request/((?!new).)*$ /social/request/item last;
 
   location / {
-    try_files /serve/$uri.html /serve/$uri/index.html /404.html =404;
+    try_files /serve/social/$uri.html /serve/social/$uri/index.html /404.html =404;
   }
 
   location /content {
-    try_files $uri $uri.html $uri.md $uri/index $uri/index.html $uri/index.md /404 =404;
+    try_files /social/$uri /social/$uri.html /social/$uri.md /social/$uri/index /social/$uri/index.html /social/$uri/index.md /404 =404;
   }
-  
+
   location /static {
     try_files /serve/$uri $uri =404;
     expires 30d;
@@ -98,9 +98,7 @@ server {
 server {
   listen          80;
   server_name     leviathan.cottagelabs.com;
-
-  root /home/cloo/dev/leviathan;
-  index leviathan.html;
+  return 301 https://leviathanindustries.com/phd/demo;
 }
 
 server {
@@ -116,18 +114,10 @@ server {
   index industries.html;
 }
 server {
-  listen          443;
+  listen          443; # ssl for this domain is handled by cloudflare
   server_name     .leviathanindustries.com;
 
   root /home/cloo/dev/leviathan;
-  index industries.html;
-}
-
-server {
-  listen          80;
-  server_name     levor.club;
-
-  root /home/cloo/dev/leviathan/levor;
 
   add_header Pragma public;
   add_header Cache-Control "public";
@@ -136,9 +126,11 @@ server {
   location / {
     try_files /serve/$uri.html /serve/$uri/index.html /404.html =404;
   }
+
   location /content {
     try_files $uri $uri.html $uri.md $uri/index $uri/index.html $uri/index.md /404 =404;
   }
+
   location /static {
     try_files /serve/$uri $uri =404;
     expires 30d;
@@ -147,15 +139,22 @@ server {
 
 server {
   listen          80;
-  server_name     phd.cottagelabs.com;
+  server_name     phd.cottagelabs.com phd.leviathanindustries.com;
+
+  root /home/cloo/dev/leviathan;
+
+  add_header Pragma public;
+  add_header Cache-Control "public";
+  add_header Access-Control-Allow-Origin *;
 
   location / {
-    proxy_pass http://localhost:5005;
-    proxy_redirect off;
-    proxy_set_header Host $host;
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header Authorization "";
-    # proxy_buffering off;
+    try_files /serve/phd/$uri.html /serve/phd/$uri/index.html /404.html =404;
+  }
+  location /content {
+    try_files /phd/$uri /phd/$uri.html /phd/$uri.md /phd/$uri/index /phd/$uri/index.html /phd/$uri/index.md /404 =404;
+  }
+  location /static {
+    try_files /serve/$uri $uri =404;
+    expires 30d;
   }
 }

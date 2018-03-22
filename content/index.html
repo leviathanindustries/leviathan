@@ -1,281 +1,62 @@
+<head>
+  <title>Leviathan Industries</title>
+  <script type="text/javascript" src="//static.cottagelabs.com/jquery.antiquify.js"></script>
+  <script type="text/javascript" src="//static.cottagelabs.com/jquery.slabtext.min.js"></script>
+</head>
 
-<div id="smalllogo" class="visible-xs" style="position:fixed;top:0;left:0;right:0;bottom:0;height:100%;width:100%;background-color:#FFFFFC;z-index:1000000000;">
-  <h1 style="text-align:center;font-size:10em;border-top:10px solid #5F5C64;border-bottom:10px solid #5F5C64;border-left:10px solid #F2B5B3;border-right:10px solid #D0EFD0;width:100%;height:100%;margin:auto;">
-    L%
-  </h1>
-</div>
 
-<div class="holder sticker"></div>
-<div id="topstrap" class="holder sticky" style="display:none;">
-  <div>
-    <h2 style="margin-top:5px;margin-left:15px;">
-      <a href="/" alt="Home" title="Home" style="color:#5F5C64;">
-        <b>LEVIATHAN</b>
-      </a>
-    </h2>
-    <div class="container" style="padding:0px 10px 5px 10px;">
-      <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-          <div id="messages" style="display:none;background-color:#F9ECEC;padding:5px;border-radius:3px;margin-bottom:5px;"></div>
-          
-          <div class="login" style="display:none;" id="cloginArea">
-            <div id="cloginEmailArea" style="padding-top:5px;">
-              <div class="input-group">
-                <input type="text" class="form-control" id="cloginEmail" placeholder="Enter your email address">
-                <div class="input-group-btn">
-                  <button id="cloginSubmit" type="submit" class="btn btn-pink">Login</button>
-                </div>
-              </div>
-            </div>
-            <div id="cloginTokenArea" style="display:none;">
-              <input type="text" class="form-control" id="cloginToken" placeholder="Check your email, enter your login code">
-            </div>
-          </div>
-          
-          <div id="searchui">
-            <div id="searchbar">
-              <div class="input-group">
-                <input type="text" class="form-control holder search" do="thenadd" id="searchbox" placeholder="Get started">
-                <div class="input-group-btn">
-                  <a class="category btn btn-pink" data-value="statement" href="#">
-                    <i class="glyphicon glyphicon-search"></i>
-                  </a>
-                </div>
-              </div>
-              <div class="holder searches" style="margin-left:-5px;"></div>
-            </div>
-            
-            <div id="firststatement" style="display:none;margin-top:15px;"></div>
-            
-            <div id="responsebar" class="input-group" style="margin-top:15px;">
-              <div class="input-group-btn">
-                <select id="category" class="form-control btn-pink" style="width:86px;border-radius:3px 0px 0px 3px;">
-                  <option value="say">Say &nbsp;&nbsp;&nbsp;&nbsp;(Make and respond to statements)</option>
-                  <option value="is">Is &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Say what a statement IS )</option>
-                  <option value="or">Or &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Choose between pairs of statements)</option>
-                  <option value="and">And &nbsp;&nbsp;&nbsp;&nbsp;(Match compatible statements)</option>
-                  <option value="all">All &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Browse all statements)</option>
-                </select>
-              </div>
-              <input type="text" class="form-control" id="say" placeholder="Make a statement">
-              <select id="is" class="form-control" style="display:none;">
-                <option value="">...</option>
-                <option>priority</option>
-                <option>fake</option>
-              </select>
-              <div class="input-group-btn" id="plusminus">
-                <a class="btn btn-negative response" data-value="disagree" href="#" alt="Click to respond negatively" title="Click to respond negatively">
-                  <i class="glyphicon glyphicon-minus"></i>
-                </a>
-                <a class="btn btn-positive response" data-value="agree" href="#" alt="Click to respond positively" title="Click to respond positively" style="border-left:none;">
-                  <i class="glyphicon glyphicon-plus"></i>
-                </a>
-              </div>
-            </div>
-            
-            <div id="responseor" class="input-group" style="margin-top:15px;display:none;">
-              <div class="input-group-btn">
-                <a class="btn btn-grey response" style="width:100px;text-align:center;height:34px;" data-value="first" href="#" alt="Click to choose the top statement" title="Click to choose the top statement">
-                  <i class="glyphicon glyphicon-chevron-up" style="font-size:2em;margin-top:-5px;"></i>
-                </a>
-              </div>
-              <select id="categoryor" class="form-control btn-pink">
-                <option value="say">Say &nbsp;&nbsp;&nbsp;&nbsp;(Make and respond to statements)</option>
-                <option value="is">Is &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Say what a statement IS )</option>
-                <option value="or" selected="selected">Or</option>
-                <option value="and">And &nbsp;&nbsp;&nbsp;&nbsp;(Match compatible statements)</option>
-                <option value="all">All &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Browse all statements)</option>
-              </select>
-              <div class="input-group-btn">
-                <a class="btn btn-grey response" style="width:100px;text-align:center;height:34px;" data-value="second" href="#" alt="Click to choose the bottom statement" title="Click to choose the bottom statement">
-                  <i class="glyphicon glyphicon-chevron-down" style="font-size:2em;margin-top:-3px;"></i>
-                </a>
-              </div>
-            </div>
+<style>
+  .slabtexted .slabtext {
+    display:-moz-inline-box;
+    display:inline-block;
+    white-space:nowrap;
+  }
+  .slabtextinactive .slabtext {
+    display:inline;
+    white-space:normal;
+    font-size:1em !important;
+    letter-spacing:inherit !important;
+    word-spacing:inherit !important;
+    *letter-spacing:0 !important;
+    *word-spacing:0 !important;
+  }
+  .slabtextdone .slabtext {
+    display:block;
+  }
+</style>
 
-            <div id="newbar" style="display:none;">
-              <a class="close toggler" href="#newbar" style="margin-top:0px;margin-right:8px;margin-bottom:3px;">x</a>
-              <textarea class="form-control" style="min-height:300px;" id="new" placeholder="Write your statement. Short is better, one line will do.
-&#10;Anything after the first blank line will be used as more info.
-&#10;Use #tags to tag, @user or @group to mention.&#10;
-You can include web page links too."></textarea>
-              <div class="input-group" style="margin-top:15px;">
-                <input type="text" class="form-control" id="say" placeholder="Add statement to group">
-                <div class="input-group-btn">
-                  <a class="btn btn-negative response" data-value="disagree" href="#" alt="Click to respond negatively" title="Click to respond negatively">
-                    <i class="glyphicon glyphicon-minus"></i>
-                  </a>
-                  <a class="btn btn-positive response" data-value="agree" href="#" alt="Click to respond positively" title="Click to respond positively" style="border-left:none;">
-                    <i class="glyphicon glyphicon-plus"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
 
-            <div id="secondstatement" style="display:none;margin-top:15px;"></div>
-          </div>
+
+  <div class="container" style="background-repeat:no-repeat;background-size:100%;">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <h1 id="head" style="margin-top:40px;"></h1>
+      </div>
+    </div>
+    <div class="row" id="content">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="well" style="background-color:#333;color:white;">
+          <h1 id="head2">Software &amp; sociotechnical<br>development consultancy</h1>
+          <h2><a href="mailto:mark@cottagelabs.com" style="color:white;text-decoration:underline;">Contact Leviathan</a></h2>
+          <p style="margin-top:40px;">Leviathan Industries Ltd. 9775594.</p>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<div class="holder loading toggle container" id="cloginLoading">
-  <div class="row">
-    <div class="col-md-4 col-md-offset-4" style="min-height:400px;">
-      <img style="height:100%;width:100%;" src="//static.cottagelabs.com/spin_grey.svg">
-    </div>
-  </div>
-</div>
+<script>
+jQuery(document).ready(function() {
 
-<div class="container toggle" id="holder">
-  <div class="row">
-    <div class="col-md-8 col-md-offset-2">
-      <div class="holder results"></div>
-    </div>
-  </div>
-</div>
+  $('.container').css('width', $(window).width()+'px')
+  var stS = "<span class='slabtext'>",
+    stE = "</span>",
+    txt = [
+      "LEVIATHAN",
+      "INDUSTRIES"
+    ]
 
-<div class="container toggle" id="intro" style="display:none;">
-  <div class="row">
-    <div class="col-md-8 col-md-offset-2">
-      <h1 class="toggle" id="logo" style="text-align:center;font-size:12em;border-top:10px solid #5F5C64;border-bottom:10px solid #5F5C64;border-left:10px solid #F2B5B3;border-right:10px solid #D0EFD0;border-radius:3px;width:275px;height:260px;margin:auto;padding-top:25px;padding-right:10px;">
-        L%
-      </h1>
-      <h1 id="introheader" style="text-align:center;font-size:5em;">
-        LEVIATHAN
-        <br><small>Social decisions</small>
-      </h1>
-      <div class="row" id="explain" style="display:none;padding-top:30px;">
-        <div class="col-md-6">
-          <p>
-            Leviathan is for making social decisions. This is subtly different from a group of individuals making a decision. It's like 
-            voting on things to get an idea of what people want, but it's not representative of the people that make up a group. 
-            Instead, Leviathan helps us make decisions <i>differently</i>.
-          </p>
-          <p>
-            Building on democratic tradition is a worthy cause, so <b>one person, one vote</b> is an ideal place to start. However we 
-            all have limits on what we know, and even on what we can imagine. A person can't meaningfully vote on things they know nothing about, 
-            and a group can't reasonably consider things they've never encountered. This is why we're often prejudiced - it's simple, 
-            easy, needs no experience, and we can all do it... but it's inaccurate.
-          </p>
-        </div>
-        <div class="col-md-6">
-          <p>
-            Each of us may be an expert in one or two things, but <i>all</i> of us are beginners at just about everything. 
-            So to do better, what we really need is <b>one person, one consideration</b>. 
-            Leviathan won't necessarily represent <i>you</i> - 
-            it presents a decision that is a function of relevance, whether individuals think so or not. So, we make the statements; 
-            Leviathan presents the decisions. It represents <i>us</i>.
-          </p>
-          <p>
-            Like a telescope, Leviathan is a tool that helps give more accurate perspectives beyond our 
-            natural world view. if that sounds useful to you, then you should use it - but as with all tools, 
-            it's up to you to decide what to do with it.
-          </p>
-          <p>
-            It's time to <a class="toggler" href="#howto">get started</a>.
-          </p>
-          <p>
-            Need more convincing? Read our <a class="toggler" href="#stories">user stories</a>.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+  $("#head").html(stS + txt.join(stE + stS) + stE).slabText();
+  $('.container').antiquify();
 
-<div class="container toggle" id="stories" style="display:none;">
-  <div class="row">
-    <div class="col-md-8 col-md-offset-2">
-      <div class="row" style="padding-top:30px;">
-        <div class="col-md-6">
-          More info about user stories<br>
-          Softdev issues<br>
-          Project reqs<br>
-          Fake news<br>
-          Social bookmarking<br>
-          Decision making<br>
-        </div>
-        <div class="col-md-6">
-          And more...
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="container toggle" id="howto" style="display:none;">
-  <div class="row">
-    <div class="col-md-8 col-md-offset-2">
-      <h2 style="hidden-xs hidden-sm">Welcome to Leviathan</h2>
-      <div class="row">
-        <div class="col-md-6">
-          <p>
-            These notes are extra-detailed, for dev. Will be shortened / replaced with gifs for live. 
-            Some things that it says here can be done... maybe can't be done. And some things that 
-            are not said here may actually be possible.
-          </p>
-          <p class="notcloggedin">
-            <span class="visible-xs visible-sm">Welcome to Leviathan. </span>As you're not logged in you can try anything - 
-            like a demo mode, it works but nothing 
-            gets saved. When you're ready to really get started, just <a class="toggler" href=".login">login</a>.
-          </p>
-          <p>
-            Just tap the <b>search</b> bar above - you'll see filters by topics,
-            users, groups, and more. Type or select your preferences, then hit enter or tap the search icon. 
-            You'll be shown the first of many relevant statements - swipe the statement left to respond negatively, 
-            or right to respond positively, or tap it to see more info before deciding.
-          </p>
-          <p>
-            Below the search is the <b>response</b> bar. Here you can tap the <span style="color:#F27D79;">red</span> 
-            minus button to quickly respond negatively to a statement, or the <span style="color:#84D383;">green</span> 
-            plus button for positive response. When there are no statements on display, this is also where you can make 
-            your own - just tap in the response bar for more info.
-          </p>
-        </div>
-        <div class="col-md-6">
-          <p>
-            When responding, you can optionally <b>say</b> a bit more - just write your own responding statement then tap red or green.
-            Or instead of writing a response, tap the pink <b>say</b> button and select <b>is</b> - now the response bar gives dropdown  
-            options such as <b>is</b> <b>priority</b>, <b>fake</b> etc. You can also select <b>and</b> to match related 
-            statements, or select <b>or</b> to choose between pairs of statements. (Our <a class="toggler" href="#stories">user stories</a> 
-            demonstrate <b>and</b>, <b>or</b>, <b>is</b> in more detail.)
-          </p>
-          <p>
-            If you want to browse all statements and responses, just select <b>all</b>.
-          </p>
-          <hr>
-          <h4>
-            Coming soon... notes for future dev
-          </h4>
-          <p>
-            * Dropdown suggestions on search bar<br>
-            * @ and # suggestions when typing<br>
-            * Supplement notes with walkthrough gifs<br>
-            * Add interactive tooltips to inputs and events<br>
-            * Write up the user stories<br>
-            * Fingerprint and locate device<br>
-            * Welcome back messaging etc<br>
-            * <b>Me</b> statements<br>
-            * <b>Same</b> mode (like and, but for identity)<br>
-            * <b>Then</b> mode (like and, but if x then y)<br>
-            * Groups<br>
-            * Group interactive response session<br>
-            * Import from github, website, sheet etc<br>
-            * Response view, vis etc<br>
-            * Responsive update of vis<br>
-            * Informative static pages - API, about, etc<br>
-          </p>
-        </div>
-      </div>
-                  
-    </div>
-  </div>
-</div>
-
-
-
-
-
-
+});
+</script>
