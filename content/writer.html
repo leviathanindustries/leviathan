@@ -10,7 +10,7 @@
     var url = tgt.getAttribute('src') ? tgt.getAttribute('src').replace('preload=true','') : window.getComputedStyle(tgt).getPropertyValue('background-image').replace('url("','').replace('")','').replace('preload=true','');
     var img = new Image();
     img.src = url;
-    img.onload = function() {
+    var onload = function() {
       if (tgt.getAttribute('src')) {
         var ni = tgt.cloneNode(true);
         ni.setAttribute('onload','');
@@ -21,6 +21,7 @@
         tgt.style['background-image'] = 'url(' + url + ')';
       }
     }
+    img.onload = onload;
   }
 </script>
 
