@@ -28,7 +28,7 @@
 
 <style>
 body {
-  background-image: url(http://localhost:3000/api/img?url=https%3A%2F%2Fdev.bebejam.com%2Fstatic%2Fbeach.jpg&w=1000&h=800&sepia=true&saturate=5&mix=FFFFFF,70&preload=true);
+  background-image: url({{api}}/img?url=https%3A%2F%2Fdev.bebejam.com%2Fstatic%2Fbeach.jpg&w=1000&h=800&sepia=true&saturate=5&mix=FFFFFF,70&preload=true);
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
@@ -60,7 +60,7 @@ body {
 
 ## Casual teaching
 
-<img class="img img-thumbnail" src="http://localhost:3000/api/img?preload=true&h=300&w=400&url=https://dev.bebejam.com/static/beach.jpg" style="width:100%;" onload="noddy_preload(this)">
+<img class="img img-thumbnail" src="{{api}}/img?preload=true&h=300&w=400&url=https://dev.bebejam.com/static/beach.jpg" style="width:100%;" onload="noddy_preload(this)">
 
 The site should be for yoga teachers who want to easily offer small one-to-one
 classes wherever they are, at a discount rate. This is not for "pro" teachers,
@@ -169,7 +169,7 @@ expert teachers, not with new teachers. So new teachers need this way to be able
 people willing to be their "test subjects", and who in return get a price much better
 than a "proper" personal trainer.
 
-<X fixed bg="http://localhost:3000/api/img?url=https%3A%2F%2Fcottagelabs.com%2Fstatic%2Fpeople%2Fmark.jpg&w=1000&h=800&sepia=true&saturate=5&mix=FFFFFF,70">
+<X fixed bg="{{api}}/img?url=https%3A%2F%2Fcottagelabs.com%2Fstatic%2Fpeople%2Fmark.jpg&w=1000&h=800&sepia=true&saturate=5&mix=FFFFFF,70">
 
 The extra earnings of teaching a big class is not necessarily attractive enough, for teachers
 who don't want to commit to this kind of work full time. They don't want to do all the admin,
@@ -388,7 +388,7 @@ jQuery(document).ready(function() {
 
   /*$.ajax({
     type: 'GET',
-    url: 'http://localhost:3000/api/img?url=https%3A%2F%2Fdev.bebejam.com%2Fstatic%2Fbeach.jpg&w=980&h=780&data=true',
+    url: '{{api}}/img?url=https%3A%2F%2Fdev.bebejam.com%2Fstatic%2Fbeach.jpg&w=980&h=780&data=true',
     success: function(colours) {
       $('h2').first().after('<p>' + colours + '</p>');
       $('p').css('color',colours[0]);
