@@ -1,0 +1,180 @@
+
+<head>
+  <script type="text/javascript" src="/static/d3.v4.min.js"></script>
+  <script type="text/javascript" src="/static/holder/display/line.js"></script>
+  <script type="text/javascript" src="/static/holder/display/graph.js"></script>
+  <script type="text/javascript" src="/static/holder/display/filters.js"></script>
+  <script type="text/javascript" src="/static/holder/display/network.js"></script>
+</head>
+
+<style>
+  #list-left h4 {
+    margin-top:10px;
+  }
+  #list-right h4 {
+    margin-top:10px;
+  }
+</style>
+
+<READER>
+
+<M>
+
+<div id="login" style="margin-top:50px;"></div>
+
+<p>To add:<br>
+info about the cluster - can DO monitoring be queried in relation or within status?<br>
+query all open ES search endpoints?<br>
+get user info, such as when last logged in, and on what page<br>
+map what remote URLs have been contacted in jobs<br>
+map what remote URLs have hit the API with requests of any kind<br>
+connect users to URLs? and fingerprints?<br>
+</p>
+
+<div class="row">
+  <div class="col-md-6" id="head-left"></div>
+  <div class="col-md-6" id="head-right"></div>
+</div>
+<div class="row">
+  <div class="col-md-6" id="list-left"></div>
+  <div class="col-md-6" id="list-right"></div>
+</div>
+
+<div id="holder"></div>
+
+
+<script>
+  noddy.api = '{{api}}';
+
+  var listing = undefined;
+  var status = undefined;
+  var test = undefined;
+
+  var show = function(e) {
+    e.preventDefault();
+    var fn = $(this).attr('class').replace('api ','').replace('service ','').replace('use ','');
+    var _id = '#' + $(this).attr('class').replace(/ /g,'_');
+    $('#list-left,#list-right').removeClass('col-md-12').addClass('col-md-6');
+    if ( $(_id).length ) {
+      if ( $(_id).is(':visible')) {
+        $('.section').hide();
+      } else {
+        $('.section').hide();
+        $(this).closest('.col-md-6').removeClass('col-md-6').addClass('col-md-12');
+        $(_id).show();
+      }
+    } else {
+      $('.section').hide();
+      var sn = '<div id="' + _id.replace('#','') + '" class="well section">';
+      var first = true;
+      for ( var l in listing.routes ) {
+        if (l.indexOf(_id.replace('#api_','').replace(/_/g,'/')) !== -1) {
+          first === true ? first = false : sn += '<hr>';
+          sn += '<p><b>' + l + '</b></p>';
+          var ll = listing.routes[l];
+          if (ll.desc) sn += '<p>' + ll.desc + '</p>';
+          for ( var a in ll ) { if (['desc','options'].indexOf(a) === -1) sn += '<p>' + (a !== 'get' || (ll.post !== undefined || ll.put !== undefined || ll.delete !== undefined) ? '<b>' + a.toUpperCase() + '</b>' : '') + (ll[a].auth ? ' (auth ' + ll[a].auth + ') ' : '') + (ll[a].desc ? ': ' + ll[a].desc : '') + '</p>'; }
+        }
+      }
+      sn += '</div>';
+      $(this).closest('.col-md-6').removeClass('col-md-6').addClass('col-md-12');
+      $(this).closest('h4').after(sn);
+    }
+    $('html, body').animate({
+      scrollTop: $(this).offset().top - 10
+    }, 100);
+  }
+  $('body').on('click','.api',show)
+
+  var list = function() {
+    $.ajax({
+      url: noddy.api,
+      error: function() {
+        $('#list-top').append('<h1 style="color:red;">THE API AT ' + noddy.api + ' IS NOT RESPONDING</h1>');
+      },
+      success: function(data) {
+        listing = data;
+        $('#head-left').append('<h1>' + data.name + ' v' + data.version + '</h1>');
+        $('#head-right').append('<div class="visible-md visble-lg" style="margin-top:43px;"></div><p id="buttons"></p>');
+        $('#buttons').append('<a href="#" id="status" class="btn btn-default btn-disabled">status <img style="height:15px;" src="//static.cottagelabs.com/spin_grey.svg"></a> ');
+        $('#buttons').append('<a href="#" id="log" class="btn btn-default">logs</a> ');
+        $('#buttons').append('<a href="#" id="test" class="btn btn-default">test <img style="height:15px;" src="//static.cottagelabs.com/spin_grey.svg"></a>');
+        $('#list-left').append('<h3>' + noddy.api + '/</h3>');
+        var mains = [];
+        var services = [];
+        var remotes = [];
+        for ( var u in data.routes ) {
+          if (u.indexOf('service/') === 0 && services.indexOf(srv = u.split('/')[1].split(' ')[0]) === -1) {
+            services.push(srv);
+          } else if (u.indexOf('use/') === 0 && remotes.indexOf(rem = u.split('/')[1].split(' ')[0]) === -1) {
+            remotes.push(rem);
+          } else if (mains.indexOf(mn = (u.indexOf('/') !== -1 ? u.split('/')[0] : u).split(' ')[0]) === -1 && ['log','status','stats','reload','service','use','scripts','ping.png'].indexOf(mn) === -1) {
+            mains.push(mn);
+          }
+          //$('body').append(data.routes[u] + '<br>');
+        }
+        for ( var m in mains ) $('#list-left').append('<h4><a class="api ' + mains[m] + '" href="#">' + mains[m] + '</a></h4>');
+        $('#list-left').append('<h3>Services</h3>');
+        for ( var s in services ) $('#list-left').append('<h4>service/<a class="api service ' + services[s] + '" href="#">' + services[s] + '</a></h4>');
+        $('#list-right').append('<h3>Use <small>(remote services)</small></h3>');
+        for ( var r in remotes ) $('#list-right').append('<h4>use/<a class="api use ' + remotes[r] + '" href="#">' + remotes[r] + '</a></h4>');
+      }
+    });
+    /*$.ajax({
+      url: noddy.api + '/status',
+      success: function(data) {
+        status = data;
+        // update status button and do any other useful things with status info
+        $('#status > img').hide();
+        $('#status').removeClass('btn-disabled').css('background-color',data.status);
+        console.log(data.use)
+        for (var u in data.use) {
+          console.log(u)
+          console.log(data.use[u])
+          $('.use.'+u).css('color',data.use[u] === true ? 'green' : 'red')
+        }
+      }
+    });*/
+    $.ajax({
+      url: noddy.api + '/test/last',
+      success: function(data) {
+        test = data;
+        // update status button and do any other useful things with status info
+        $('#test > img').hide();
+        if (test.created_date !== undefined) $('#test').text('test (last ' + test.created_date + ')').removeClass('btn-disabled').css('background-color',test.passed ? 'green' : 'red');
+      }
+    });
+  }
+  list();
+
+
+  jQuery(document).ready(function () {
+    noddy.debug = true;
+    noddy.element = '#login';
+    noddy.init();
+
+
+    /*$.fn.holder.display.network.styles = function() {
+    	$.fn.holder.display.network.link
+    		.attr("stroke",function(d) { return 'grey'; })
+    		.attr("stroke-width", 0.3)
+    }*/
+
+    /*$.fn.holder.use.noddy = {
+      url: "http://localhost:3000/api/es/noddy_log_dev",
+      datatype: 'JSON',
+      pushstate: false,
+      ui: false,
+      record: false,
+      size: 100/*,
+      fields: ['statement','occurrence','type','keywords'],
+      aggregations: {
+        type: { terms: { field: "type.exact", size: 10 } },
+        keywords: { terms: { field: "keywords.exact", size: 20 } }
+      }*/
+    /*};
+    $('#holder').holder();*/
+
+  });
+</script>
+

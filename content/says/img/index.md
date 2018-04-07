@@ -1,4 +1,9 @@
 
+
+<READER>
+
+<M>
+
 # {{api}}/img
 
 ## Get any image and manipulate it, all on the URL params
@@ -14,6 +19,8 @@ actual informative message anyway... but even so, it seems it is sometimes
 necessary to present things with visuals.
 
 And sometimes pictures are just nice.
+
+<S>
 
 So it would be great if this was as easy as possible, at least in the early stages.
 There is always going to be a point where a design narrative is necessary and
@@ -117,15 +124,6 @@ depending on viewport / bandwidth. TODO, OK, I will make a demo of this.
 OK! Coming soon! Pick an image or a colour, throw your textual self-love into it,
 pick a level of picturey-ness, and get back an awful page. TODO, will link to a
 nice little UI for you to play with to generate these things.
-
-
-## I love you for this...
-
-Thanks. Give me money and I will love you too.
-
-That's a joke.
-
-I won't.
 
 
 

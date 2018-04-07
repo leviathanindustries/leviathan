@@ -26,23 +26,29 @@
 </style>
 
 
+<READER>
 
-  <div class="container" style="background-repeat:no-repeat;background-size:100%;">
+<div id="antiquate">
+
+  <h1 id="head" style="margin-top:40px;min-height:100px;"></h1>
+
+  <div class="well" style="background-color:#333;color:white;">
     <div class="row">
-      <div class="col-md-8 col-md-offset-2">
-        <h1 id="head" style="margin-top:40px;"></h1>
+      <div class="col-md-6">
+        <h1 id="head2">Software &amp; technosocial<br>development consultancy</h1>
+      </div>
+      <div class="col-md-4 col-md-offset-2">
+        <div class="hidden-xs hidden-sm" style="height:40px;"></div>
+        <p><a href="mailto:mark@cottagelabs.com" style="color:white;text-decoration:underline;">Contact Leviathan</a></p>
+        <p><a href="#" style="color:white;text-decoration:underline;">What is "technosocial"?</a></p>
+        <p><a href="#" style="color:white;text-decoration:underline;">Latest activities</a></p>
       </div>
     </div>
-    <div class="row" id="content">
-      <div class="col-md-8 col-md-offset-2">
-        <div class="well" style="background-color:#333;color:white;">
-          <h1 id="head2">Software &amp; sociotechnical<br>development consultancy</h1>
-          <h2><a href="mailto:mark@cottagelabs.com" style="color:white;text-decoration:underline;">Contact Leviathan</a></h2>
-          <p style="margin-top:40px;">Leviathan Industries Ltd. 9775594.</p>
-        </div>
-      </div>
-    </div>
+    <p style="margin-top:40px;">Leviathan Industries Ltd. 9775594.</p>
   </div>
+
+</div>
+
 
 <script>
 jQuery(document).ready(function() {
@@ -56,7 +62,7 @@ jQuery(document).ready(function() {
     ]
 
   $("#head").html(stS + txt.join(stE + stS) + stE).slabText();
-  $('.container').antiquify();
+  $('#antiquate').antiquify();
 
 });
 </script>
