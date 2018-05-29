@@ -108,12 +108,12 @@ connect users to URLs? and fingerprints?<br>
             services.push(srv);
           } else if (u.indexOf('use/') === 0 && remotes.indexOf(rem = u.split('/')[1].split(' ')[0]) === -1) {
             remotes.push(rem);
-          } else if (mains.indexOf(mn = (u.indexOf('/') !== -1 ? u.split('/')[0] : u).split(' ')[0]) === -1 && ['log','status','stats','reload','service','use','scripts','ping.png'].indexOf(mn) === -1) {
+          } else if (mains.indexOf(mn = (u.indexOf('/') !== -1 ? u.split('/')[0] : u).split(' ')[0]) === -1 && ['log','status','stats','reload','service','use','scripts','ping.png','pings'].indexOf(mn) === -1) {
             mains.push(mn);
           }
           //$('body').append(data.routes[u] + '<br>');
         }
-        for ( var m in mains ) $('#list-left').append('<h4><a class="api ' + mains[m] + '" href="#">' + mains[m] + '</a></h4>');
+        for ( var m in mains ) $('#list-left').append('<h4><a class="api ' + mains[m] + '" href="#">' + mains[m] + '</a>' + (['accounts','job'].indexOf(mains[m]) !== -1 ? ' <a href="' + window.location.href.split('//')[1].replace('/','/_/_/_').split('/_/_/_')[1] + '/dashboard/' + mains[m] + '" class="dashboard btn btn-default">dashboard &raquo;</a>' : '') + '</h4>');
         $('#list-left').append('<h3>Services</h3>');
         for ( var s in services ) $('#list-left').append('<h4>service/<a class="api service ' + services[s] + '" href="#">' + services[s] + '</a></h4>');
         $('#list-right').append('<h3>Use <small>(remote services)</small></h3>');
