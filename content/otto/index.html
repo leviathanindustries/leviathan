@@ -1,0 +1,95 @@
+
+<title>Leviathan Otto</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mini.css/3.0.1/mini-default.min.css">
+
+<script type="text/javascript" src="/static/_leviathan.js"></script>
+<script type="text/javascript" src="/static/_leviathan_suggest.js"></script>
+
+<style>
+  html {
+    height: 100%;
+  }
+  body {
+    min-height: 100%;
+  }
+  .container {
+    max-width:1000px;
+  }
+  .unbound {
+    border:none;
+    margin:0px;
+  }
+  .success {
+    background-color: #689f38;
+    border-color: #689f38;
+  }
+  .error {
+    background-color: #689f38;
+    border-color: #689f38;
+  }
+  a.button.primary {
+    color:white;
+  }
+  .section {
+    display: none;
+    margin-top:40px;
+    border-top:1px solid #ccc;
+  }
+  .help {
+    display: none;
+  }
+</style>
+
+
+
+
+<div id="loading" class="loading" style="display:none;position:fixed;top:0;bottom:0;left:0;right:0;opacity:0.2;background-color:#ccc;">
+  <div style="margin-top:300px;margin-left:auto;margin-right:auto;width:200px;">
+    <img style="height:200px;width:200px;" src="/static/spin_grey.svg">
+  </div>
+</div>
+
+<header id="header" class="sticky">
+  <div class="row">
+    <a href="/" class="logo col-sm-10">Otto demo</a>
+    <a id="mobmenu" href="#" class="col-sm-1 hidden-md hidden-lg" style="padding-top:5px;font-size:2em;"><span class="icon-help"></span></a>
+  </div>
+</header>
+
+<div id="main" class="container" style="min-height:300px;">
+  <div id="spacer" class="row hidden-sm" style="margin-top:25%;"></div>
+  
+  <div class="row">
+    <div class="col-sm">
+      <div class="button-group shadowed">
+        <input class="unbound col-sm" type="text" id="article" placeholder="Start typing an article title">
+        <img id="loader" src="//static.cottagelabs.com/loadhr.svg" style="display:none;">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm" id="article_suggestions"></div>
+  </div>
+</div>
+
+<footer id="footer" class="sticky">
+  <div class="row">
+    <div class="col-sm">
+    </div>
+    <div class="col-sm">
+      <p id="article_remaining" style="text-align:right;">...</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+var body = document.body;
+var html = document.documentElement;
+var height = Math.max( window.innerHeight, body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight );
+var hh = _L.gebi('header').offsetHeight;
+var fh = _L.gebi('footer').offsetHeight;
+_L.gebi('main').style['min-height'] = (height-hh-fh)+'px';
+
+_L.suggest('#article', 'https://dev.lvatn.com/service/academic/article/suggest/');
+</script>

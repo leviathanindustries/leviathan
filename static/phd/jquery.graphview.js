@@ -263,7 +263,7 @@ if (!Array.prototype.indexOf) {
                 .data(options.links)
                 .enter().append("svg:line")
                 .attr("class", "link")
-                .attr("stroke", "#ddd")
+                .attr("stroke", "#eee")
                 .attr("stroke-opacity", 0.8)
                 .style("stroke-width", function(d) { return Math.sqrt(d.value); })
                 .attr("x1", function(d) { return d.source.x; })

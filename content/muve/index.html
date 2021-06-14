@@ -1,0 +1,385 @@
+
+<head>
+  <title>Muve by Leviathan</title>
+</head>
+
+<style>
+/*
+Light grey #999999
+Granite grey #5F5C64
+Dark grey #333333
+Off white #FFFFFC
+*/
+
+#topstrap {
+  background-color:#FFFFFC;
+  margin:0px 10px 10px 10px;
+  z-index:10000000000000;
+}
+</style>
+
+<script>
+jQuery(document).ready(function() {
+  fademenu();
+});
+</script>
+
+<div class="holder sticker"></div>
+<div id="topstrap" class="holder sticky">
+  <div>
+    <div class="container" style="padding:0px 10px 5px 10px;">
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          <div id="messages" style="display:none;background-color:#dddddd;padding:5px;border-radius:3px;margin-bottom:5px;"></div>
+
+          <div class="login" style="display:none;" id="noddyArea">
+            <div class="noddyLogin" style="padding-top:5px;">
+              <div class="input-group">
+                <input type="text" class="form-control" id="noddyEmail" placeholder="Enter your email address">
+                <div class="input-group-btn">
+                  <button id="noddyLogin" type="submit" class="btn btn-default">
+                    <i class="glyphicon glyphicon-envelope"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="noddyToken" style="display:none;">
+              <input type="text" class="form-control" id="noddyToken" placeholder="Check your email, enter your login code">
+            </div>
+          </div>
+
+          <div id="searchui">
+            <div id="responsebar" class="input-group" style="margin-top:15px;">
+              <div class="input-group-btn">
+                <a class="btn btn-default" href="#">
+                  <i class="glyphicon glyphicon-search"></i>
+                </a>
+              </div>
+              <input type="text" class="form-control holder search suggest" do="thenadd" id="search" name="search" placeholder="Search or share">
+              <div class="input-group-btn">
+                <a class="btn btn-default saymore" href="#" alt="Make a statement" title="Make a statement">
+                  <i class="glyphicon glyphicon-plus"></i>
+                </a>
+              </div>
+            </div>
+            <div class="holder searches" style="margin-left:-5px;"></div>
+
+            <div class="toggle" id="newbar" style="display:none;">
+              <textarea class="form-control" style="min-height:150px;" id="new" placeholder="Write your statement.
+&#10;Use #tags to tag, @user or @group to mention.&#10;
+You can include links too."></textarea>
+              <div class="input-group" style="margin-top:15px;">
+                <div class="input-group-btn">
+                  <a class="btn close toggler" href="#responsebar">
+                    <i class="glyphicon glyphicon-remove"></i>
+                  </a>
+                  <a class="btn close toggler" href="#responsebar">
+                    <i class="glyphicon glyphicon-user"></i>
+                  </a>
+                  <a class="btn close toggler" href="#responsebar">
+                    <i class="glyphicon glyphicon-cog"></i>
+                  </a>
+                  <a class="btn close toggler" href="#responsebar">
+                    <i class="glyphicon glyphicon-link"></i>
+                  </a>
+                  <a class="btn close toggler" href="#responsebar">
+                    <i class="glyphicon glyphicon-map-marker"></i>
+                  </a>
+                  <a class="btn close toggler" href="#responsebar">
+                    <i class="glyphicon glyphicon-facetime-video"></i>
+                  </a>
+                  <a class="btn close toggler" href="#responsebar">
+                    <i class="glyphicon glyphicon-picture"></i>
+                  </a>
+                  <a class="btn close toggler" href="#responsebar">
+                    <i class="glyphicon glyphicon-paperclip"></i>
+                  </a>
+                  <a class="btn close toggler" href="#responsebar">
+                    <i class="glyphicon glyphicon-pencil"></i>
+                  </a>
+                  <a class="btn response close toggler" data-value="support/oppose/none" href="#" alt="Click to support/oppose/post" title="Click to support/oppose/post">
+                    <i class="glyphicon glyphicon-plus"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="holder loading toggle container" id="noddyLoading" style="display:none;">
+  <div class="row">
+    <div class="col-md-4 col-md-offset-4" style="min-height:400px;">
+      <img style="height:100%;width:100%;" src="//static.cottagelabs.com/spin_grey.svg">
+    </div>
+  </div>
+</div>
+
+<div class="container toggle" id="holder">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="holder results"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container toggle">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="row" style="padding-top:30px;">
+        <div class="col-md-12">
+          <div class="jumbotron" style="background-color:#999999;"><!-- text-shadow:0px 1px 0px rgba(0,0,0,.5); -->
+            <h1 style="font-weight:bold;font-size:8em;text-align:center;letter-spacing:20px;text-shadow:0px -1px 0px rgba(255,255,255,.4);">muve</h1>
+          </div>
+          <p style="text-align:center;">No ads. No tracking. A <b>public</b> forum for creative sharing.</p>
+          <p style="text-align:center;">Follow your friends, and anyone or anything else you're interested in.</p>
+          <p style="text-align:center;">Free for personal use. Share as much as you like. <a href="#">*</a></p>
+          <hr style="width:60%;">
+          <p style="text-align:center;">Take responsibility for the quality of shared content.</p>
+          <p style="text-align:center;">Show support or opposition where you think appropriate.</p>
+          <p style="text-align:center;">Get recognition and payment for sharing quality content.</p>
+          <hr style="width:60%;">
+          <p style="text-align:center;">Learn more about <a href="#">how it works</a>, the <a href="#">terms and conditions</a>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<script>
+jQuery(document).ready(function() {
+
+  //$('body').css('min-height',$(window).height()+'px');
+
+  var loginRequired = true;
+  var afterLoginAction = undefined;
+  var afterLogin = function() {
+    $('.login').hide();
+    $('.loading').hide();
+    $('#messages').html("").hide();
+    $('.toggle').hide();
+    $('#topstrap').show();
+    $('#searchui').show();
+    if (afterLoginAction) {
+      afterLoginAction.trigger('click');
+      afterLoginAction = undefined;
+    }
+  }
+  noddy.init({api:'https://dev.api.cottagelabs.com/accounts',afterLogin:afterLogin,messagesDivId:'messages'});
+
+  
+
+
+  var template = '<div id="new" class="statement" style="background-color:#5F5C64;border-radius:3px;margin-bottom:15px;">\
+    <a class="close toggler" href=".statement" style="margin-top:0px;margin-right:8px;">x</a>\
+    <p style="text-align:center;padding-top:15%;">\
+      <a class="header toggler" href=".details" style="text-decoration:none;color:#FFFFFC;font-size:4em;line-height:1.2em;word-wrap:break-word;" alt="More details" title="More details">\
+        New statement\
+      </a>\
+    </p>\
+    <div class="details" style="display:none;color:#FFFFFC;padding:2px;">\
+      <div class="about"></div>\
+      <div class="info"></div>\
+    </div>\
+  </div>';
+  
+  var record = function(rec) {
+    if (!rec.statement) return '';
+    var tmpl = $(template);
+    tmpl.attr('id',rec._id);
+    var ht = $(window).height()-150;
+    if (ht>400) ht = 400;
+    tmpl.css('min-height',ht+'px');
+    $('.statement').css('height',ht+'px'); // in case we are leaving any on the screen
+    // TODO apply slabtext to p.header
+    tmpl.find('.header').html(rec.statement);
+    //if (rec.keywords && rec.keywords.img) tmpl.find('.header').append('<br><img src="' + rec.keywords.img + '" style="max-height:300px;">'); 
+    if (rec.about) {
+      // about could be a leviathan ID, so check that...
+      tmpl.find('.about').html('<p style="border-bottom:1px solid #ccc;padding-bottom:8px;">about: <a href="' + rec.about + '" style="word-wrap:break-word;">' + rec.about + '</a></p>');
+    }
+    tmpl.find('.info').html('<p>' + (rec.info ? rec.info : rec._id + ' - no extra information available') + '</p>');
+    return tmpl;
+  }
+  
+  var swipers = {};
+  var swipe = function() {
+    swipers = {};
+    $('.statement').each(function() {
+      swipers[$(this).attr('id')] = new Snap({element: document.getElementById($(this).attr('id'))});
+      swipers[$(this).attr('id')].on('end',function() {
+        for ( var s in swipers ) {
+          var i = swipers[s].state().info;
+          if ( i && ( i.halfway || i.flick ) && i.towards ) {
+            response(undefined, i.towards === 'right' ? 'agree' : 'disagree');
+          }
+        }
+      });
+    });
+  }
+  
+  var review = function(data) {
+    var options = $.fn.holder.options;
+    if (data === undefined) data = options.response;
+    $('.statement').remove();
+    if (!options.paging) {
+      options.records = [];
+      $('div.' + options.class + '.results').html('');
+    }
+    for ( var r in data.hits.hits ) {
+      var rec = data.hits.hits[r]._source;
+      options.records.push(rec);
+      if (r === '0' && !options.paging) {
+        $('div.' + options.class + '.results').append('<div style="height:20px;"></div>');
+      } else {
+        $('div.' + options.class + '.results').append('<hr>');
+      }
+      $('div.' + options.class + '.results').append('<p><a style="color:#5F5C64;" class="toggler" href="#statement_' + r + '">' + rec.statement + '</a></p>');      
+    }
+    if (data.hits.hits.length === 0) $('div.' + options.class + '.results').html('<p>Nothing to show. Try a different search, or <a class="saymore" href="#">make a statement</a>.</p>').show();
+    $('#holder').show();
+    $('.toggler').on('click',toggler);
+    swipe();
+  }
+
+  // TODO consider holder could actually always use a large query size, and have a bundle to work through before requerying
+  $('#holder').holder({
+    url: "https://dev.api.cottagelabs.com/service/leviathan/statements",
+    datatype: 'JSON',
+    pushstate: false,
+    //sticky: true,
+    //scroll: true,
+    record: record,
+    review: review,
+    suggest: review,
+    sort:'random',
+    executeonload: false,
+    thenadd: function(e,th) {
+      $('.toggle').hide();
+      $('.statement').remove();
+      $(this).holder.options.add(e,th);
+    },
+    size:1,
+    placeholder: function() {
+      var options = $(this).holder.options;
+      var pl = '';
+      try { pl += options.response.hits.total + ' statements'; } catch(err) { pl += 'Search or share' }
+      $('input.holder.search').val("").attr('placeholder',pl);
+    }
+  });
+  
+  var post = function(resp) {
+    $('.loading').show();
+    var opts = {
+      url: 'https://dev.api.cottagelabs.com/service/leviathan/statement/' + resp._id ? resp._id : 'new',
+      type: 'POST',
+      cache: false,
+      contentType: "application/json; charset=utf-8",
+      process: false,
+      data: JSON.stringify(resp),
+      dataType: 'JSON',
+      success: function(data) {
+        // TODO or could get back the next random set in the response, and not need another query...
+        $.fn.holder.options.execute();
+      },
+      error: function(data) {
+        $('.loading').hide();
+        // TODO show error msg
+        console.log(data);
+      }
+    };
+    try {
+      //opts.url += '?apikey=' + noddy.apikey;
+      opts.beforeSend = function (request) { request.setRequestHeader("x-apikey", noddy.apikey); };      
+    } catch(err) {}
+    $.ajax(opts);    
+  }
+  
+  response = function(e,sentiment,pos) {
+    try { e.preventDefault(); } catch(err) {}
+    if (loginRequired && !noddy.loggedin()) {
+      $('.login').show();
+      $('#noddyEmail').attr('placeholder','Enter your email, we\'ll send a login token, then you can post').focus();
+      afterLoginAction = $(this);
+      return;
+    }
+    var stmt = $('#new').val().trim();
+    $('#new').val("");
+    post({statement: stmt});
+  }
+  $('.response').on('click',response);
+
+  
+  
+  // PAGE UI ACTIONS
+
+  var preview = function(e) {
+    if ( $('#search').val().replace(/ /g,'').length ) {
+      var s = $(this).val();
+      if (s) s = s.trim(); // TODO trim new lines too
+      if (s && s.toLowerCase().replace(/ /g,'').indexOf('about:') === 0) {
+        if (s.indexOf('\n') !== -1) {
+          s = s.split(/\n(.+)/)[1];
+        } else {
+          s = '';
+        }
+      }
+      if (s) {
+        s = s.trim(); // TODO trim new lines again
+        if (s.indexOf('\n') !== -1) s = s.split('\n')[0].trim();
+        $(this).parents('.statement').find('.header').html(s);
+      } else {
+        $(this).parents('.statement').find('.header').html('New statement');        
+      }
+    }
+    // TODO look for inputs of # or #L or @ or @L and provide dropdown suggestions - and track if already looking, so don't kick off too many (bind with delay, perhaps separately to preview)
+  }
+  $('#search').on('keyup',preview);
+  
+  var saymore = function(e) {
+    $('#messages').html("").hide();
+    $('.toggle').hide();
+    $('#responsebar').hide();
+    $('#newbar').show();
+    var vl = $('#search').val() ? $('#search').val() : $('div.holder.searches').text().replace(/X/g,'').replace(/\*/g,'').trim();
+    $('#new').val(vl).focus();
+    $('div.holder.searches').html('');
+  }
+  $('body').on('click','.saymore',saymore);
+  
+  var toggler = function(e,what) {
+    if (e) e.preventDefault();
+    if (what === undefined) what = $(this).attr('href');
+    $('#messages').html("").hide();
+    if ( what === ".details" ) {
+      $(this).closest('.statement').children('.details').toggle();
+    } else if ( what.indexOf('#statement_') === 0 ) {
+      var st = parseInt(what.replace('#statement_',''));
+      $('#firststatement').html(record($.fn.holder.options.records[st])).show();
+      $('.toggler').on('click',toggler);
+    } else if ( what === '.statement') {
+      $(this).closest('.statement').remove();
+      if ($('.statement').length) $.fn.holder.options.execute();
+    } else if ( what === '.login') {
+      $('#messages').html('<p>Just provide your email address to login or sign up.<br>No passwords! You\'ll receive an email with a link and a code.</p>').show();
+      $('#searchui').hide();
+      $('.login').show();
+      if ( $('.login').first().is(':visible') ) $('noddyEmail').focus();
+    } else {
+      $('.toggle').hide();
+      $(what).show();
+    }
+  };
+  $('.toggler').on('click',toggler);
+  
+});
+</script>

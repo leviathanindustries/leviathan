@@ -1,0 +1,31 @@
+
+<h1 id="who"></h1>
+<h2 id="whos"></h2>
+<h3 id="warning"></h3>
+<div id="history"></div>
+
+<script>
+
+var who = window.location.search.indexOf('who=') !== -1 ? window.location.search.split('who=')[1].split('&')[0].split('#')[0] + ' ' : '';
+
+var ping = function() {
+  $.ajax({
+    url: 'https://dev.lvatn.com/status/present' + who ? '?who=' + who : '',
+    success: function(data) {
+      console.log(data);
+      $("#who").html((who ? 'Hi ' + who + ', present at ' : '') + moment().format('Do MMMM YYYY HHmm:ss'));
+      $('#whos').html('All known operators: ' + data.who.join(', '));
+      $('#warning').html(data.history.length === 0 || data.history[0].createdAt < Date.now()-300000 ? 'WARNING: nobody has been available since ' + moment(data.history[0].createdAt).format('Do MMMM YYYY HHmm:ss') : '');
+      var history = '';
+      for ( var h in data.history ) {
+        history += '<p>' + data.history[h].who + (data.history[h].createdAt < Date.now()-300000 ? ' is online' : ' was online at ' + moment(data.history[0].createdAt).format('Do MMMM YYYY HHmm:ss')) + '</p>';
+        // can add notes here for people who have notified they are away/afk, or who have notified they WILL be away at some point in future
+      }
+      $('#history').html(history);
+    }
+  });
+}
+ping();
+
+setInterval(ping, 5000);
+</script>

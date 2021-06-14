@@ -63,13 +63,13 @@
       depth: 6,
       statictoo: false,
       statictoodepth: 3,
-      refscrolloffset:40,
+      refscrolloffset:70,
       ignore: '.ignore'
     };
 
     var tocontent = function(event) {
       event.preventDefault();
-      window.scrollTo( 0, ($('a[name=' + $(this).attr('href').replace('#','') + ']').offset().top - options.refscrolloffset) )
+      window.scrollTo( 0, ($('a[name="' + $(this).attr('href').replace('#','') + '"]').offset().top - options.refscrolloffset) )
     }
 
     // and add in any overrides from the call
@@ -86,7 +86,7 @@
       };
       // function to indent by spaces based on header type
       $.fn.indent = function() {
-        var eltype = ( jQuery(this)[0].nodeName.replace(/[A-z]/,'') - 1 ) * 4;
+        var eltype = ( jQuery(this)[0].nodeName.replace(/[A-z]/,'') - 1 ) * 2;
         var count = 0;
         var output = "";
         while (count < eltype) {
@@ -97,7 +97,7 @@
       };
 
       // add a TOC div to the page where required
-      $(options.prependto).prepend('<div id="' + tid + '"><ul style="list-style-type:none;margin-left:-50px;"></ul></div>');
+      $(options.prependto).prepend('<div id="' + tid + '"><ul style="list-style-type:none;margin-left:-40px;"></ul></div>');
 
       if ( options.statictoo ) {
         // put a contents nav on the top that shows when contents is not in view
@@ -169,7 +169,7 @@
       identifier: 'a',
       ignore: '.ignore',
       url: '/query/reference/',
-      refscrolloffset: 40,
+      refscrolloffset: 70,
       appendto: $('#references').length ? '#references' : this // wherever the references div should be appended
     };
     // and add in any overrides from the call
@@ -361,12 +361,12 @@ noddy.writer = function(opts) {
 
   if ( $(window).width() > 1200 ) {
     $('#maincontents').addClass('visible-print');
-    $(opts.element).css({'margin': '100px 10% 200px auto'});
-    $(opts.element).before('<div id="csidecontents" class="hidden-print" style="position:fixed;top:0;left:0;bottom:0;right:0;width:400px;border-right:2px solid #ccc;padding:5px;background-color:#eee;z-index:1000000;"><div id="sidecontents" style="font-size:0.7em;overflow-y:auto;height:100%;"></div></div>');
+    $(opts.element).css({'margin': '0 10% 200px auto'});
+    $(opts.element).before('<div id="csidecontents" class="hidden-print" style="position:fixed;top:52px;left:0;bottom:0;right:0;width:400px;border-right:2px solid #ccc;padding:5px;background-color:#eee;z-index:1000000;"><div id="sidecontents" style="font-size:0.7em;overflow-y:auto;height:100%;"></div></div>');
     $(opts.element).toc({'prependto':'#sidecontents', depth:4, url: opts.url});
   }
 
-  var showingcontext = false;
+  /*var showingcontext = false;
   $('body').click(function(e) {
     if ( showingcontext ) {
       showingcontext = false;
@@ -377,7 +377,7 @@ noddy.writer = function(opts) {
     if ( target.closest('a').length || target.closest('select').length ) return;
     alert('hello');
   });
-  $('body').contextmenu(function() { showingcontext = true; });
+  $('body').contextmenu(function() { showingcontext = true; });*/
 
 
 }

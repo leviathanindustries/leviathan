@@ -1,0 +1,51 @@
+
+<style>
+  .form-control {
+    margin-bottom:5px;
+  }  
+</style>
+
+<script src="/static/poller.js"></script>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+
+      <form id="form">
+      
+        <input type="text" id="type" class="form-control">  
+        <input type="text" id="url" class="form-control">  
+        <input type="text" id="title" class="form-control">  
+        <input type="text" id="doi" class="form-control">  
+        <input type="text" id="journal" class="form-control">  
+        <input type="text" id="year" class="form-control">  
+        <input type="text" id="status" class="form-control">  
+        <input type="text" id="story" class="form-control">  
+        <input type="text" id="sherpa.journal.jtitle" class="form-control">  
+        <input type="text" id="sherpa.colour" class="form-control">  
+      
+        <input type="text" id="author.0.given" class="form-control">  
+        <input type="text" id="author.0.family" class="form-control">  
+        <input type="text" id="author.1.given" class="form-control">  
+        <input type="text" id="author.1.family" class="form-control">  
+        
+        <input type="text" id="sherpa.publisher.conditions" class="form-control">  
+        <!-- could conditions be a comma separated list OR a list of separate elements with 0, 1, etc? -->
+
+      </form>
+      
+    </div>
+  </div>
+</div>
+
+<script>
+
+  poller({
+    url: 'https://api.openaccessbutton.org/request/B3B9RDeYkP3AoGug7',
+    form: '#form',
+    populate: true, 
+    partial: 'data',
+    test: true
+  });
+  
+</script>

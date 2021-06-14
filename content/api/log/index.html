@@ -1,0 +1,95 @@
+
+<div class="holder loading" style="position:fixed;top:0;bottom:0;left:0;right:0;opacity:0.2;background-color:#ccc;">
+  <div style="margin-top:300px;margin-left:auto;margin-right:auto;width:200px;">
+    <img style="height:200px;width:200px;" src="//static.cottagelabs.com/spin_grey.svg">
+  </div>
+</div>
+
+<div id="intro" style="margin:auto;width:1000px;"></div>
+<div id="empty" style="margin:auto;width:1000px;display:none;margin-top:20px;"><p>The stack is currently empty.</p></div>
+<div id="holder" style="margin:auto;width:1000px;"></div>
+
+<script>
+jQuery(document).ready(function() {
+  
+  var getstack = function() {
+    $('.holder.loading').show();
+    $.ajax({
+      url: '{{api}}/log/stack' + (window.location.search.indexOf('q=') !== -1 ? '?q=' + window.location.search.split('q=')[1].split('&')[0] : ''),
+      success: function (data) {
+        if (data.length === 0) {
+          $('#empty').show();
+        } else {
+          $('#empty').hide();
+          for (var d in data.reverse() ) {
+            var dr = data[d];
+            if (!$('#' + dr._id).length) {
+              var row = '<div id="' + dr._id + '" style="border-bottom:1px solid #ccc;margin-bottom:10px;padding-bottom:10px;"><p style="word-break:break-word;word-wrap:break-word;">';
+              for ( var k in dr ) {
+                if ( k === 'url') {
+                  var pts = dr[k].split('?');
+                  var url = pts[0];
+                  row += '<b>' + k + '</b>: <a href="?q=' + url + '">' + pts[0] + '</a>' + (pts.length > 1 ? '?' + pts[1] : '') + '<br>';
+                } else if ( k === 'headers' ) {
+                  row += '<b>' + k + '</b>:<br>';
+                  var kh = JSON.parse(dr[k]);
+                  for ( var hk in kh ) {
+                    row += '&nbsp;&nbsp;&nbsp;&nbsp;<b>' + hk + '</b>: <a href="?q=' + kh[hk] + '">' + kh[hk] + '</a><br>';
+                  }
+                } else if (['_id','createdAt','originalUrl'].indexOf(k) === -1) {
+                  row += '<b>' + k + '</b>: ' + dr[k] + '<br>';
+                }
+              }
+              row += '</p></div>';
+              $('#holder').prepend(row);
+            }
+          }
+        }
+        $('.holder.loading').hide();
+        setTimeout(getstack,30000);
+      }
+    });
+  }
+
+  if (window.location.search.indexOf('day') !== -1) {
+    $('#holder').holder({
+      url: '{{api}}/log/' + window.location.search.split('day=')[1],
+      //ui: false,
+      //record: false,
+      datatype: 'JSON',
+      pushstate: false,
+      sort: {createdAt:{order:'desc'}},
+      size: 100 /*,
+      fields: ["from.exact", "organisation.exact", "subjected_lists.exact", "references.exact", "in-reply-to.exact", "tags.exact", "subject"],
+      aggs: {
+        subjects: {terms: {field: "subject.exact", size: 50}},
+        from: {terms:{field: "from.exact", size: 50}},
+        organisation: {terms: {field: "organisation.exact", size: 50}},
+        lists: {terms:{field: "subjected_lists.exact", size: 50}},
+        terms: {terms: {field: "tags.exact", size: 50}}
+      }*/
+    });
+  } else {
+    getstack();
+    $.ajax({
+      url: '{{api}}/log/stack/local',
+      success: function (data) {
+        var intro = '<div class="well" style="margin-bottom:10px;">';
+        intro += '</p>This is the log stack. It is the list of most recent logged events that have yet to be stored in the permanent log for the day.</p>';
+        intro += '<p>This list will auto-update every 30 seconds.</p>';
+        intro += '<p>The stack grows to a maximum size of ' + data.bulk + ' per machine that it runs on - that is currently ' + data.cluster;
+        intro += ' - and has a timeout of ' + data.timeout/1000/60 + ' minutes.</p>';
+        intro += '<p>Simple queries are possible on the stack - just click a value below to filter by it.</p>';
+        intro += '<p>Once the stack is stored, it appears in the daily log index. Each daily log index is fully queryable. The current daily index is ';
+        intro += '<a href="?day=' + data.latest + '">' + data.latest + '</a> and the oldest is <a href="?day=' + data.oldest + '">' + data.oldest + '</a>.';
+        intro += ' The latest log is also on the <a href="log/activity">activity monitor</a>.</p>';
+        intro += '</div>';
+        $('#intro').append(intro);
+      }
+    });
+
+  }
+
+  
+});
+</script>

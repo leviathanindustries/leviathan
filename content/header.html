@@ -1,0 +1,89 @@
+
+<style>
+  .subnav {
+    font-weight: 'bold';
+    color: 'inherit';
+  }
+</style>
+
+<div class="navbar navbar-fixed-top topstrap topshadow">
+	<div class="container">
+		<div class="row">
+			<div class="topnav col-xs-11">
+        <h2 style="margin-top:5px;margin-left:15px;" class="toptitle">
+          <a href="/" alt="Home" title="Home" style="color:#5F5C64;" class="nixie maintitle">LEVIATHAN</a>
+        </h2>
+			</div>
+			<div class="col-xs-1">
+			  <a class="menutoggle" style="z-index:1000000;color:#aaa;float:right;padding:10px 20px 10px 15px;margin-right:-15px;border-radius:0px 0px 0px 2px;" href="#">
+			    <i style="font-size:24px;" class="fa fa-navicon"></i>
+			  </a>
+        <a class="menuhide" style="display:none;z-index:1000000;background-color:#FFFFFC;color:#666;float:right;padding:10px 15px 10px 15px;margin-right:-5px;" href="#">
+          <i style="font-size:24px;" class="glyphicon glyphicon-remove"></i>
+        </a>
+			</div>
+		</div>
+		<div class="row topmenu" style="display:none;">
+		  
+		</div>
+	</div>
+</div>
+
+<div id="navspacer" style="height:80px;"></div>
+
+<script>
+jQuery(document).ready(function() {
+  
+  var pp = window.location.pathname.replace('/','').split('/')[0];
+  if (pp.length && $(window).width() > 700) $('.toptitle').append(' <a class="subnav" href="/' + pp + '">' + pp + '</a>');
+
+  var menus = {
+    'Leviathan Industries': 'https://leviathanindustries.com',
+    'Contact Leviathan': 'mailto:mark@cottagelabs.com',
+    '----------': '',
+    'Cottage Labs': 'https://cottagelabs.com'
+  };
+  for ( var m in menus ) $('.topmenu').append('<p style="text-align:center;">' + (menus[m].length ? '<a href="' + menus[m] + '" style="color:#333;font-weight:bold;font-size:1.2em;">' : '') + m + (menus[m].length ? '</a>' : '') + '</p>');
+
+  fademenu = function() {
+    $('.toptitle').hide();
+    $(".topstrap").removeClass("topshadow").on("mouseover",function() { $('.topstrap').addClass('topshadow'); $('.toptitle').fadeIn(500); }).on("mouseleave",function() { if ( $(window).scrollTop() === 0 ) { $('.topstrap').removeClass('topshadow'); $('.toptitle').fadeOut(500); } });
+    $(window).on("scroll", function() {
+      if ( $(window).scrollTop() === 0 ) {
+        $(".topstrap").removeClass("topshadow");
+        $(".toptitle").fadeOut(500);
+      } else if ( !$(".topstrap").hasClass("topshadow") ) {
+        $(".topstrap").addClass("topshadow");
+        $(".toptitle").fadeIn(500);
+      }
+    });
+  }
+  unfademenu = function() {
+    $('.toptitle').show(); // on mouseover and mouseleave, detach actions
+    $('.topstrap').addClass("topshadow");
+    // detach on window scroll action
+  }
+
+  var showmenu = function(event) {
+    event ? event.preventDefault() : false;
+    $('.topstrap').addClass('topborder');
+    $('.topmenu').show();
+    $('.menutoggle').hide();
+    $('.menuhide').show();
+  }
+  $('.menutoggle').bind('click',showmenu);
+  //$('.topnav').bind('click',showmenu);
+  $('.maintitle').bind('click',function(e) { e.stopPropagation(); });
+  $('.subnav').bind('click',function(e) { e.stopPropagation(); });
+  var hidemenu = function(event) {
+    event ? event.preventDefault() : false;
+    $('.topstrap').removeClass('topborder');
+    $('.topmenu').hide();
+    $('.menutoggle').show();
+    $('.menuhide').hide();
+  }
+  $('.menuhide').bind('click',hidemenu);
+
+
+});
+</script>

@@ -1,0 +1,57 @@
+
+<div class="holder loading" style="position:fixed;top:0;bottom:0;left:0;right:0;opacity:0.2;background-color:#ccc;">
+  <div style="margin-top:300px;margin-left:auto;margin-right:auto;width:200px;">
+    <img style="height:200px;width:200px;" src="//static.cottagelabs.com/spin_grey.svg">
+  </div>
+</div>
+
+<READER>
+  
+<div id="status"></div>
+
+<script>
+jQuery(document).ready(function() {
+  
+  $.ajax({
+    url: '{{api}}/status',
+    success: function (data) {
+      var s = '<div class="jumbotron" style="border:2px solid #ccc;border-color:' + data.status + ';"><h1>Status: <span style="color:' + data.status + ';">' + data.status + '</span></h1></div>';
+      s += '<h2>Dev is ' + (data.up.dev ? 'up' : 'down') + ', live is ' + (data.up.live ? 'up' : 'down') + '</h2>';
+      s += '<p>{{api}}</p>';
+      var ips = [];
+      for (var m in data.machines) {
+        if (ips.indexOf(data.machines[m].ip) === -1) ips.push(data.machines[m].ip); 
+      }
+      s += '<p>' + ips.length + ' machines reported successfully in the cluster (including the main machine).</p>';
+      s += '<p>There are ' + data.accounts.total + ' user accounts.</p>';
+      s += '<p>Job runner is ' + (data.job.running ? '' : 'not ') + 'running, with ' + data.job.jobs.count + ' jobs and ' + data.job.jobs.done + ' done.</p>';
+      s += '<p>There are ' + data.job.processes.count + ' job processes, ' + data.job.processing.count + ' processing, and ' + data.job.results.count + ' results.</p>';
+      if (data.service) {
+        var svs = [];
+        for ( var ds in data.service) svs.push(ds);
+        if (svs.length) s += '<p>Services ' + svs.join(', ') + ' reported successfully.</p>';
+      }
+      if (data.use) {
+        var uses = [];
+        var used = [];
+        for (var u in data.use) {
+          if (data.use[u]) {
+            uses.push(u);
+          } else {
+            used.push(u);
+          }
+        }
+        if (uses.length) s += '<p>Use endpoints ' + uses.join(', ') + ' reported successfully.</p>';
+        if (used.length) s += '<p>Use endpoints ' + used.join(', ') + ' did NOT report successfully.</p>';
+      }
+      var idxc = 0;
+      for (var i in data.index.indices) idxc += 1;
+      s += '<p>The index cluster status is ' + data.index.cluster.status + ' with ' + idxc + ' indexes running.</p>';
+      $('#status').append(s);
+      $('.holder.loading').hide();
+    }
+  });
+
+  
+});
+</script>

@@ -1,6 +1,16 @@
 
 server {
   listen      80;
+  server_name www.lvatn.com;
+  return 301 https://lvatn.com;
+}
+server {
+  listen      80;
+  server_name lvatn.com;
+  return 301 https://lvatn.com$request_uri;
+}
+server {
+  listen      80;
   server_name www.iamleviathan.com;
   return 301 https://weareleviathan.com;
 }
@@ -56,6 +66,14 @@ server {
 
   #rewrite ^/request/((?!new).)*$ /social/request/item last;
 
+  location ^~ /.well-known/acme-challenge/ {
+    default_type "text/plain";
+    root /var/www/letsencrypt;
+  }
+  location = /.well-known/acme-challenge/ {
+    return 404;
+  }
+
   location / {
     try_files /serve/social/$uri.html /serve/social/$uri/index.html /404.html =404;
   }
@@ -67,31 +85,6 @@ server {
   location /static {
     try_files /serve/$uri $uri =404;
     expires 30d;
-  }
-
-}
-
-server {
-  listen      80;
-  server_name api.weareleviathan.com api.iamleviathan.com;
-  return 301 https://api.weareleviathan.com$request_uri;
-}
-server {
-  listen          443 ssl spdy;
-  server_name     api.weareleviathan.com api.iamleviathan.com;
-
-  ssl on;
-  ssl_certificate /etc/letsencrypt/live/api.weareleviathan.com/fullchain.pem;
-  ssl_certificate_key /etc/letsencrypt/live/api.weareleviathan.com/privkey.pem;
-
-  location / {
-    proxy_pass http://noddy/api/service/leviathan/;
-    add_header Access-Control-Allow-Methods 'GET, PUT, POST, DELETE, OPTIONS';
-    add_header Access-Control-Allow-Headers 'X-apikey,X-id,DNT,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type';
-    proxy_http_version 1.1;
-    proxy_set_header Upgrade $http_upgrade;
-    proxy_set_header Connection $connection_upgrade;
-    proxy_set_header X-Forwarded-For $remote_addr;
   }
 }
 
@@ -146,6 +139,46 @@ server {
   location /content {
     try_files /phd/$uri /phd/$uri.html /phd/$uri.md /phd/$uri/index /phd/$uri/index.html /phd/$uri/index.md /404 =404;
   }
+  location /static {
+    try_files /serve/$uri $uri =404;
+    expires 30d;
+  }
+}
+
+server {
+  listen 443;
+  server_name lvatn.com;
+  root /home/cloo/dev/leviathan;
+
+  ssl on;
+  ssl_certificate /etc/letsencrypt/live/lvatn.com/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/lvatn.com/privkey.pem;
+  ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+  ssl_ciphers "HIGH:!aNULL:!MD5 or HIGH:!aNULL:!MD5:!3DES";
+  ssl_prefer_server_ciphers on;
+  ssl_stapling on;
+  #add_header Strict-Transport-Security "max-age=31536000;";
+
+  add_header Pragma public;
+  add_header Cache-Control "public";
+  add_header Access-Control-Allow-Origin *;
+
+  location ^~ /.well-known/acme-challenge/ {
+    default_type "text/plain";
+    root /var/www/letsencrypt;
+  }
+  location = /.well-known/acme-challenge/ {
+    return 404;
+  }
+
+  location / {
+    try_files /serve/api/$uri.html /serve/api/$uri/index.html /404.html =404;
+  }
+
+  location /content {
+    try_files /api/$uri /api/$uri.html /api/$uri.md /api/$uri/index /api/$uri/index.html /api/$uri/index.md /404 =404;
+  }
+
   location /static {
     try_files /serve/$uri $uri =404;
     expires 30d;

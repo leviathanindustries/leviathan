@@ -1,0 +1,46 @@
+
+
+<READER>
+
+<M>
+
+<br><br><br>
+
+<H>
+
+<h1 style="text-align:center">I am an example page for difftest!</h1>
+
+<E>
+
+<p id="timer">Last changed: <span id="dater"></span></p>
+
+<p id="case"></p>
+
+<p id="punctuation"></p>
+
+<p id="structure"></p>
+
+<script>
+var cs = 'Case example';
+var csc = '';
+for ( var l in cs.split('')) csc += Math.random() < 0.5 ? cs[l] : cs[l].toUpperCase();
+document.getElementById("case").innerHTML = csc;
+
+var ps = 'Punctuation example';
+var puncm = [',',' -',';',':'];
+var punce = ['!','?','.','...'];
+ps = ps.replace(' ',puncm[Math.floor(Math.random() * puncm.length)] + ' ');
+ps += punce[Math.floor(Math.random() * punce.length)];
+document.getElementById("punctuation").innerHTML = ps;
+
+var ss = 'Structure example';
+var sse = ['<i>','<b>','<u>','<span>'];
+var selem = sse[Math.floor(Math.random() * sse.length)];
+ss = selem + ss + selem.replace('<','</');
+document.getElementById("structure").innerHTML = ss;
+
+document.getElementById("dater").innerHTML = moment().format('Do MMMM YYYY HHmm:ss');
+setInterval(function() {
+  document.getElementById("dater").innerHTML = moment().format('Do MMMM YYYY HHmm:ss');
+}, 5000);
+</script>

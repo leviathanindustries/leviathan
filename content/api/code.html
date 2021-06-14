@@ -1,0 +1,620 @@
+
+<style>
+.close {
+  font-size:2em;
+  margin-right:20px;
+  cursor:pointer;
+}
+.nodeText {
+  fill:white;
+}
+.axis line {
+  stroke: #999;
+}
+.axis path {
+  stroke: #999;
+}
+.axis text {
+  fill: white;
+}
+svg.line {
+  margin-top:30px;
+}
+</style>
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.2/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.2/highlight.min.js"></script>
+
+<script>
+var col437 = [
+'#d3fe14', '#fec7f8', '#0b7b3e', '#0bf0e9', '#c203c8', '#fd9b39', '#888593', 
+'#906407', '#98ba7f', '#fe6794', '#10b0ff', '#ac7bff', '#fee7c0', '#964c63', 
+'#1da49c', '#0ad811', '#bbd9fd', '#fe6cfe', '#297192', '#d1a09c', '#78579e', 
+'#81ffad', '#739400', '#ca6949', '#d9bf01', '#646a58', '#d5097e', '#bb73a9', 
+'#ccf6e9', '#9cb4b6', '#b6a7d4', '#9e8c62', '#6e83c8', '#01af64', '#a71afd', 
+'#cfe589', '#d4ccd1', '#fd4109', '#bf8f0e', '#2f786e', '#4ed1a5', '#d8bb7d', 
+'#a54509', '#6a9276', '#a4777a', '#fc12c9', '#606f15', '#3cc4d9', '#f31c4e', 
+'#73616f', '#f097c6', '#fc8772', '#92a6fe', '#875b44', '#699ab3', '#94bc19', 
+'#7d5bf0', '#d24dfe', '#c85b74', '#68ff57', '#b62347', '#994b91', '#646b8c', 
+'#977ab4', '#d694fd', '#c4d5b5', '#fdc4bd', '#1cae05', '#7bd972', '#e9700a', 
+'#d08f5d', '#8bb9e1', '#fde945', '#a29d98', '#1682fb', '#9ad9e0', '#d6cafe', 
+'#8d8328', '#b091a7', '#647579', '#1f8d11', '#e7eafd', '#b9660b', '#a4a644', 
+'#fec24c', '#b1168c', '#188cc1', '#7ab297', '#4468ae', '#c949a6', '#d48295', 
+'#eb6dc2', '#d5b0cb', '#ff9ffb', '#fdb082', '#af4d44', '#a759c4', '#a9e03a', 
+'#0d906b', '#9ee3bd', '#5b8846', '#0d8995', '#f25c58', '#70ae4f', '#847f74', 
+'#9094bb', '#ffe2f1', '#a67149', '#936c8e', '#d04907', '#c3b8a6', '#cef8c4', 
+'#7a9293', '#fda2ab', '#2ef6c5', '#807242', '#cb94cc', '#b6bdd0', '#b5c75d', 
+'#fde189', '#b7ff80', '#fa2d8e', '#839a5f', '#28c2b5', '#e5e9e1', '#bc79d8', 
+'#7ed8fe', '#9f20c3', '#4f7a5b', '#f511fd', '#09c959', '#bcd0ce', '#8685fd', 
+'#98fcff', '#afbff9', '#6d69b4', '#5f99fd', '#aaa87e', '#b59dfb', '#5d809d', 
+'#d9a742', '#ac5c86', '#9468d5', '#a4a2b2', '#b1376e', '#d43f3d', '#05a9d1', 
+'#c38375', '#24b58e', '#6eabaf', '#66bf7f', '#92cbbb', '#ddb1ee', '#1be895', 
+'#c7ecf9', '#a6baa6', '#8045cd', '#5f70f1', '#a9d796', '#ce62cb', '#0e954d', 
+'#a97d2f', '#fcb8d3', '#9bfee3', '#4e8d84', '#fc6d3f', '#7b9fd4', '#8c6165', 
+'#72805e', '#d53762', '#f00a1b', '#de5c97', '#8ea28b', '#fccd95', '#ba9c57', 
+'#b79a82', '#7c5a82', '#7d7ca4', '#958ad6', '#cd8126', '#bdb0b7', '#10e0f8', 
+'#dccc69', '#d6de0f', '#616d3d', '#985a25', '#30c7fd', '#0aeb65', '#e3cdb4', 
+'#bd1bee', '#ad665d', '#d77070', '#8ea5b8', '#5b5ad0', '#76655e', '#598100', 
+'#86757e', '#5ea068', '#a590b8', '#c1a707', '#85c0cd', '#e2cde9', '#dcd79c', 
+'#d8a882', '#b256f9', '#b13323', '#519b3b', '#dd80de', '#f1884b', '#74b2fe', 
+'#a0acd2', '#d199b0', '#f68392', '#8ccaa0', '#64d6cb', '#e0f86a', '#42707a', 
+'#75671b', '#796e87', '#6d8075', '#9b8a8d', '#f04c71', '#61bd29', '#bcc18f', 
+'#fecd0f', '#1e7ac9', '#927261', '#dc27cf', '#979605', '#ec9c88', 
+'#8c48a3','#676769', '#546e64', '#8f63a2', '#b35b2d', '#7b8ca2', '#b87188', 
+'#4a9bda', '#eb7dab', '#f6a602', '#cab3fe', '#ddb8bb', '#107959', '#885973', 
+'#5e858e', '#b15bad', '#e107a7', '#2f9dad', '#4b9e83', '#b992dc', '#6bb0cb', 
+'#bdb363', '#ccd6e4', '#a3ee94', '#9ef718', '#fbe1d9', '#a428a5', '#93514c', 
+'#487434', '#e8f1b6', '#d00938', '#fb50e1', '#fa85e1', '#7cd40a', '#f1ade1', 
+'#b1485d', '#7f76d6', '#d186b3', '#90c25e', '#b8c813', '#a8c9de', '#7d30fe', 
+'#815f2d', '#737f3b', '#c84486', '#946cfe', '#e55432', '#a88674', '#c17a47', 
+'#b98b91', '#fc4bb3', '#da7f5f', '#df920b', '#b7bbba', '#99e6d9', '#a36170', 
+'#c742d8', '#947f9d', '#a37d93', '#889072', '#9b924c', '#23b4bc', '#e6a25f', 
+'#86df9c', '#a7da6c', '#3fee03', '#eec9d8', '#aafdcb', '#7b9139', '#92979c', 
+'#72788a', '#994cff', '#c85956', '#7baa1a', '#de72fe', '#c7bad8', '#85ebfe', 
+'#6e6089', '#9b4d31', '#297a1d', '#9052c0', '#5c75a5', '#698eba', '#d46222', 
+'#6da095', '#b483bb', '#04d183', '#9bcdfe', '#2ffe8c', '#9d4279', '#c909aa', 
+'#826cae', '#77787c', '#a96fb7', '#858f87', '#fd3b40', '#7fab7b', '#9e9edd', 
+'#bba3be', '#f8b96c', '#7be553', '#c0e1ce', '#516e88', '#be0e5f', '#757c09', 
+'#4b8d5f', '#38b448', '#df8780', '#ebb3a0', '#ced759', '#f0ed7c', '#e0eef1', 
+'#0969d2', '#756446', '#488ea8', '#888450', '#61979c', '#a37ad6', '#b48a54', 
+'#8193e5', '#dd6d89', '#8aa29d', '#c679fe', '#a4ac12', '#75bbb3', '#6ae2c1', 
+'#c4fda7', '#606877', '#b2409d', '#5874c7', '#bf492c', '#4b88cd', '#e14ec0', 
+'#b39da2', '#fb8300', '#d1b845', '#c2d083', '#c3caef', '#967500', '#c56399', 
+'#ed5a05', '#aadff6', '#6685f4', '#1da16f', '#f28bff', '#c9c9bf', '#c7e2a9', 
+'#5bfce4', '#e0e0bf', '#e8e2e8', '#ddf2d8', '#9108f8', '#932dd2', '#c03500', 
+'#aa3fbc', '#547c79', '#9f6045', '#04897b', '#966f32', '#d83212', '#039f27', 
+'#df4280', '#ef206e', '#0095f7', '#a5890d', '#9a8f7f', '#bc839e', '#88a23b', 
+'#e55aed', '#51af9e', 
+'#5eaf82', '#9e91fa', '#f76c79', '#99a869', '#d2957d', '#a2aca6', '#e3959e', 
+'#adaefc', '#5bd14e', '#df9ceb', '#fe8fb1', '#87ca80', '#fc986d', '#2ad3d9', 
+'#e8a8bb', '#a7c79c', '#a5c7cc', '#7befb7', '#b7e2e0', '#85f57b', '#f5d95b', 
+'#dbdbff', '#fddcff', '#6e56bb', '#226fa8', '#5b659c', '#58a10f', '#e46c52', 
+'#62abe2', '#c4aa77', '#b60e74', '#087983', '#a95703', '#2a6efb', '#427d92'
+]
+
+  var structure = undefined;
+
+  var fill = function(group) {
+    var dv = Math.floor(col437.length / structure.groups.length);
+    var pos = structure.groups.indexOf(group);
+    if (pos === -1 && group.indexOf('.') === -1) {
+      return '#428bca';
+    } else {
+      return col437[pos*dv];
+    }
+  }
+
+  var live = window.location.search.indexOf('live=true') !== -1;
+  var apikey = window.location.search.indexOf('apikey=') !== -1 ? window.location.search.split('apikey=')[1].split('&')[0] : '';
+  var api = '{{api}}';
+</script>
+
+<script type="text/javascript" src="//static.cottagelabs.com/d3/d3.v4.min.js"></script>
+<script type="text/javascript" src="/static/holder/display/network.js"></script>
+<script type="text/javascript" src="/static/logs.js"></script>
+<script type="text/javascript" src="/static/graph.js"></script>
+
+<div class="holder loading" style="position:fixed;top:0;bottom:0;left:0;right:0;opacity:0.2;background-color:#ccc;">
+  <div style="margin-top:300px;margin-left:auto;margin-right:auto;width:200px;">
+    <img style="height:200px;width:200px;" src="//static.cottagelabs.com/spin_grey.svg">
+  </div>
+</div>
+
+<div class="row" style="background-color:#333;margin:-30px 0px 0px 0px;">
+  <div class="col-md-3">
+    <div id="sidebar" style="height:700px;overflow-y:scroll;padding-left:10px;margin-top:30px;">
+      <div id="groups"></div>
+      <div id="routes" style="display:none;"></div>
+    </div>
+  </div>
+  <div class="col-md-9" id="panes" style="margin-right:0px;padding-right:0px;">
+    <div class="pane" id="holder" style="border-left:1px solid #999;"></div>
+    <div class="pane" id="logs" style="display:none;border-left:1px solid #999;top:0;left:0;right:0;bottom:0;">
+      <a class="close" href="#" style="margin-top:10px;margin-right:30px;color:#999;"><span class="glyphicon glyphicon-remove"></span></a>
+      <svg class="line" style="width:100%;height:80%;margin-top:-20px;"></svg>
+      <div id="logcontrol" style="width:100%;height:10%;padding:20px 40px 0px 55px;">
+        <input type="text" id="q" class="form-control" style="margin-bottom:5px;display:none;">
+        <a class="label label-default logrange" href="month">month</a> 
+        <a class="label label-default logrange" href="week">week</a> 
+        <a class="label label-default logrange" href="day">day</a> 
+        <a class="label label-default logrange" href="hour">hour</a> 
+        <a class="label label-default logrange" href="minute">minute</a> 
+        <a class="label label-default logcompare" style="display:none;" href="">vs a day ago</a> 
+        <a target="_blank" class="label label-primary gotolog" href="log">details</a> 
+      </div>
+    </div>
+    <div class="pane" id="graph" style="display:none;border-left:1px solid #999;top:0;left:0;right:0;bottom:0;">
+      <a class="close" href="#" style="margin-top:10px;margin-right:30px;color:#999;"><span class="glyphicon glyphicon-remove"></span></a>
+      <svg class="graph" style="width:100%;height:80%;margin-top:0px;"></svg>
+    </div>
+    <div class="pane" id="details" style="display:none;top:0;left:0;right:0;bottom:0;background-color:#fff;padding:10px;">
+      <a class="close" href="#"><span class="glyphicon glyphicon-remove"></span></a>
+      <div class="info" style="overflow-y:scroll;height:100%;text-align:left;"></div>
+    </div>
+    <div class="pane" id="status" style="display:none;top:0;left:0;right:0;bottom:0;background-color:#fff;padding:10px;">
+      <a class="close" href="#"><span class="glyphicon glyphicon-remove"></span></a>
+      <div class="info" style="overflow-y:scroll;height:100%;text-align:left;">
+        <div style="margin-top:100px;margin-left:auto;margin-right:auto;width:200px;">
+          <img style="height:200px;width:200px;" src="//static.cottagelabs.com/spin_grey.svg">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+jQuery(document).ready(function() {
+
+  $('#sidebar').css('height',$(window).height()-30-$('.topnav').height());
+  $('.pane').css('height',$(window).height()-$('.topnav').height());
+  $('svg').attr('height',Math.floor(($(window).height()-$('.topnav').height())*.8));
+  $('svg').attr('width',$('#panes').width()-20);
+
+  $('.toptitle').append(' | <a id="showroutes" href="#">routes</a> | <a class="showlogs" href="#">logs</a>');
+  $('.toptitle').append(' &nbsp;&nbsp;<small style="font-size:.6em;"> \
+  <a class="label label-info" id="showdev" href="#">dev</a> \
+  <a class="label label-default" id="showlive" href="?live=true">live</a>  \
+  <a class="label label-default" id="showstatus" href="#">status <img style="height:10px;" src="//static.cottagelabs.com/spin_grey.svg"></a> \
+  <a class="label label-danger showerrors" id="showerrors" href="errors">errors <img style="height:10px;" src="//static.cottagelabs.com/spin_grey.svg"></a> \
+  </small>');
+
+  var status = undefined;
+  var detailed = false;
+  var getstatus = function(e) {
+    try { e.preventDefault(); } catch(err) {}
+    $.ajax({
+      url: api + '/status' + (e === true ? '?detailed=true' : ''),
+      success: function(data) {
+        status = data;
+        if (!$('#showstatus').hasClass('label-success') && !$('#showstatus').hasClass('label-warning') && !$('#showstatus').hasClass('label-danger')) {
+          $('#showstatus > img').hide();
+          $('#showstatus').attr('style','');
+          if (data.status === 'green') {
+            $('#showstatus').addClass('label-success');
+            $('#showstatus').append('<span class="glyphicon glyphicon-ok-sign"></span>');
+          } else if (data.status === 'yellow') {
+            $('#showstatus').addClass('label-warning');
+            $('#showstatus').append('<span class="glyphicon glyphicon-info-sign"></span>');
+          } else if (data.status === 'red') {
+            $('#showstatus').addClass('label-danger');
+            $('#showstatus').append('<span class="glyphicon glyphicon-exclamation-sign"></span>');
+          }
+        }
+        if (status.machines) {
+          var s = '<div class="jumbotron" style="border:2px solid #ccc;border-color:' + data.status + ';"><h1>Status: <span style="color:' + data.status + ';">' + data.status + '</span></h1></div>';
+          s += '<h2>Dev is ' + (data.up.dev ? 'up' : 'down') + ', live is ' + (data.up.live ? 'up' : 'down') + '</h2>';
+          s += '<p>{{api}}</p>';
+          var ips = [];
+          for (var m in data.machines) {
+            if (ips.indexOf(data.machines[m].ip) === -1) ips.push(data.machines[m].ip); 
+          }
+          s += '<p>' + ips.length + ' machines reported successfully in the cluster (including the main machine).</p>';
+          if (data.accounts && data.accounts.total !== undefined) s += '<p>There are ' + data.accounts.total + ' user accounts.</p>';
+          if (data.job) {
+            s += '<p>Job runner is ' + (data.job.running ? '' : 'not ') + 'running, with ' + data.job.jobs.count + ' jobs and ' + data.job.jobs.done + ' done.</p>';
+            s += '<p>There are ' + data.job.processes.count + ' job processes, ' + data.job.processing.count + ' processing, and ' + data.job.results.count + ' results.</p>';
+          }
+          if (data.service) {
+            var svs = [];
+            for ( var ds in data.service) svs.push(ds);
+            if (svs.length) s += '<p>Services ' + svs.join(', ') + ' reported successfully.</p>';
+          }
+          if (data.use) {
+            var uses = [];
+            var used = [];
+            for (var u in data.use) {
+              if (data.use[u]) {
+                uses.push(u);
+              } else {
+                used.push(u);
+              }
+            }
+            if (uses.length) s += '<p>Use endpoints ' + uses.join(', ') + ' reported successfully.</p>';
+            if (used.length) s += '<p>Use endpoints ' + used.join(', ') + ' did NOT report successfully.</p>';
+          }
+          var idxc = 0;
+          for (var i in data.index.indices) idxc += 1;
+          s += '<p>The index cluster status is ' + data.index.cluster.status + ' with ' + idxc + ' indexes running.</p>';
+          $('#status > .info').html(s);
+        }
+        if (!detailed) {
+          detailed = true;
+          getstatus(true);
+        }
+      }
+    });
+  }
+  getstatus();
+
+  var showstatus = function(e) {
+    e.preventDefault();
+    if ($('#status').is(':visible')) {
+      $('#status').hide();
+      $('#holder').show();
+    } else {
+      $('.pane').hide();
+      $('#status').show();
+    }
+  }
+  $('body').on('click', '#showstatus', showstatus);
+
+  $.fn.holder.display.network.fill = function(d) { return fill(d.group); }
+
+  var docode = function (code,dc,calls=[]) {
+    d = '<pre style="padding:1px;"><code';
+    if (dc) d += ' id="' + dc + '"';
+    d += '>';
+    d += code.replace(/ /g,'&nbsp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>')
+    for ( var c in calls ) d = d.replace(calls[c],'<a class="calls" href="' + calls[c] + '">' + calls[c] + '</a>');
+    d += '</code></pre>';
+    return d;
+  }
+
+  var details = function(d) {
+    if (d.key && structure && structure.methods && structure.methods[d.key]) d = structure.methods[d.key];
+    var info = '<h2>' + (d.name ? d.name : d.key) + '</h2>';
+    info += '<p><b>group</b>: <a class="group" href="' + d.group + '">' + d.group + '</a></p>';
+    if (d.calls && d.calls.length) {
+      info += '<p><b>calls</b>:';
+      for ( var c in d.calls ) info += '<br><a class="calls" href="' + d.calls[c] + '">' + d.calls[c] + '</a>'; 
+      info += '</p>';
+    }
+    if (d.called && d.called.length) {
+      info += '<p><b>called by</b>:';
+      for ( var l in d.called ) info += '<br><a class="calls" href="' + d.called[l] + '">' + d.called[l] + '</a>'; 
+      info += '</p>';
+    }
+    if (d.remotes && d.remotes.length) {
+      info += '<p><b>remote calls</b>:';
+      for ( var r in d.remotes ) info += '<br>' + d.remotes[r]; 
+      info += '</p>';
+    }
+    if (d.collections) {
+      info += '<p><b>collections</b>:';
+      for (var c in d.collections) {
+        info += '<br>' + c + ' (' + d.collections[c].join(', ') + ')';
+      }
+      info += '</p>';
+    }
+    if (d.routes && d.routes.length) {
+      info += '<p><b>routes:</b>';
+      for ( var ro in d.routes ) {
+        info += '<br>';
+        if (d.routes[ro].indexOf('[') === -1 && d.routes[ro].indexOf(':') === -1) info += '<a target="_blank" href="' + api + '/' + d.routes[ro] + '">';
+        info += d.routes[ro];
+        if (d.routes[ro].indexOf('[') === -1 && d.routes[ro].indexOf(':') === -1) info += '</a>'; 
+      }
+      info += '</p>';
+    }
+    info += '<p><b>file</b>: <a target="_blank" href="https://github.com/leviathanindustries/noddy/blob/' + (live ? 'master' : 'develop') + '/' + d.filename + '">' + d.filename + '</a></p>';
+    info += docode((d.code ? d.code : structure.methods[d.key].code),undefined,d.calls);
+    $('#details > .info').html(info);
+    //document.querySelectorAll('code').forEach(function (block) { hljs.highlightBlock(block); });
+    $('.pane').hide();
+    $('#details').show();
+  }
+
+  var regroup = function(e) {
+    if (typeof e === 'string') {
+      group = e;
+    } else {
+      e.preventDefault();
+      group = $(this).attr('href');
+    }
+    $('.groupset').hide();
+    $('.groupset.'+group).show();
+    if (!$('#holder').is(':visible')) {
+      $('.pane').hide();
+      $('#holder').show();
+    }
+  	$.fn.holder.options.execute();
+  	if (q.replace(/"/g,'') !== group.replace(/\./g,'/').toLowerCase()) {
+      q = '"' + group.replace(/\./g,'/').toLowerCase() + '"';
+      //$('#logq').remove();
+      $('#logcontrol').prepend('<a id="logq" class="label label-default" href="#" style="background-color:' + fill(group) + ';">' + group + '</a> ');
+      //$('svg.line').html('');
+    	getlatest();
+    	$('#q').val('');
+  	}
+  }
+
+  var logq = function(e) {
+    e.preventDefault();
+    q = '*';
+    $('svg.line').html('');
+  	delete datasets[group];
+    group = undefined;
+  	getlatest();
+  	$(this).remove();
+  }
+  $('body').on('click', '#logq', logq);
+
+  var beforelogs = '#holder';
+  var showlogs = function(e) {
+    e.preventDefault();
+    if ($('#logs').is(':visible') && !showerrors) {
+      $('#logs').hide();
+      if (timing !== undefined) clearTimeout(timing);
+      $(beforelogs).show();
+    } else {
+      beforelogs = $('#holder').is(':visible') ? '#holder' : '#details';
+      $('.pane').hide();
+      $('#logs').show();
+      if (logdata === undefined || showerrors) { // or new log query required
+        if (showerrors) q = '*';
+        showerrors = false;
+        getlatest();
+      }
+    }
+  }
+  $('body').on('click', '.showlogs', showlogs);
+
+  var showroutes = function(e) {
+    e.preventDefault();
+    if ($('#routes').is(':visible')) {
+      $('#routes').hide();
+      $('#groups').show();
+      $('.pane').hide();
+      $('#holder').show();
+    } else {
+      $('#groups').hide();
+      $('#routes').show();
+      $('.pane').hide();
+      $('#graph').show();
+    }
+  }
+  $('body').on('click', '#showroutes', showroutes);
+
+  var showcode = function(e) {
+    if ($('#logs').is(':visible')) {
+      e.preventDefault();
+      $('.pane').hide();
+      if (timing !== undefined) clearTimeout(timing);
+      $(beforelogs).show();
+    }
+  }
+  $('body').on('click', '.subnav', showcode);
+
+  var logrange = function(e) {
+    e.preventDefault();
+    $('.logrange.label-info').removeClass('label-info').addClass('label-default');
+    $(this).removeClass('label-default').addClass('label-info');
+    $('#q').val('interval:' + $(this).attr('href')).trigger('change');
+  }
+  $('body').on('click', '.logrange', logrange);
+  $('.logrange[href="' + interval + '"]').removeClass('label-default').addClass('label-info');
+
+  $.fn.holder.display.network.click = function(d) {
+    if (group) {
+      details(d);
+    } else {
+      regroup(d.group);
+    }
+  }
+
+  $.fn.holder.display.network.nodesLinks = function(data,options) {
+		options.display.network.nodes = data.nodes;
+		options.display.network.links = data.links;
+  }
+
+  //$.fn.holder.display.network.repel = 8; // how much force the nodes should repel each other with
+
+  $.fn.holder.display.network.text = function(d) {return d.key.replace('.exact','').replace('API.','') + ': ' + d.value; }
+  $.fn.holder.display.network.label = $.fn.holder.display.network.text;
+  
+  var geterrors = function() {
+    try { e.preventDefault(); } catch(err) {}
+    $.ajax({
+      url: api + '/log/today?q=error%20OR%20error:*&size=0&terms=function.exact',
+      success: function(data) {
+        if (data && data.hits && data.hits.total !== undefined) {
+          $('#showerrors > img').hide();
+          $('#showerrors').append(': ' + data.hits.total);
+          for ( var e in data.facets['function.exact'].terms) {
+            var gr = data.facets['function.exact'].terms[e].term.replace('API.','').replace('service.','').replace('use.','').split('.')[0];
+            $('.group[href="' + gr + '"]').append(' <label class="label label-danger showerrors">' + data.facets['function.exact'].terms[e].count + '</a>');
+          }
+        }
+      }
+    });
+  }
+
+  var firstload = true;
+  $('#holder').holder({
+    url: api + '/structure',
+    ui: false,
+    record: false,
+    datatype: 'JSON',
+    display: ['network'],
+    pushstate: false,
+    qry: function() {
+      $.fn.holder.options.url = $.fn.holder.options.url.split('?')[0] + (group ? '?group=' + group : '')
+    },
+    render: function() {},
+    placeholder: function() {},
+    end: function() {
+      if (firstload) {
+        geterrors();
+        $('#holder').holder.display.network.zoom(.2);
+      }
+      firstload = false;
+    },
+    onhover: function(d,hovering) {
+      $('.method').css({'font-size':'1em','font-weight':'normal'});
+      if (hovering) {
+        $('.groupset').hide();
+        $('.groupset.' + d.group).show();
+        $('#sidebar').scrollTop(0);
+        try {
+          $('#sidebar').scrollTop($('.method[href="' + d.key + '"]').offset().top-100);
+        } catch(err) {}
+        $('.method[href="' + d.key + '"]').css({'font-size':'1.4em','font-weight':'bold'});
+      }
+    },
+    review: function(data) {
+      if (structure === undefined) {
+        structure = data;
+        for ( var g in structure.groups ) {
+          $('#groups').append('<p><a class="group" href="' + structure.groups[g] + '" style="color:' + fill(structure.groups[g]) + ';">' + structure.groups[g] + '</a></p>');
+          var groupset = '<div class="groupset ' + structure.groups[g] + '" style="display:none;border-bottom:1px solid #999;margin-bottom:10px;"><p style="color:#ccc;">';
+          var ms = [];
+          if (structure.groups[g] === 'collections') {
+            for ( var cl in structure.collections) ms.push(structure.collections[cl]);
+          } else {
+            for ( var m in structure.methods ) {
+              if (m.indexOf('.' + structure.groups[g]) !== -1) ms.push(m);
+            }
+          }
+          for ( var s in ms.sort()) groupset += '<a class="method" href="' + ms[s] + '" style="color:#ccc;">' + ms[s] + '</a><br>';
+          groupset += '</p></div>'
+          $('#groups').append(groupset);
+        }
+      } else {
+        structure.nodes = data.nodes;
+        structure.links = data.links;
+      }
+    }
+  });
+  
+  $('body').on('click', '.close', function(e) {
+    try { e.preventDefault(); } catch(err) {}
+    $('.pane').hide();
+    $('#holder').show();
+  });
+  
+  $('body').on('click','.group',regroup);
+
+  $('body').on('click','.calls',function(e) {
+    e.preventDefault();
+    details(structure.methods[$(this).attr('href')]);
+  });
+
+  $('body').on('click','.method',function(e) {
+    e.preventDefault();
+    details(structure.methods[$(this).attr('href')]);
+  });
+
+  var routes = undefined;
+  var getroutes = function(e) {
+    try { e.preventDefault(); } catch(err) {}
+    $.ajax({
+      url: api,
+      success: function(data) {
+        routes = data;
+        $('#routes').append('<h3 style="margin-top:0px;">' + api + '/</h3>');
+        var mains = [];
+        var services = [];
+        var remotes = [];
+        for ( var u in data.routes ) {
+          if (!u.endsWith('.csv')) {
+            if (u.indexOf('service/') === 0 && services.indexOf(srv = u.split('/')[1].split(' ')[0]) === -1) {
+              services.push(srv);
+            } else if (u.indexOf('use/') === 0 && remotes.indexOf(rem = u.split('/')[1].split(' ')[0]) === -1) {
+              remotes.push(rem);
+            } else if (mains.indexOf(mn = (u.indexOf('/') !== -1 ? u.split('/')[0] : u).split(' ')[0]) === -1 && ['log','status','stats','reload','service','use','scripts','ping.png','pings'].indexOf(mn) === -1) {
+              mains.push(mn);
+            }
+          }
+        }
+        for ( var m in mains ) $('#routes').append('<p><a style="color:' + fill(mains[m]) + '" class="showroute" href="' + mains[m] + '">' + mains[m] + '</a></p>');
+        $('#routes').append('<h3>Services</h3>');
+        for ( var s in services ) $('#routes').append('<p>service/<a style="color:' + fill(services[s]) + '" class="showroute service" href="' + services[s] + '">' + services[s] + '</a></p>');
+        $('#routes').append('<h3>Use <small>(remote services)</small></h3>');
+        for ( var r in remotes ) $('#routes').append('<p>use/<a style="color:' + fill(remotes[r]) + '" class="showroute use" href="' + remotes[r] + '">' + remotes[r] + '</a></p>');
+      }
+    });
+  }
+  getroutes();
+
+  var showroute = function(e) {
+    e.preventDefault();
+    var fn = $(this).attr('href');
+    var _id = '#api_' + ($(this).hasClass('service') ? 'service_' : ($(this).hasClass('use') ? 'use_' : '')) + fn;
+    var sn = '<div id="' + _id.replace('#','') + '">';
+    var samefiles = true;
+    for ( var l in routes.routes ) {
+      if (l.indexOf(_id.replace('#api_','').replace(/_/g,'/')) === 0) {
+        if (l.endsWith('.csv')) {
+          sn = sn.replace(l.replace('.csv',''),l.replace('.csv','') + ' (.csv)');
+        } else {
+          var ll = routes.routes[l];
+          var sl = structure && structure.routes && structure.routes[l] && structure.routes[l] ? structure.routes[l] : {};
+          sn += '<h3><b>' + l + '</b></h3>';
+          if (sl.filename) {
+            samefiles = samefiles === true ? structure.routes[l].filename : (samefiles !== structure.routes[l].filename ? false : true);
+            sn += '<p class="routefilename"><a target="_blank" href="https://github.com/leviathanindustries/noddy/blob/' + (live ? 'master' : 'develop') + '/' + structure.routes[l].filename + '">' + structure.routes[l].filename + '</a></p>';
+          }
+          if (ll.desc) sn += '<p>' + ll.desc + '</p>';
+          for ( var a in ll ) { if (['desc','options'].indexOf(a) === -1) sn += '<p>' + (a !== 'get' || (ll.post !== undefined || ll.put !== undefined || ll.delete !== undefined) ? '<b>' + a.toUpperCase() + '</b>' : '') + (ll[a].auth ? ' (auth ' + ll[a].auth + ') ' : '') + (ll[a].desc ? ': ' + ll[a].desc : '') + '</p>'; }
+          if (sl.code) sn += docode(sl.code,undefined,sl.methods);
+        }
+      }
+    }
+    sn += '</div>';
+    $('#details > .info').html(sn);
+    if (samefiles) $('.routefilename:not(:first)').hide();
+    //document.querySelectorAll('code').forEach(function (block) { hljs.highlightBlock(block); });
+    $('.pane').hide();
+    $('#details').show()
+  }
+  $('body').on('click','.showroute',showroute)
+
+  graphit();
+
+  var ingroup = false;
+  $('body').on('click','.graph.bar',function(e) {
+    e.preventDefault();
+    if (ingroup) {
+      $('.showroute[href="' + $(this).attr('group') + '"]').trigger('click');
+      ingroup = false;
+    } else {
+      graphit($(this).attr('group'));
+      ingroup = true;
+    }
+  });
+  $('body').on('mouseover','.graph.bar',function(e) {
+    $('.showroute').css({'font-size':'1em','font-weight':'normal'});
+    $('#sidebar').scrollTop(0);
+    try {
+      $('#sidebar').scrollTop($('.showroute[href="' + $(this).attr('group') + '"]').offset().top-100);
+    } catch(err) {}
+    $('.showroute[href="' + $(this).attr('group') + '"]').css({'font-size':'1.4em','font-weight':'bold'});
+  });
+  $('body').on('mouseout','.graph.bar',function(e) {
+    $('.showroute').css({'font-size':'1em','font-weight':'normal'});
+  });
+
+  $('body').on('click','.logcompare',function(e) {
+    e.preventDefault();
+    $(this).removeClass('label-default').addClass('label-info');
+    $('#q').val('compare:yesterday').trigger('change');
+  });
+
+  $('body').on('click','.gotolog',function(e) {
+    $(this).attr('href',$(this).attr('href')+'?day=today&source=' + encodeURIComponent(JSON.stringify(qr)));
+  });
+
+});
+</script>

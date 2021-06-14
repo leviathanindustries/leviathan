@@ -1,0 +1,435 @@
+
+<style>
+ .blued {
+    background-color: #acc8fd;
+  }
+  a.subnav {
+    color: #89a6fb;
+  }
+  a.dark {
+    font-weight: bold;
+    color:#666;
+  }
+  a.under {
+    text-decoration: underline;
+  }
+  .container {
+    max-width:1000px;
+  }
+</style>
+
+<div class="noddyLoading loading" style="display:none;position:fixed;top:0;bottom:0;left:0;right:0;opacity:0.2;background-color:#ccc;z-index:100000000000000;">
+  <div style="margin-top:300px;margin-left:auto;margin-right:auto;width:200px;">
+    <img style="height:200px;width:200px;" src="//static.cottagelabs.com/spin_grey.svg">
+  </div>
+</div>
+
+
+<div class="container">
+
+  <div class="login" style="display:none;">
+    <div class="noddyLogin" style="padding-top:5px;">
+      <p><input type="text" class="form-control" id="noddyEmail" placeholder="Enter your email address"></p>
+      <!--<p><a id="noddyOauthGoogle" class="btn btn-default btn-block" href="#">or sign in with Google</a></p>-->
+    </div>
+    <div class="noddyMessage" style="margin-top:5px;"></div>
+    <div class="noddyToken" style="display:none;">
+      <input type="text" class="form-control" id="noddyToken" placeholder="Check your email, enter your login code">
+    </div>
+  </div>
+
+  <div id="account" class="row">
+    
+  </div>
+
+  <div id="intro" class="row">
+    <div class="col-sm-12">
+      <p style="text-align:center">
+        <br>
+        Changing something?
+        <br>
+        Need a simple way to test if it works as expected? 
+        <br>
+        Need to know that other things didn't get broken?
+        <br>
+        Need to get alerted if all is not as planned?
+        <br>
+        Or just track changes on any web page?
+        <br><br><br>
+      </p>
+    </div>
+    
+    <div class="col-sm-6">
+      <div class="jumbotron blued">
+        <h1 style="text-align:center">difftest.</h1>
+        <p style="text-align:center;font-size:0.9em;">
+          <br>
+          <small>Because often all that matters is<br>
+          <b>"is it the same or is it different"</b>?
+          </small>
+        </p>
+      </div>
+    </div>
+    
+    <div class="col-md-6">
+      <input type="text" class="form-control" id="url" placeholder="Try it now" style="border-color:#89a6fb;font-size:1.4em;height:50px;margin-top:5px;">
+      <p style="text-align:center">
+        <a id="demo" class="dark under" href="#">Page demo</a> <a id="apidemo" class="dark under" href="#">API demo</a>
+        <br><a class="dark under" href="#">Features</a> and <a class="dark under" href="#">Pricing</a>
+        <br><a class="dark under signinup" href="#">Sign up</a> or <a class="dark under signinup" href="#">Sign in</a>
+      </p>
+    </div>
+  </div>
+  
+  <div id="features" style="margin-top:40px;" class="row panel panel-default">
+    <table class="table table-bordered">
+      <thead>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="width:60%;">
+            <h4>Check up to 50 publicly available web pages</h4>
+            <ul>
+              <li>Get an email alert if it changed</li>
+              <li>
+              Check as often as every 60 minutes<br>
+              (down to 30 minutes for simple pages *)<br>
+              </li>
+              <li>Manage your URLs via a Google sheet</li>
+              <li>Works on web pages and API endpoints</li>
+            </ul>
+          </td>
+          <td class="blued">
+            <h1 style="text-align:center;"><a class="dark" href="#"><br>FREE</a></h1>
+            <p style="text-align:center;"><a class="dark under signinup" href="#">Sign up now</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <h4>Get the pro features (and 50 more URLs)</h4>
+            <ul>
+              <li>Alerts specify what changed</li>
+              <li>
+                Checks down to every 10 minutes<br>
+                (or as low as 5 minute for simple pages *)
+              </li>
+              <!--<li>Alerts feedback into your Google sheet</li>-->
+              <li>Works on documents too (PDF, docx, etc)</li>
+              <li>
+                <a class="dark under" href="#">Use the API</a> to automate things<br>
+                (e.g. do checks on code push, alert to Slack, etc)
+              </li>
+            </ul>
+          </td>
+          <td class="blued">
+            <h2 style="text-align:center;"><a class="dark" href="#"><br>£2<br>per<br>month</a></h2>
+            <p style="text-align:center;"><a class="dark under" href="#">Sign up now</a></p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <b>Each additional 50 URLs</b>
+          </td>
+          <td class="blued">
+            <b>£2 per month</b>
+          </td>
+        </tr>
+        
+        <!--
+        <tr>
+          <td>
+            <b>SMS text alerts</b>
+          </td>
+          <td class="blued">
+            £2 per to 50 texts
+          </td>
+        </tr>
+        -->
+        
+        <!--
+        <tr>
+          <td>
+            <b>Change logs up to 1 year</b>
+          </td>
+          <td class="blued">
+            £2 per each 3 months of history
+          </td>
+        </tr>
+        -->
+        
+        <tr>
+          <td>
+            <b>Custom API integrations</b><br>Advanced features, new requirements, private installations, etc
+          </td>
+          <td class="blued"><br>Contact us for pricing to develop for you</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div id="changes"></div>
+  
+  <div id="changed"></div>
+
+</div>
+
+
+
+<script src="/static/noddy.accounts.js?v=2"></script>
+<script>
+jQuery(document).ready(function() {
+  
+  var api = '{{api}}';
+  
+  var config = undefined;
+  
+  var user = function() {
+    $('.loading').show();
+    $.ajax({
+      url: api + '/users/' + noddy.user.account._id + '?apikey=' + noddy.apikey,
+      success: function(account) {
+        config = account;
+        $('.loading').hide();
+        var acc = '';
+        acc += '<p>Your URL quota is ' + (account.quota === 0 ? 'unlimited' : account.quota);
+        if (account.pro) acc += '. You have a pro account.';
+        acc += '</p>';
+        if (account.urls && account.urls.length) {
+          acc += '<p>Your watched URLs:</p>';
+          var tbls = '';
+          var sheets = {};
+          for ( var u in account.urls ) {
+            var uc = account.urls[u];
+            if (uc.sheet) {
+              if (sheets[uc.sheet] === undefined) sheets[uc.sheet] = [];
+              sheets[uc.sheet].push(uc);
+            } else {
+              if (tbls === '') tbls += '<table class="table table-bordered"><thead></thead><tbody>';
+              acc += '<tr> \
+                <td> \
+                  <p style="word-wrap:break-word;">' + (uc.name ? uc.name + '<br>' : '') + '<a target="_blank" href="' + uc.url + '">' +uc.url + '</a></p> \
+                  <div id="changed_' + uc.ucs + '"></div> \
+                </td> \
+                <td> \
+                  <a id="check_' + uc.ucs + '" class="btn btn-primary changed" href="' + uc.ucs + '">check</a>';
+              if (uc.group && uc.group.length) {
+                for ( var g in uc.group ) acc += '<br><a class="btn btn-primary group" href="' + uc.group[g] + '">check group<br>' + uc.group[g] + '</a>';
+              }
+              acc += '</td> \
+                <td><a class="btn btn-warning remove" href="' + uc.url + '">remove</a></td> \
+              </tr>';
+            }
+          }
+          if (tbls.length) tbls += '</tbody></table>';
+          for ( var k in sheets ) {
+            tbls += '<table class="table table-bordered"><thead>';
+            tbls += '<tr style="background-color:#eee;"> \
+              <th><p style="word-wrap:break-word;">' + sheets[k].length + ' URLs managed in sheet:<br><a target="_blank" href="' + k + '">' + k + '</a></p></th> \
+              <th><a class="btn btn-primary group" href="' + k + '">check<br>sheet</a></th> \
+              <th> \
+                <a class="btn btn-block btn-info reload sheet" href="' + k + '">reload<br>sheet</a><br> \
+                <a class="btn btn-block btn-warning remove sheet" href="' + k + '" style="min-width:70px;">remove<br>sheet</a> \
+              </th> \
+            </tr>';
+            tbls += '</thead><tbody>';
+            for ( var s in sheets[k] ) {
+              tbls += '<tr> \
+                <td> \
+                  <p style="word-wrap:break-word;">' + (sheets[k][s].name ? sheets[k][s].name + '<br>' : '') + '<a target="_blank" href="' + sheets[k][s].url + '">' + sheets[k][s].url + '</a></p> \
+                  <div id="changed_' + sheets[k][s].ucs + '"></div> \
+                </td> \
+                <td> \
+                  <a id="check_' + sheets[k][s].ucs + '" class="btn btn-primary changed" href="' + sheets[k][s].ucs + '">check</a>';
+              if (sheets[k][s].group && sheets[k][s].group.length) {
+                for ( var sg in sheets[k][s].group ) acc += '<br><a class="btn btn-primary group" href="' + sheets[k][s].group[sg] + '">check group<br>' + sheets[k][s].group[sg] + '</a>';
+              }
+              tbls += '</td> \
+                <td></td> \
+              </tr>';
+            }
+            tbls += '</tbody></table>';
+          }
+          acc += tbls;
+        } else {
+          acc += '<p>You are not watching any URLs yet.</p>';
+        }
+        acc += '<p><a id="showfeatures" href="#">Show features</a></p>';
+        $('#user').html(acc);
+      }
+    });
+  }
+
+  var account = function() {
+    api += '/service/difftest';
+    $('.loading').show();
+    $('#intro').hide();
+    $('#features').hide();
+    $('#url').appendTo('#account');
+    $('#url').attr('placeholder','Provide a URL to watch');
+    $('#account').append('<p><a id="sheet" href="#">Or link a google sheet to track multiple URLs</a></p>');
+    $('#account').append('<p id="sheetinstructions" style="display:none;">Google sheet instructions here: make sure sheet is "published", etc.</a></p>');
+    $('#account').show();
+    $('#account').append('<h1>Hi ' + noddy.user.email + '</h1>');
+    $('#account').append('<div id="user"></div>');
+    user();
+  }
+  noddy.init({api: api, dev: true, debug: true, afterLogin: account});
+
+  $('body').on('click','#showfeatures',function(e) {e.preventDefault(); $('#features').toggle(); });
+
+  var confirmnotsheet= false;
+  var sheet = false;
+  $('body').on('click','#sheet',function(e) {
+    e.preventDefault();
+    sheet = true;
+    $('#sheet').hide();
+    $('#url').attr('placeholder','Enter your google sheet URL');
+    $('#sheetinstructions').show();
+  });
+
+  var add = function(e) {
+    if (typeof e !== 'string') e.preventDefault();
+    if (typeof e === 'string' || (e.keyCode ? e.keyCode : e.which) === 13) {
+      $('#changed').html('');
+      $('.loading').show();
+      $('#features').hide();
+      var url = typeof e === 'string' ? e : $(this).val();
+      if (!sheet && url.indexOf('google.com/spreadsheet') !== -1 && !confirmnotsheet) {
+        $('.loading').hide();
+        $('#sheetinstructions').show();
+        $('#sheetinstructions').before('<p id="confirmnotsheet">That looks like a google sheet URL, are you trying to watch that sheet or use it as a source of URLs to watch? \
+        <br><a class="sheetornot notsheet" href="#">Watch the sheet</a> | <a class="sheetornot issheet" href="">Use the sheet as a source of URLs to watch</a>\
+        </p>');
+      } else {
+        $.ajax({
+          url: api + '/add?' + (noddy && noddy.apikey ? 'apikey='+noddy.apikey+'&' : '') + (sheet ? 'sheet' : 'url') + '=' + encodeURIComponent(url),
+          success: function(data) {
+            if (noddy === undefined || noddy.apikey === undefined) {
+              $('#changed').html('<p>TODO show simple url change view for not logged in user, prompt to sign up for more feature examples.</p>');
+            } else {
+              user();
+            }
+          }
+        });
+        $('#url').val('');
+      }
+      if (sheet) {
+        sheet = false;
+        $('#url').attr('placeholder','Provide a URL to watch');
+        $('#sheet').show();
+        $('#sheetinstructions').hide();
+        $('.loading').hide();
+        $('#sheetinstructions').before('<p id="sheetconfirm">Thanks, loading a sheet can take a few minutes depending how long it is. You will be notified once the sheet is loaded.</p>');
+        setTimeout(function() { $('#sheetconfirm').remove(); }, 5000);
+      }
+    }
+  }
+  $('body').on('keyup','#url',add);
+
+  $('body').on('click','.sheetornot',function(e) {
+    e.preventDefault();
+    sheet = $(this).hasClass('issheet');
+    confirmnotsheet = !sheet;
+    $('#confirmnotsheet').remove();
+    $('#sheetinstructions').hide();
+    add($('#url').val());
+  });
+
+  var changed = function(e) {
+    e.preventDefault();
+    $('.loading').show();
+    var id = $(this).attr('id').replace('check_','');
+    $.ajax({
+      url: api + '/changed?' + (noddy && noddy.apikey ? 'apikey='+noddy.apikey+'&' : '') + 'url=' + encodeURIComponent($(this).attr('href')),
+      success: function(data) {
+        $('.loading').hide();
+        var chgd = '';
+        if (data === false || JSON.stringify(data) === '[]') {
+          chgd = '<p>No changes.</p>';
+        } else if (data === true) {
+          chgd = '<p>A change occurred, but could not identify what it was.</p>';
+        } else {
+          if (data.diffs !== undefined && data.diffs.length) {
+            if (config && config.pro) {
+              for ( var o in data.diffs) {
+                if (data.diffs[o].missing !== undefined) {
+                  chgd += '<p>Missing:<br><pre><code>' + data.diffs[o].missing + '</code></pre></p>';
+                } else if (data.diffs[o].removed === true) {
+                  chgd += '<p>Removed:<br><pre><code>' + data.diffs[o].value.replace(/\</g,'&lt;').replace(/\>/g,'&gt;') + '</code></pre>';
+                } else if (data.diffs[o].added === true) {
+                  chgd += '<p>Added:<br><pre><code>' + data.diffs[o].value.replace(/\</g,'&lt;').replace(/\>/g,'&gt;') + '</code></pre>';
+                }
+              }
+            } else {
+              chgd += '<p>There has been ' + data.diffs.length + ' change' + (data.diffs.length === 1 ? '' : 's') + '</p>';
+            }
+          } else if (data.changed) {
+            chgd += '<p>There have been changes, but none are relevant.</p>';
+          }
+        }
+        $('#changed_'+id).html(chgd);
+      }
+    });
+  }
+  $('body').on('click','.changed',changed);
+
+  var group = function(e) {
+    e.preventDefault();
+    var group = $(this).attr('href');
+    if (group.indexOf('spreadsheets/d/') !== -1) group = group.split('spreadsheets/d/')[1].split('/')[0];
+    $.ajax({
+      // could add notify false if group length looks short enough to get a response (otherwise by default it is going to notify)
+      url: api + '/users/' + noddy.user.account._id + '/' + group + '/check?empties=true&notify=true&' + (noddy && noddy.apikey ? 'apikey='+noddy.apikey+'&' : ''),
+      success: function(data) {
+        // what would this return if run on a group?
+        if (data.changes === undefined || data.changes.length === 0) {
+          $('#changed').html('<p>No changes found.</p>');
+        } else {
+          $('#changed').html('<p>TODO highlight which items in the group changed, and perhaps add a way to view the change info.</p>');
+        }
+      }
+    });
+    $('#changed').html('<p>Group checks can take a while to run, so you will soon receive an email notification if there have been any relevant changes.</p>');
+  }
+  $('body').on('click','.group',group);
+
+  var remove = function(e) {
+    if (typeof e !== 'string') e.preventDefault();
+    $('#changed').html('');
+    $('.loading').show();
+    $('#features').hide();
+    var url = typeof e === 'string' ? e : $(this).attr('href');
+    $.ajax({
+      url: api + '/remove?' + (noddy && noddy.apikey ? 'apikey='+noddy.apikey+'&' : '') + ($(this).hasClass('sheet') ? 'sheet' : 'url') + '=' + encodeURIComponent($(this).attr('href')),
+      success: function(data) {
+        user();
+      }
+    });
+  }
+  $('body').on('click','.remove',remove);
+
+  $('body').on('click','.reload', function(e) {
+    e.preventDefault();
+    sheet = true;
+    add($(this).attr('href'));
+  });
+
+  var demo = function(e) {
+    e.preventDefault();
+    $('#url').val('https://leviathanindustries.com/difftest/example');
+    add('https://leviathanindustries.com/difftest/example');
+  }
+  $('body').on('click','#demo',demo);
+  var apidemo = function(e) {
+    e.preventDefault();
+    $('#url').val('https://dev.api.cottagelabs.com/service/difftest/example');
+    add('https://dev.api.cottagelabs.com/service/difftest/example');
+  }
+  $('body').on('click','#apidemo',apidemo);
+
+  $('body').on('click','.signinup',function(e) { e.preventDefault(); $('.login').toggle(); });
+  
+});
+</script>

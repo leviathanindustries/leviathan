@@ -1,0 +1,193 @@
+
+<head>
+  <script type="text/javascript" src="/static/slider.min.js"></script>
+  <link href="/static/slider.min.css" rel='stylesheet' type='text/css'>
+</head>
+
+<!--<script src="/static/account/jquery.ui.widget.js"></script>
+<script src="/static/account/load-image.all.min.js"></script>
+<script src="/static/account/canvas-to-blob.min.js"></script>
+<script src="/static/account/jquery.iframe-transport.js"></script>
+<script src="/static/account/jquery.fileupload.js"></script>
+<script src="/static/account/jquery.fileupload-process.js"></script>
+<script src="/static/account/jquery.fileupload-image.js"></script>
+<script src="/static/account/jquery.cropit.js"></script>-->
+
+<style>
+.slider-selection {
+	background: #BABABA;
+}
+#fileupload {
+  visibility:hidden;
+}
+</style>
+
+
+
+<READER>
+
+<M>
+
+<div id="selector">
+  <H class="black shadow">
+    <h1>Imagineer <br><small>Edit images</small></h1>
+  <E>
+
+  <p><input type="text" id="url" class="form-control" placeholder="Type (or paste) an image URL here, then press enter"></p>
+
+  <input type="file" id="fileupload">
+  <p>
+    <button id="startcrop" class="btn btn-default select-image-btn">or Upload an image</button>
+    <a id="getvideo" class="btn btn-default" href="#">or Take a picture</a>
+  </p>
+</div>
+
+<div id="img" style="width:100%;"><img id="spinner" src="/static/spin_grey.svg" style="width:100%;display:none;"></div>
+<video autoplay="true" id="video" style="width:100%;height:500px;border:1px solid #ccc;display:none;"></video>
+
+<div id="controls">
+
+  <7>
+
+  <p><input class="effectSlide" id="scale" data-slider-id='scale' type="text" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="100"> scale</p>
+  <p><input class="effectSlide" id="quality" data-slider-id='quality' type="text" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="100"> quality</p>
+
+  <5>
+
+<!--
+* w - resize the image to the width (height will scale relatively)
+* h - resize the image to the height (width will scale)
+* x, y, w, h - crop an image to given width and height, starting from position x, y, co-ordinated from top left
+-->
+
+  <p><input type="checkbox" class="effect" name="focuscrop"> crop to focus (test)</p>
+  <p><input type="checkbox" class="effect" name="flip" value="horizontal"> flip horizontal</p>
+  <p><input type="checkbox" class="effect" name="flip" value="vertical"> flip vertical</p>
+
+  <7>
+
+  <p><input class="effectSlide" id="rotate" data-slider-id='rotate' type="text" data-slider-min="0" data-slider-max="360" data-slider-step="1" data-slider-value="0"> rotate
+
+  <p><input class="effectSlide" id="brightness" data-slider-id='brightness' type="text" data-slider-min="-0" data-slider-max="1" data-slider-step="0.1" data-slider-value="0"> brightness</p>
+  <p><input class="effectSlide" id="contrast" data-slider-id='contrast' type="text" data-slider-min="-0" data-slider-max="1" data-slider-step="0.05" data-slider-value="0"> contrast</p>
+  <p><input class="effectSlide" id="fade" data-slider-id='fade' type="text" data-slider-min="0" data-slider-max="1" data-slider-step="0.01" data-slider-value="0"> fade</p>
+  <p><input class="effectSlide" id="opacity" data-slider-id='opacity' type="text" data-slider-min="0" data-slider-max="1" data-slider-step="0.01" data-slider-value="0"> opacity</p>
+
+  <p><input class="effectSlide" id="gaussian" data-slider-id='gaussian' type="text" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="0"> gaussian</p>
+  <p><input class="effectSlide" id="blur" data-slider-id='blur' type="text" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="0"> blur</p>
+  <p><input class="effectSlide" id="posterize" data-slider-id='posterize' type="text" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="0"> posterise</p>
+  <p><input class="effectSlide" id="pixelate" data-slider-id='pixelate' type="text" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="0"> pixelate</p>
+  <p><input class="effectSlide" id="saturate" data-slider-id='saturate' type="text" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="0"> saturate</p>
+  <p><input class="effectSlide" id="desaturate" data-slider-id='desaturate' type="text" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="0"> desaturate</p>
+
+  <5>
+
+  <p><input type="checkbox" class="effect" name="dither"> dither</p>
+  <p><input type="checkbox" class="effect" name="invert"> invert</p>
+  <p><input type="checkbox" class="effect" name="normalize"> normalize</p>
+  <p><input type="checkbox" class="effect" name="opaque"> opaque</p>
+  <p><input type="checkbox" class="effect" name="sepia"> sepia</p>
+  <p><input type="checkbox" class="effect" name="greyscale"> greyscale</p>
+  <p><input type="checkbox" class="effect" name="emboss"> emboss</p>
+  <p><input type="checkbox" class="effect" name="edge"> sharp edges</p>
+  <p><input type="checkbox" class="effect" name="softedge"> soft edges</p>
+
+  <E>
+
+  <M>
+
+  <p><input class="effectSlide" id="red" data-slider-id='red' type="text" data-slider-min="0" data-slider-max="255" data-slider-step="1" data-slider-value="0"> red</p>
+  <p><input class="effectSlide" id="green" data-slider-id='green' type="text" data-slider-min="0" data-slider-max="255" data-slider-step="1" data-slider-value="0"> green</p>
+  <p><input class="effectSlide" id="blue" data-slider-id='blue' type="text" data-slider-min="0" data-slider-max="255" data-slider-step="1" data-slider-value="0"> blue</p>
+
+  <p><input class="effectSlide" id="spin" data-slider-id='spin' type="text" data-slider-min="-360" data-slider-max="360" data-slider-step="1" data-slider-value="0"> spin</p>
+  <p><input type="text" class="form-control" placeholder="convolute"></p>
+
+<!--
+* mix - provide a hex colour code, and after a comma, an opacity amount between 0 and 1. Image will be mixed to that colour
+* xor - provide a hex colour code and image will be bitfield applied to it
+
+* mask - provide the name of a file you have already loaded into the system, or a URL of another image, and it will be used as a mask for the image you are editing. You can also provide mred, mgreen, and mblue as additional colour params to apply to the mask.
+* composite - as above, but composites rather than masks. Providing a composite image that is a png with transparency with a vignette effect, along with optional mred, mgreen, mblue colours, will apply the suitably coloured vignette effect to your base image, for example.
+
+* data - if true, you won't get the image, you will get a JSON containing image data. Still to decide what this will actually contain as useful info... but what it does already contain is the focus info used for the focuscrop, and the average image colour, and also a colour palette of the image in 5 clusters (or provide your own clusters param)
+-->
+
+</div>
+
+
+
+<script>
+jQuery(document).ready(function() {
+  $('.effectSlide').each(function() {
+    $(this).slider({
+    	formatter: function(value) {
+    		return 'Current value: ' + value;
+    	}
+    });
+  });
+});
+</script>
+
+
+<!--
+
+<script>
+jQuery(document).ready(function() {
+
+  function dataURItoFile(dataURI,blobbed) {
+    var byteString, mimestring;
+    if (dataURI.split(',')[0].indexOf('base64') !== -1 ) {
+      byteString = atob(dataURI.split(',')[1]);
+    } else {
+      byteString = decodeURI(dataURI.split(',')[1]);
+    }
+    mimestring = dataURI.split(',')[0].split(':')[1].split(';')[0];
+    var content = new Array();
+    for (var i = 0; i < byteString.length; i++) content[i] = byteString.charCodeAt(i);
+    var blob = new Blob([new Uint8Array(content)], {type: mimestring});
+    return blobbed ? blob : new File([blob], noddy.user.account._id + '.' + mimestring.split('/')[1]);
+  }
+
+  var stream;
+  $('#savepicture').bind('click',function(e) {
+    e.preventDefault();
+    // TODO if #video is visible, grab current state of stream as image instead of the image cropper content
+    $('#fileupload').fileupload({url: api + '/store/.jpeg'});
+    var e;
+    if ( stream ) {
+      $('#canvas')[0].getContext('2d').drawImage($('#video')[0],0,0,300,300);
+      e = $('#canvas')[0].toDataURL("image/jpeg");
+      stream.getTracks()[0].stop();
+      stream = undefined;
+    } else {
+      e = $('#image-cropper').cropit('export', { type: 'image/jpeg', quality: .9 });
+    }
+    try {
+      var f = dataURItoFile((e));
+      $('#fileupload').fileupload('send',{files: [f]});
+    } catch(err) {
+      var f = dataURItoFile((e),true);
+      $('#fileupload').fileupload('send',{files: [f]});
+    }
+    $('#loading').show();
+  });
+
+  $('#startcrop').bind('click',function(e) {e.preventDefault(); $('#video').hide(); $('.cropit-image-zoom-input,.cropit-preview,#savepicture').show();  })
+
+  if (navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia) {
+    var getvideo = function(e) {
+      e.preventDefault();
+      $('#video').show();
+      navigator.getUserMedia({video: true}, function(newstream) { stream = newstream; $('#video').attr('src',window.URL.createObjectURL(stream)); }, function() { /*error*/ });
+    }
+    $('#getvideo').bind('click',getvideo);
+  } else {
+    $('#getvideo').remove();
+  }
+
+});
+</script>
+
+-->
+

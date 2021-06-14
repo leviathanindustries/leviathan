@@ -1,0 +1,16 @@
+<input type="text" id="title" placeholder="journal title">
+<a class="btn" href="#" id="search">Search</a>
+<div id="results">
+  
+</div>
+
+<script>
+  $('body').on('click','#search', function() {
+    $.ajax({
+      url: '{{api}}/service/academic/journal/suggest/' + $('#title').val(),
+      success: function(res) {
+        $('#results') // not finished
+      }
+    });
+  });
+</script>

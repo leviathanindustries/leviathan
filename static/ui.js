@@ -3,7 +3,7 @@ jQuery(document).ready(function() {
   // INTRO STUFF
   
   if ($(window).width() >= 760) $('#categoryor').css('padding-left','49%');
-  $('body').css('min-height',$(window).height()+'px');
+  //$('body').css('min-height',$(window).height()+'px');
   if ( $('#smalllogo').is(':visible') ) {
     $('#smalllogo').css({'width':$(window).width()+'px','height':$(window).height()+'px'});
     $('#smalllogo > h1').css('padding-top',Math.floor($(window).height()/4.5)+'px');
@@ -40,7 +40,7 @@ jQuery(document).ready(function() {
   var showIntro = function() {
     if ( $('#intro').length ) {
       $('.loading').hide();
-      $('#intro > .row').css('margin-top',Math.floor((( $(window).height() + 5 - $('#intro').height() ) / 2)) + 'px');
+      $('#intro > .row').css('margin-top',Math.floor((( $(window).height() + 5 - $('#intro').height() ) / 2) - 90) + 'px');
       $('#intro').css('min-height',($(window).height()-$('#topstrap').height()-10)+'px').show();
       setTimeout(function() {
         $('#smalllogo').remove();

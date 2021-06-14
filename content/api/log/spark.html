@@ -1,0 +1,109 @@
+
+<style>
+	path {
+		stroke: steelblue;
+		stroke-width: 1;
+		fill: none;
+	}
+</style>
+
+<script type="text/javascript" src="//static.cottagelabs.com/d3/d3.v4.min.js"></script>
+
+<div id="sparks" style="position:fixed;top:70px;left:0;right:0;width:100%;height:90%;margin-bottom:10px;overflow:scroll;"></div>
+
+<script>
+jQuery(document).ready(function() {
+  var span = 300000; // 5 minutes
+  var interval = 5000; // every 5 seconds
+  var target = '#sparks';
+  
+  var values = {};
+  var first = true;
+  var ff = true;
+  var live = window.location.search.indexOf('live=true') !== -1;
+  var group = window.location.search.indexOf('group=') !== -1 ? window.location.search.split('group=')[1].split('&')[0] : '';
+
+  var getlatest = function() {
+    var url = '{{api}}/status/load?' + (first ? '' : 'values=false&') + (group ? 'group='+group : '');
+    if (live) url = url.replace('dev.','api.');
+    $.ajax({
+      url: url,
+      success: function (res) {
+        for ( var k in res) {
+          var kc = k.replace(/[^a-zA-Z0-9]/g,'_');
+          if (first || !$('#spark_' + kc).length) {
+            values[k] = res[k];
+            if (!values[k].today) values[k].today = 0;
+            if (values[k].values === undefined) {
+              values[k].values = [];
+              while (values[k].values.length < Math.floor(span/interval)) values[k].values.push(0);
+            }
+            values[k].getter = ff;
+            ff = false;
+            $(target)[first ? 'append' : 'prepend']('<div class="panels" id="panel_' + kc + '" style="float:left;width:350px;height:80px;border:1px solid #4682B4;border-radius:2px;margin:10px;"><div class="counters" id="counter_' + kc + '" style="height:40px;margin-left:2px;"></div><div class="sparks" id="spark_' + kc + '" style="width:100%;height:60px;margin-top:-22px;"></div>');
+          	spark(k);
+          } else {
+            for (var v in res[k]) {
+              if (v !== 'values') values[k][v] = res[k][v];
+            }
+            values[k].values.shift();
+            values[k].values.push(res[k].value);
+          }
+        }
+        first = false;
+      }
+    });
+  };
+  
+  var spark = function(pid, ff) {
+    var kc = pid.replace(/[^a-zA-Z0-9]/g,'_');
+    var id = '#spark_' + kc;
+    var firstspark = ff;
+    var width = $(id).width();
+    var height = $(id).height();
+  	var graph = d3.select(id).append("svg:svg").attr("width", "100%").attr("height", "100%");
+  
+    var dist = width/values[pid].values.length;
+  	var x = d3.scale.linear().domain([0, values[pid].values.length]).range([Math.floor(-dist/2), Math.ceil(width+(dist*1.5))]); // starting point is -5 so the first value doesn't show and slides off the edge as part of the transition
+  	var mx = d3.max(values[pid].values);
+  	if (mx < 10) mx = 10;
+  	var y = d3.scale.linear().domain([mx, 0]).range([0, height]);
+  	var line = d3.svg.line()
+  		.x(function(d,i) { return x(i); })
+  		.y(function(d) { return y(d); })
+  		.interpolate('basis');
+  
+  	graph.append("svg:path").attr("d", line(values[pid].values));
+  
+  	function redraw() {
+      if (values[pid].getter) getlatest();
+    	$('.panels').css({'border-color':'#4682B4','background-color':'transparent'});
+      $('#counter_' + kc).html((group ? '' : '<a class="group" href="?group=' + pid + '">') + (pid ? pid : '/') + (group ? ' ' : '</a> ') + values[pid].value + ' T' + values[pid].today + ' Y' + values[pid].yesterday + ' W' + values[pid].weekago + ' M' + values[pid].monthago + ' A' + values[pid].avg + ' ' + values[pid].percent + '%');
+      var dm = d3.max(values[pid].values);
+      if (values[pid].values.indexOf(dm) === values[pid].values.length - 1) {
+        // check if this updates the scale domain on larger data - if it does, flash the border and line colours too, to indicate an increase
+      	y = d3.scale.linear().domain([dm, 0]).range([0, height]);
+      	$('#panel_' + kc).css({'border-color':'orange'});
+      }
+      if (values[pid].warn) $('#panel_' + kc).css({'border-color':'red'});
+  		graph.selectAll("path")
+  			.data([values[pid].values])
+  			.attr("transform", "translate(" + x(1) + ")")
+  			.attr("d", line) // apply the new data values ... but the new value is hidden at this point off the right of the canvas
+  			.transition() // start a transition to bring the new value into view
+  			.ease(d3.easeLinear)
+  			.duration(interval)
+  			.attr("transform", "translate(" + x(0) + ")") // animate a slide to the left back to x(0) pixels to reveal the new value
+        .on("end",redraw)
+  	}
+  	redraw();
+  }
+
+  getlatest();
+  
+  $('body').on('click','.group', function(e) {
+    e.preventDefault();
+    group = $(this).html();
+  });
+});
+</script>

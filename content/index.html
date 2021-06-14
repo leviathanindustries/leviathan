@@ -2,57 +2,47 @@
   <title>Leviathan Industries</title>
   <script type="text/javascript" src="//static.cottagelabs.com/jquery.antiquify.js"></script>
   <script type="text/javascript" src="//static.cottagelabs.com/jquery.slabtext.min.js"></script>
+
+  <script type="text/javascript" src="//static.cottagelabs.com/d3/d3.v4.min.js"></script>
+  <script type="text/javascript" src="/static/holder/display/network.js"></script>
+
+  <style>
+    body {
+      background-color:#333;
+    }
+  </style>
+
 </head>
 
-
-<style>
-  .slabtexted .slabtext {
-    display:-moz-inline-box;
-    display:inline-block;
-    white-space:nowrap;
-  }
-  .slabtextinactive .slabtext {
-    display:inline;
-    white-space:normal;
-    font-size:1em !important;
-    letter-spacing:inherit !important;
-    word-spacing:inherit !important;
-    *letter-spacing:0 !important;
-    *word-spacing:0 !important;
-  }
-  .slabtextdone .slabtext {
-    display:block;
-  }
-</style>
-
+<div id="graph" style="position:fixed;top:0;right:0;bottom:0;left:0;"></div>
 
 <READER>
 
 <div id="antiquate">
 
-  <h1 id="head" style="margin-top:40px;min-height:100px;"></h1>
+  <h1 id="head" style="min-height:100px;margin-top:0px;"></h1>
 
-  <div class="well" style="background-color:#333;color:white;">
+  <div class="black shadow well">
     <div class="row">
-      <div class="col-md-6">
-        <h1 id="head2">Software &amp; technosocial<br>development consultancy</h1>
+      <div class="col-md-7">
+        <h2 id="head2">Software development, <br>data science and visualisation, <br>collective and artificial intelligence, <br>sociotechnical research consultancy</h2>
       </div>
-      <div class="col-md-4 col-md-offset-2">
+      <div class="col-md-4 col-md-offset-1">
         <div class="hidden-xs hidden-sm" style="height:40px;"></div>
         <p><a href="mailto:mark@cottagelabs.com" style="color:white;text-decoration:underline;">Contact Leviathan</a></p>
-        <p><a href="#" style="color:white;text-decoration:underline;">What is "technosocial"?</a></p>
-        <p><a href="#" style="color:white;text-decoration:underline;">Latest activities</a></p>
+        <p>Leviathan Industries Ltd<br>Company no. 9775594<br>&copy; 2021</p>
       </div>
     </div>
-    <p style="margin-top:40px;">Leviathan Industries Ltd. 9775594.</p>
   </div>
-
 </div>
 
 
 <script>
 jQuery(document).ready(function() {
 
+  fademenu();
+  $('#pic').height($('#pic').width());
+  $('#antiquate').css('min-height',$(window).height()+'px');
   $('.container').css('width', $(window).width()+'px')
   var stS = "<span class='slabtext'>",
     stE = "</span>",
@@ -60,9 +50,46 @@ jQuery(document).ready(function() {
       "LEVIATHAN",
       "INDUSTRIES"
     ]
-
   $("#head").html(stS + txt.join(stE + stS) + stE).slabText();
   $('#antiquate').antiquify();
+
+  $.fn.holder.display.network.fill = function(d) {
+    if (d.key === 'from') {
+      return '#3587a4';
+    } else if (d.key === 'lists') {
+      return '#444'; //'#88ccf1';
+    } else if (d.key === 'organisation') {
+      return '#c9d2d4';
+    } else if (d.key === 'terms') {
+      return '#0b3948';
+    } else if (d.key === 'subjects') {
+      return '#416165';
+    } else if (d.key === 'statement') {
+      return '#ddd';
+    } else {
+      return '#ddd';
+    }
+  }
+  $.fn.holder.display.network.text = false;
+  $.fn.holder.display.network.show = ['from','lists'];
+  $.fn.holder.display.network.connect = ['from','lists'];
+
+  $('#graph').holder({
+    url: '{{api}}/es/phd/lists/_search?dev=false',
+    ui: false,
+    record: false,
+    datatype: 'JSON',
+    pushstate: false,
+    size: 500,
+    fields: ["from.exact", "organisation.exact", "subjected_lists.exact", "references.exact", "in-reply-to.exact", "tags.exact", "subject"],
+    aggs: {
+      subjects: {terms: {field: "subject.exact", size: 50}},
+      from: {terms:{field: "from.exact", size: 50}},
+      organisation: {terms: {field: "organisation.exact", size: 50}},
+      lists: {terms:{field: "subjected_lists.exact", size: 50}},
+      terms: {terms: {field: "tags.exact", size: 50}}
+    }
+  });
 
 });
 </script>

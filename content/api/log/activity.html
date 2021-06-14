@@ -1,0 +1,27 @@
+
+<script type="text/javascript" src="//static.cottagelabs.com/d3/d3.v4.min.js"></script>
+<script type="text/javascript" src="/static/logs.js"></script>
+
+<div class="holder loading" style="position:fixed;top:0;bottom:0;left:0;right:0;opacity:0.2;background-color:#ccc;">
+  <div style="margin-top:300px;margin-left:auto;margin-right:auto;width:200px;">
+    <img style="height:200px;width:200px;" src="//static.cottagelabs.com/spin_grey.svg">
+  </div>
+</div>
+
+<div id="controls" class="well" style="position:fixed;top:80px;left:80px;width:400px;height:240px;overflow:scroll;">
+  <input type="text" id="q" class="form-control" style="margin-bottom:5px;">
+  <!--<a class="label label-default" href="#">filters <span class="caret"></span></a> 
+  <a class="label label-default" href="#">intervals <span class="caret"></span></a> 
+  <a class="label label-default" href="#">compare</a> 
+  <div id="filters" style="margin-top:5px;"></div>-->
+</div>
+
+<svg style="position:fixed;top:70px;bottom:0;left:0;right:0;z-index:-1;" class="line"></svg>
+
+<script>
+jQuery(document).ready(function() {
+
+ getlatest();
+
+});
+</script>

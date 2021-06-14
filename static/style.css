@@ -45,12 +45,50 @@ html{
 body {
   margin:0;
   padding:0;
-  font-size:1.6em;
+  min-height:100%;
   background-color:#FFFFFC;
   color:#5F5C64;
-  font-family:'Lustria', 'Times New Roman', serif;
-  min-height:100%;
+  font-size:1.6em;
+  /*font-family:'Lustria', 'Times New Roman', serif;*/
   /*font-family:'Noto Sans', Verdana, Arial, sans-serif;*/
+  font-family: SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace!important;
+}
+
+.slabtexted .slabtext {
+  display:-moz-inline-box;
+  display:inline-block;
+  white-space:nowrap;
+}
+.slabtextinactive .slabtext {
+  display:inline;
+  white-space:normal;
+  font-size:1em !important;
+  letter-spacing:inherit !important;
+  word-spacing:inherit !important;
+  *letter-spacing:0 !important;
+  *word-spacing:0 !important;
+}
+.slabtextdone .slabtext {
+  display:block;
+}
+
+.topstrap {
+  -webkit-transition: all 0.8s ease;
+  -moz-transition: all 0.8s ease;
+  -o-transition: all 0.8s ease;
+  transition: all 0.8s ease;
+  cursor:pointer;
+}
+.topshadow {
+  background-color: #FFFFFC;
+  box-shadow: 0px 2px 8px 1px #cccccc;
+  -moz-box-shadow: 0px 2px 8px 1px #cccccc;
+  -webkit-box-shadow: 0px 2px 8px 1px #cccccc;
+}
+.topborder {
+  background-color: #FFFFFC;
+  border:5px solid #666;
+  height:100%;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -67,6 +105,19 @@ h1, h2, h3, h4, h5, h6 {
 }
 .nixie {
   font-family:'Nixie One', 'Roboto Slab', Verdana, Arial, sans-serif;
+}
+.well {
+  background-color:#FFFFFC;
+  border-color:#333;
+}
+.black {
+  background-color:#333;
+  color:white;
+}
+.shadow {
+  box-shadow: 0px 2px 8px 1px #cccccc;
+  -moz-box-shadow: 0px 2px 8px 1px #cccccc;
+  -webkit-box-shadow: 0px 2px 8px 1px #cccccc;
 }
 h3{
   line-height:1.6em;

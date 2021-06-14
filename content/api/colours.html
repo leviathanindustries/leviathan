@@ -1,0 +1,63 @@
+
+<script>
+
+  var params = {
+    start: 0,
+    end: 16777215,
+    offset: 0,
+    len: 500,
+    f: [1.666,2.666,3.666],
+    centre: 128,
+    range: 127
+  };
+  for ( var k in keys = ['start','end','len','offset','f','p','centre','range','steps','sin'] ) {
+    var key = keys[k];
+    if (window.location.search.indexOf(key+'=') !== -1) {
+      params[key] = window.location.search.split(key+'=')[1].split('&')[0];
+      if (params[key].indexOf(',') !== -1) params[key] = params[key].split(',');
+      if (typeof params[key] === 'string') params[key] = parseInt(params[key]);
+    }
+  }
+  if (params.steps) params.f = 2*Math.PI/params.steps;
+
+  var coll = [];
+
+  var colours = function() {
+    var counter = params.start;
+    var increment = Math.floor(params.end/params.len);
+    while (counter < params.end) {
+      var hx = Math.floor(counter-(counter*params.offset)).toString(16);
+      while (hx.length < 6) hx = '0' + hx;
+      coll.push('#' + hx);
+      counter += increment;
+    }
+  }
+
+  // using sin wave: https://krazydad.com/tutorials/makecolors.php
+  // pastels can be got with centre 240 range 25
+  // repeat cycles using
+  // var steps = 6;
+  // f = 2*Math.PI/steps;
+  // f 2.4 gives good non-repetition
+  // f [1.666,2.666,3.666] also good for non-repeating
+  // default centre 128 and range 127 covers full 255 for hex colour code ranges
+  var coloursin = function() {
+    for (var i = 0; i < params.len; ++i) {
+      var c = [];
+      while (c.length < 3) {
+        var h = Math.floor((Math.sin((!Array.isArray(params.f) ? params.f : params.f[c.length]) * i + (params.p === undefined ? (c.length*2*Math.PI/3) : (!Array.isArray(params.p) ? params.p : params.p[c.length]))) * params.range + params.centre)).toString(16);
+        c.push((h.length !== 2 ? '0' : '') + h);
+      }
+      coll.push('#' + c.join(''));
+    }
+  }
+
+  params.sin !== undefined && params.sin !== 'false' ? coloursin() : colours();
+  console.log(coll);
+  
+  var cols = '<div style="position:fixed;overflow-y:scroll;width:100%;height:100%;top:0;left:0;right:0;bottom:0;">';
+  for ( var c in coll) cols += '<div style="display:inline-block;width:5%;height:50px;font-size:10px;color:black;background-color:' + coll[c] + ';">' + c + '<br>' + coll[c] + '</div>';
+  cols += '</div>';
+  document.body.innerHTML = cols;
+
+</script>
